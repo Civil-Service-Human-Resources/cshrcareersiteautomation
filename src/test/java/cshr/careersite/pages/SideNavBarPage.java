@@ -21,13 +21,18 @@ public class SideNavBarPage extends PageObject {
     {
         List<String> temp = new ArrayList<String>();
         for (WebElement G : sideNavMainHeadings ) {
-            temp.add(G.getText());
+            if(G.getText().contains("Workflows"))
+            {
+                temp.add("Workflows");
+            }
+            else {
+                temp.add(G.getText());
+            }
         }
 
-        List<String> list1 = new ArrayList<String>(Arrays.asList(strHeadingsList));
-        System.out.println(temp.containsAll(list1));
+        List<String> headlingArrayList = new ArrayList<String>(Arrays.asList(strHeadingsList));
 
-        return temp.containsAll(list1);
+        return temp.containsAll(headlingArrayList);
     }
 
 }
