@@ -1,4 +1,4 @@
-This is a serinity bdd test framework for Cshr Career site
+This is a Serenity BDD test framework for Cshr Career site
 
 Clone the repository
 Make sure to have the Chrome driver in system path
