@@ -25,6 +25,10 @@ public class SideNavBarPage extends PageObject {
             {
                 temp.add("Workflows");
             }
+            else if(G.getText().contains("Plugins"))
+            {
+                temp.add("Plugins");
+            }
             else {
                 temp.add(G.getText());
             }

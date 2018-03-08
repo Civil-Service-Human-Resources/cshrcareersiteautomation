@@ -3,11 +3,12 @@ package cshr.careersite.steps;
 import cshr.careersite.pages.CareerSiteHomePage;
 import cshr.careersite.pages.CareerSiteLoginPage;
 import cshr.careersite.pages.SideNavBarPage;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.annotations.ManagedPages;
+import net.thucydides.core.pages.Pages;
 import org.openqa.selenium.WebDriver;
 import org.junit.Assert;
 
@@ -19,6 +20,9 @@ public class LoginStepdefs {
 
     @Managed
     WebDriver browser;
+
+    //@ManagedPages(defaultUrl = "https://careers-site.test.cshr-gov.uk/wp-admin/")
+    //public Pages pages;
 
     @Then("^I am successfully logged in as (.*)$")
     public void iAmSuccessfullyLoggedIn(String username) throws Throwable {

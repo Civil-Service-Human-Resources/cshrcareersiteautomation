@@ -8,4 +8,13 @@ public class CareerSiteHomePage extends PageObject{
 
     @FindBy(className = "display-name")
     public WebElement loggedInAs;
+
+    @FindBy(id="wp-admin-bar-logout")
+    private WebElement logout;
+
+    public void logout()
+    {
+        element(loggedInAs).click();
+        element(logout).click();
+    }
 }

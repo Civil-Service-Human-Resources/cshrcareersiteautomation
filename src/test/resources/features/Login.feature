@@ -7,7 +7,7 @@ Feature: Login
         Then I should see navitems <navmainheading>
         Examples:
         |role               |username           |password                |navmainheading             |
-        |techadmin          |techadmin          |W^E4n9uoFGDvMcX@xz      |Dashboard,Media,Pages,Workflows,Appearance,Plugins 1,Users,Tools,Settings,Custom Fields|
+        |techadmin          |techadmin          |W^E4n9uoFGDvMcX@xz      |Dashboard,Media,Pages,Workflows,Appearance,Plugins,Users,Tools,Settings,Custom Fields|
         |contentadmin       |ContentAdmin1      |19Q4RjFXBNFczTd9k0mkZFzM|Dashboard,Media,Pages,Workflows,Users,Snippets|
         |contentApprover    |ContentApprover1   |Op$Eo$vJZZgggoJW!e6f%S4V|Dashboard,Media,Pages,Workflows,Profile|
         |ContentAuthor      |ContentAuthor1     |*dr%moW73FJXE1l20jbJw*p1|Dashboard,Media,Pages,Workflows,Profile|

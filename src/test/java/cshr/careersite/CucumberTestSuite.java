@@ -12,4 +12,5 @@ import org.junit.runner.RunWith;
         glue = {"cshr.careersite"}
 )
 public class CucumberTestSuite {
+
 }
