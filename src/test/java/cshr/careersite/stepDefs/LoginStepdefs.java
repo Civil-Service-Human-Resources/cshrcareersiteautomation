@@ -1,6 +1,5 @@
 package cshr.careersite.stepDefs;
 
-import cshr.careersite.pages.CareerSiteHomePage;
 import cshr.careersite.pages.CareerSiteLoginPage;
 import cshr.careersite.pages.SideNavBarPage;
 import cshr.careersite.steps.LoginSteps;
@@ -15,7 +14,6 @@ import org.junit.Assert;
 public class LoginStepdefs {
 
     CareerSiteLoginPage careerSiteLoginPage;
-    CareerSiteHomePage careerSiteHomePage;
     SideNavBarPage sideNavBarPage;
 
     @Steps

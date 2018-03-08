@@ -47,14 +47,12 @@ public class LoginSteps {
             password = "VmN0ZgqpNCkP!n0Xfrz$w$Cg";
         }
 
-
         careerSiteLoginPage.open();
         careerSiteHomePage.logout();
         careerSiteLoginPage.login(username, password);
     }
 
     @Step
-
     public boolean isLoggedinUserNameCorrect(String username)
     {
         return careerSiteHomePage.loggedInAs.getText().replaceAll("\\s","").equals(username);

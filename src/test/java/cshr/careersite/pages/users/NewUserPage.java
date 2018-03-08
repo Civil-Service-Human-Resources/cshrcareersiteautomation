@@ -1,4 +1,4 @@
-package cshr.careersite.pages;
+package cshr.careersite.pages.users;
 
 import cshr.careersite.Utils.RandomTestData;
 import net.serenitybdd.core.pages.WebElementFacade;
