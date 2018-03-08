@@ -1,14 +1,14 @@
-package cshr.careersite.steps;
+package cshr.careersite.stepDefs;
 
 import cshr.careersite.pages.CareerSiteHomePage;
 import cshr.careersite.pages.CareerSiteLoginPage;
 import cshr.careersite.pages.SideNavBarPage;
+import cshr.careersite.steps.LoginSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.ManagedPages;
-import net.thucydides.core.pages.Pages;
+import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.WebDriver;
 import org.junit.Assert;
 
@@ -18,15 +18,16 @@ public class LoginStepdefs {
     CareerSiteHomePage careerSiteHomePage;
     SideNavBarPage sideNavBarPage;
 
+    @Steps
+    LoginSteps loginSteps;
+
     @Managed
     WebDriver browser;
 
-    //@ManagedPages(defaultUrl = "https://careers-site.test.cshr-gov.uk/wp-admin/")
-    //public Pages pages;
 
     @Then("^I am successfully logged in as (.*)$")
     public void iAmSuccessfullyLoggedIn(String username) throws Throwable {
-        Assert.assertEquals(username, careerSiteHomePage.loggedInAs.getText().replaceAll("\\s",""));
+        Assert.assertTrue(loginSteps.isLoggedinUserNameCorrect(username));
     }
 
     @Given("^I am on the career site login page$")
