@@ -49,10 +49,13 @@ public class NewUserPage extends PageObject{
     @FindBy(id = "error")
     WebElementFacade addUserErrorMessage;
 
+    @FindBy( id = "content_team-team1")
+    WebElementFacade team1;
+
     public String createNewUser()
     {
         randomTestData = new RandomTestData();
-        String userName = randomTestData.getRandomString(10);
+        String userName = "test_" + randomTestData.getRandomString(10);
         String password = "password123";
 
         typeInto(username, userName);
@@ -62,6 +65,7 @@ public class NewUserPage extends PageObject{
         showPasswordButton.click();
         typeInto(editPassword, password);
         confirmPassword.click();
+        team1.click();
         addNewUserButton.click();
 
         if(addNewUserButton.isCurrentlyVisible())
