@@ -7,8 +7,11 @@ import org.openqa.selenium.support.FindBy;
 public class EditUsersPage extends PageObject {
 
     @FindBy(xpath = "//div[@class='wp-tab-panel']/ul/li/label/input[contains(@value,'administrator')]")
-    WebElementFacade adminUserRoleCheckbox;
+    public WebElementFacade adminUserRoleCheckbox;
+
+    @FindBy(id = "nickname")
+    public WebElementFacade nickName;
 
     @FindBy(id = "submit")
-    WebElementFacade updateUser;
+    public WebElementFacade updateUser;
 }

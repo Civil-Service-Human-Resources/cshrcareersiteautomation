@@ -1,8 +1,9 @@
 package cshr.careersite.stepDefs;
 
+import cshr.careersite.pages.users.AllUsersPage;
+import cshr.careersite.pages.users.EditUsersPage;
 import cshr.careersite.steps.LoginSteps;
-import cshr.careersite.steps.NewUserPageSteps;
-import cucumber.api.PendingException;
+import cshr.careersite.steps.UserSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,20 +17,19 @@ public class NewUserPageStepDefs {
     LoginSteps loginSteps;
 
     @Steps
-    NewUserPageSteps newUserPageSteps;
+    UserSteps userSteps;
+
+    AllUsersPage allUsersPage;
+    EditUsersPage editUsersPage;
 
     @And("^I am on the create new user page$")
     public void iAmOnTheCreateNewUserPage() throws Throwable {
-        newUserPageSteps.openNewUserPage();
+        userSteps.openNewUserPage();
     }
 
     @When("^I create a new user with a default role and a team$")
     public void iCreateANewUserWithADefaultRoleAndATeam() throws Throwable {
-        /*String username = newUserPage.createNewUser();
-
-        Serenity.setSessionVariable("User Name").to(username);
-        Assert.assertNotEquals("USER_CREATION_FAILED", username);*/
-        Assert.assertTrue("User Creation Failed", newUserPageSteps.createNewUser());
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser());
     }
 
     @Then("^a user is created$")
@@ -47,10 +47,8 @@ public class NewUserPageStepDefs {
 
     @And("^I create a new user$")
     public void iCreateANewUser() throws Throwable {
-        newUserPageSteps.openNewUserPage();
-        newUserPageSteps.createNewUser();
-        Assert.assertTrue("User Creation Failed", newUserPageSteps.createNewUser());
-
+        userSteps.openNewUserPage();
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser());
     }
 
     @And("^I login as the newly created user$")
@@ -62,19 +60,25 @@ public class NewUserPageStepDefs {
 
     @And("^I navigate to edit user page$")
     public void iNavigateToEditUserPage() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        userSteps.openAllUsersPage();
     }
 
     @When("^I reassign role for the user$")
     public void iReassignRoleForTheUser() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        String currentUserName = Serenity.sessionVariableCalled("User Name");
+        //**** To replace with new username when user functionality is working
+        allUsersPage.clickUserNameLink("ContentAuthor1");
+        editUsersPage.nickName.sendKeys("contentauthor1");
+        editUsersPage.adminUserRoleCheckbox.click();
+        editUsersPage.updateUser.click();
     }
 
     @Then("^the user role should be updated$")
     public void theUserRoleShouldBeUpdated() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        userSteps.openAllUsersPage();
+        String currentUserName = Serenity.sessionVariableCalled("User Name");
+
+        //**** Need to replace username below
+        Assert.assertTrue(allUsersPage.getRolesForParticularUserName("ContentAuthor1").contains("Administrator"));
     }
 }

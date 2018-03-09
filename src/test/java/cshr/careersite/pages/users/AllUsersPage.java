@@ -22,14 +22,19 @@ public class AllUsersPage extends PageObject {
     @FindBy(className = "edit")
     WebElementFacade editButton;
 
+
+    private String userNameTd = "//table[@class='wp-list-table widefat fixed striped users']//td[contains(.,'%s')]";
+    private String userNameLink = userNameTd + "//a";
+    private String rolesForParticularUserName = "//table[@class='wp-list-table widefat fixed striped users']//tr[contains(.,'%s')]/td[@class='role column-role']";
+
     public void clickUserNameLink(String username)
     {
-        element(By.xpath("//td[@class='username column-username has-row-actions column-primary']/strong/a[contains(text(),'" + username + "')]")).click();
+        element(By.xpath(String.format(userNameLink, username))).click();
     }
 
     public void clickDeleteUser(String username) {
         withAction().
-                moveToElement(element(By.xpath("//td[@class='username column-username has-row-actions column-primary']/strong/a[contains(text(),'" + username + "')]"))).
+                moveToElement(element(By.xpath(String.format(userNameTd, username)))).
                 moveToElement(element(deleteButton)).
                 click().
                 build().
@@ -38,10 +43,15 @@ public class AllUsersPage extends PageObject {
 
     public void clickEditUser(String username) {
         withAction().
-                moveToElement(element(By.xpath("//td[@class='username column-username has-row-actions column-primary']/strong/a[contains(text(),'" + username + "')]"))).
+                moveToElement(element(By.xpath(String.format(userNameTd, username)))).
                 moveToElement(element(editButton)).
                 click().
                 build().
                 perform();
+    }
+
+    public String getRolesForParticularUserName(String username)
+    {
+        return element(By.xpath(String.format(rolesForParticularUserName, username))).getText();
     }
 }

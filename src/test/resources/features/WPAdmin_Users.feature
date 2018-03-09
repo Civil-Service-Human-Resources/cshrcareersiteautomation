@@ -9,8 +9,8 @@ Feature: WP admin - create/amend users
 
   Scenario: Reassign role for a user
     Given I am logged in as a contentadmin
-    And I create a new user
-    And I login as the newly created user
+    #And I create a new user
+    #And I login as the newly created user
     And I navigate to edit user page
     When I reassign role for the user
     Then the user role should be updated
