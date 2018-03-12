@@ -1,12 +1,13 @@
 package cshr.careersite.stepDefs;
 
 import cshr.careersite.pages.roles.AddNewRolePage;
+import cshr.careersite.pages.roles.AllRolesPage;
 import cshr.careersite.steps.RoleSteps;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.thucydides.core.annotations.Step;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 
@@ -16,6 +17,8 @@ public class RolePageStepDefs {
     RoleSteps roleSteps;
 
     AddNewRolePage addNewRolePage;
+
+    AllRolesPage allRolesPage;
 
     @And("^I am on create new role page$")
     public void iAmOnCreateNewRolePage() throws Throwable {
@@ -31,5 +34,18 @@ public class RolePageStepDefs {
     @Then("^an error message indicating role already exists should be shown$")
     public void anErrorMessageIndicatingRoleAlreadyExistsShouldBeShown() throws Throwable {
         Assert.assertTrue(addNewRolePage.duplicateRoleError.isCurrentlyVisible());
+    }
+
+    @When("^I add a new role with default capability$")
+    public void iAddANewRoleWithDefaultCapability() throws Throwable {
+        Assert.assertTrue("ROLE_NOT_CREATED", roleSteps.createNewRole());
+    }
+
+    @Then("^the role is added$")
+    public void theRoleIsAdded() throws Throwable {
+        roleSteps.openAllRolesPage();
+        String roleName = Serenity.sessionVariableCalled("Role Name");
+
+        Assert.assertTrue(allRolesPage.checkIfRoleNameExists(roleName));
     }
 }
