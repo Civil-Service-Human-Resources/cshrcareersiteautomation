@@ -5,7 +5,11 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.NamedUrl;
 import net.thucydides.core.annotations.NamedUrls;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedUrls({ @NamedUrl(name = "all.users", url="/users.php")})
 public class AllUsersPage extends PageObject {
@@ -28,6 +32,9 @@ public class AllUsersPage extends PageObject {
     private String selectRoleByUserName = userTableRow + "/td[@data-colname='Roles']";
     private String selectGroupsByUserName = userTableRow + "/td[@data-colname='Teams']";
     private String deleteByUserName = userTableRow + "//a[@class='submitdelete']";
+
+    @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped users']//tr/td[@data-colname='Username']/strong/a")
+    public List<WebElement> userNames;
 
     public void clickUserNameLink(String username)
     {
@@ -62,8 +69,13 @@ public class AllUsersPage extends PageObject {
         return element(By.xpath(String.format(selectGroupsByUserName, username))).getText();
     }
 
-    public boolean checkIfUserNameExists(String username)
-    {
-        return find(By.xpath(String.format(userTableRow, username))).isCurrentlyVisible();
+    public boolean checkIfUserNameExists(String username) {
+        List<String> temp = new ArrayList<String>();
+        for (WebElement G : userNames) {
+            temp.add(G.getText());
+
+        }
+
+        return temp.contains(username);
     }
 }
