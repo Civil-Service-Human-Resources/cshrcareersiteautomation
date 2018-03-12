@@ -1,26 +1,26 @@
 package cshr.careersite.steps;
 
 import cshr.careersite.pages.users.AllUsersPage;
-import cshr.careersite.pages.users.NewUserPage;
+import cshr.careersite.pages.users.AddNewUserPage;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 
 public class UserSteps {
 
-    NewUserPage newUserPage;
+    AddNewUserPage addNewUserPage;
     AllUsersPage allUsersPage;
 
     @Step
     public void openNewUserPage()
     {
-        newUserPage.open("new.user", PageObject.withParameters());
+        addNewUserPage.open("new.user", PageObject.withParameters());
     }
 
     @Step
     public boolean createNewUser(boolean createWithDefaultTeam)
     {
-        String username = newUserPage.createNewUser(createWithDefaultTeam);
+        String username = addNewUserPage.createNewUser(createWithDefaultTeam);
 
         Serenity.setSessionVariable("User Name").to(username);
         return !username.equals("USER_CREATION_FAILED");

@@ -12,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
         @NamedUrl(name = "new.user", url="/user-new.php")
     }
 )
-public class NewUserPage extends PageObject{
+public class AddNewUserPage extends PageObject{
 
     private RandomTestData randomTestData;
 
