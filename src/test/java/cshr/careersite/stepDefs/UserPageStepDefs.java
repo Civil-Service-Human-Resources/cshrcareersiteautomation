@@ -1,11 +1,10 @@
 package cshr.careersite.stepDefs;
 
 import cshr.careersite.pages.users.AllUsersPage;
-import cshr.careersite.pages.users.DeleteUsersPage;
+import cshr.careersite.pages.users.DeleteConfirmationPage;
 import cshr.careersite.pages.users.EditUsersPage;
 import cshr.careersite.steps.LoginSteps;
 import cshr.careersite.steps.UserSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -23,7 +22,7 @@ public class UserPageStepDefs {
     UserSteps userSteps;
     AllUsersPage allUsersPage;
     EditUsersPage editUsersPage;
-    DeleteUsersPage deleteUsersPage;
+    DeleteConfirmationPage deleteUsersPage;
 
     @And("^I am on the create new user page$")
     public void iAmOnTheCreateNewUserPage() throws Throwable {

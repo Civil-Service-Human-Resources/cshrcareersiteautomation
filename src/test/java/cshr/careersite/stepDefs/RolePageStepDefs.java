@@ -2,6 +2,7 @@ package cshr.careersite.stepDefs;
 
 import cshr.careersite.pages.roles.AddNewRolePage;
 import cshr.careersite.pages.roles.AllRolesPage;
+import cshr.careersite.pages.users.DeleteConfirmationPage;
 import cshr.careersite.steps.RoleSteps;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
@@ -19,6 +20,8 @@ public class RolePageStepDefs {
     AddNewRolePage addNewRolePage;
 
     AllRolesPage allRolesPage;
+
+    DeleteConfirmationPage deleteConfirmationPage;
 
     @And("^I am on create new role page$")
     public void iAmOnCreateNewRolePage() throws Throwable {
@@ -47,5 +50,29 @@ public class RolePageStepDefs {
         String roleName = Serenity.sessionVariableCalled("Role Name");
 
         Assert.assertTrue(allRolesPage.checkIfRoleNameExists(roleName));
+    }
+
+    @And("^I create a new role$")
+    public void iCreateANewRole() throws Throwable {
+        roleSteps.openAddNewRolePage();
+        roleSteps.createNewRole();
+    }
+
+    @When("^I choose to delete the just created role$")
+    public void iChooseToDeleteTheJustCreatedRole() throws Throwable {
+        roleSteps.openAllRolesPage();
+        String roleName = Serenity.sessionVariableCalled("Role Name");
+
+        allRolesPage.deleteRole(roleName);
+        //deleteConfirmationPage.confirmDelete.click();
+
+    }
+
+    @Then("^the role is deleted$")
+    public void theRoleIsDeleted() throws Throwable {
+        roleSteps.openAllRolesPage();
+        String roleName = Serenity.sessionVariableCalled("Role Name");
+
+        Assert.assertFalse(allRolesPage.checkIfRoleNameExists(roleName));
     }
 }

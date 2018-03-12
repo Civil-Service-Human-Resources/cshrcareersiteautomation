@@ -29,7 +29,6 @@ Feature: WP admin - create/amend users
 
   Scenario: Delete user
     Given I am logged in as a contentadmin
-    And I navigate to the all users page
     And I create a new user
     When I choose to delete the just created user
     Then the user is deleted
