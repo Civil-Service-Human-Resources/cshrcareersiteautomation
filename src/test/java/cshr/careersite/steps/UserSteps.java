@@ -18,9 +18,9 @@ public class UserSteps {
     }
 
     @Step
-    public boolean createNewUser()
+    public boolean createNewUser(boolean createWithDefaultTeam)
     {
-        String username = newUserPage.createNewUser();
+        String username = newUserPage.createNewUser(createWithDefaultTeam);
 
         Serenity.setSessionVariable("User Name").to(username);
         return !username.equals("USER_CREATION_FAILED");

@@ -7,6 +7,12 @@ Feature: WP admin - create/amend users
     Then a user is created
     And I should be able to login with the newly created user
 
+  Scenario: Cannot create user without a default group assigned
+    Given I am logged in as a techadmin
+    And I am on the create new user page
+    When I try to create a new user without a default team
+    Then the user is not created
+
   Scenario: Reassign role for a user
     Given I am logged in as a contentadmin
     And I create a new user

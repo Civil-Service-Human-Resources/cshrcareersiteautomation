@@ -32,7 +32,7 @@ public class UserPageStepDefs {
 
     @When("^I create a new user with a default role and a team$")
     public void iCreateANewUserWithADefaultRoleAndATeam() throws Throwable {
-        Assert.assertTrue("User Creation Failed", userSteps.createNewUser());
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(true));
     }
 
     @Then("^a user is created$")
@@ -54,7 +54,7 @@ public class UserPageStepDefs {
     public void iCreateANewUser() throws Throwable {
         userSteps.openNewUserPage();
 
-        Assert.assertTrue("User Creation Failed", userSteps.createNewUser());
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(true));
     }
 
     @And("^I login as the newly created user$")
@@ -125,5 +125,16 @@ public class UserPageStepDefs {
         String currentUserName = Serenity.sessionVariableCalled("User Name");
 
         Assert.assertFalse(allUsersPage.checkIfUserNameExists(currentUserName));
+    }
+
+    @When("^I try to create a new user without a default team$")
+    public void iTryToCreateANewUserWithoutADefaultTeam() throws Throwable {
+        userSteps.openNewUserPage();
+    }
+
+    @Then("^the user is not created$")
+    public void theUserIsNotCreated() throws Throwable {
+        Assert.assertFalse("User Creation Failed", userSteps.createNewUser(false));
+
     }
 }

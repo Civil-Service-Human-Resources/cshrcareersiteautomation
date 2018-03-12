@@ -52,7 +52,7 @@ public class NewUserPage extends PageObject{
     @FindBy( id = "content_team-team1")
     WebElementFacade team1;
 
-    public String createNewUser()
+    public String createNewUser(boolean defaultTeam)
     {
         randomTestData = new RandomTestData();
         String userName = "test_" + randomTestData.getRandomString(10);
@@ -65,7 +65,10 @@ public class NewUserPage extends PageObject{
         showPasswordButton.click();
         typeInto(editPassword, password);
         confirmPassword.click();
-        team1.click();
+
+        if(defaultTeam) {
+            team1.click();
+        }
         addNewUserButton.click();
 
         if(addNewUserButton.isCurrentlyVisible())
