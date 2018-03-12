@@ -2,6 +2,7 @@ package cshr.careersite.pages;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -16,8 +17,12 @@ public class CareerSiteHomePage extends PageObject{
     public void logout()
     {
         if(loggedInAs.isCurrentlyVisible()) {
-            element(loggedInAs).click();
-            element(logout).click();
+            withAction().
+                    moveToElement(element(loggedInAs)).
+                    moveToElement(element(logout)).
+                    click().
+                    build().
+                    perform();
         }
     }
 }

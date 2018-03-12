@@ -55,7 +55,7 @@ public class LoginSteps {
     @Step
     public boolean isLoggedinUserNameCorrect(String username)
     {
-        return careerSiteHomePage.loggedInAs.getText().replaceAll("\\s","").equals(username);
+        return careerSiteHomePage.loggedInAs.getText().replaceAll("\\s","").contains(username);
     }
 
 

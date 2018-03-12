@@ -27,9 +27,3 @@ Feature: WP admin - create/amend users
     And I create a new user
     When I choose to delete the just created user
     Then the user is deleted
-
-
-
-
-
-
