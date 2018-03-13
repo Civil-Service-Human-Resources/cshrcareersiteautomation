@@ -1,15 +1,28 @@
 Feature: WP admin - create/amend groups(teams)
 
-  Scenario: As techadmin/content admin I want to create new team/group
-  Scenario: Team edit
-  Scenario: Team delete
-  Scenario: Team duplicate
+  Scenario: Create new team/group
+    Given I am logged in as a techadmin
+    And I navigate to the create new team page
+    When I add a new team
+    Then the team is added
+
+  Scenario: Edit team/group
+    Given I am logged in as a techadmin
+    And I create a new team
+    When I edit the team
+    Then the team is updated
+
+  Scenario: Delete team/group
+    Given I am logged in as a contentadmin
+    And I create a new team
+    When I choose to delete the just created team
+    Then the team is deleted
+
+  Scenario: Duplicate team/group
+    Given I am logged in as a techadmin
+    And I am on create new team page
+    When I try to add a team with the same name as an already existing team
+    Then an error message indicating team already exists should be shown
+
   Scenario: Add child team to parent team
   Scenario: Add parent team to child team
-
-
-
-
-
-
-

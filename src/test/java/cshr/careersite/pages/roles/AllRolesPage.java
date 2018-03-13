@@ -47,7 +47,5 @@ public class AllRolesPage extends PageObject {
 
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
-
-
     }
 }
