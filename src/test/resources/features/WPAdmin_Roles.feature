@@ -1,4 +1,4 @@
-Feature: WP admin - create ammend roles
+Feature: WP admin - create amend roles
 
   Scenario: Create new role
     Given I am logged in as a techadmin
