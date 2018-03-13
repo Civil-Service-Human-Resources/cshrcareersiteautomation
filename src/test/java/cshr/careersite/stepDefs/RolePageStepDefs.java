@@ -2,15 +2,21 @@ package cshr.careersite.stepDefs;
 
 import cshr.careersite.pages.roles.AddNewRolePage;
 import cshr.careersite.pages.roles.AllRolesPage;
+import cshr.careersite.pages.roles.EditRolesPage;
 import cshr.careersite.pages.users.DeleteConfirmationPage;
+import cshr.careersite.pages.users.EditUsersPage;
 import cshr.careersite.steps.RoleSteps;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.eo.Se;
+import jnr.ffi.annotations.In;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
+
+import java.util.Map;
 
 public class RolePageStepDefs {
 
@@ -21,7 +27,7 @@ public class RolePageStepDefs {
 
     AllRolesPage allRolesPage;
 
-    DeleteConfirmationPage deleteConfirmationPage;
+    EditRolesPage editRolesPage;
 
     @And("^I am on create new role page$")
     public void iAmOnCreateNewRolePage() throws Throwable {
@@ -62,10 +68,7 @@ public class RolePageStepDefs {
     public void iChooseToDeleteTheJustCreatedRole() throws Throwable {
         roleSteps.openAllRolesPage();
         String roleName = Serenity.sessionVariableCalled("Role Name");
-
         allRolesPage.deleteRole(roleName);
-        //deleteConfirmationPage.confirmDelete.click();
-
     }
 
     @Then("^the role is deleted$")
@@ -74,5 +77,18 @@ public class RolePageStepDefs {
         String roleName = Serenity.sessionVariableCalled("Role Name");
 
         Assert.assertFalse(allRolesPage.checkIfRoleNameExists(roleName));
+    }
+
+    @When("^I edit the role and add more capabilities$")
+    public void iEditTheRoleAndAddMoreCapabilities() throws Throwable {
+        Map<String, Integer> map = editRolesPage.editRoleWithRandomCapabilities();
+        Serenity.setSessionVariable("Roles Map").to(map);
+    }
+
+    @Then("^the role is updated$")
+    public void theRoleIsUpdated() throws Throwable {
+        Map<String, Integer> map = Serenity.sessionVariableCalled("Roles Map");
+        Assert.assertSame(Integer.parseInt(editRolesPage.grantedCount.getText()), map.get("granted"));
+        Assert.assertSame(Integer.parseInt(editRolesPage.deniedCount.getText()), map.get("denied"));
     }
 }

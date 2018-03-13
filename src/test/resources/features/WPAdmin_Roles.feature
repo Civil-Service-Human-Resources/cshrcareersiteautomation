@@ -7,6 +7,10 @@ Feature: WP admin - create ammend roles
     Then the role is added
 
   Scenario: Edit role
+    Given I am logged in as a techadmin
+    And I create a new role
+    When I edit the role and add more capabilities
+    Then the role is updated
 
   Scenario: Duplicate role
     Given I am logged in as a techadmin
