@@ -1,4 +1,4 @@
-Feature: WP admin - create/amend groups(teams)
+Feature: WP admin - create/amend groups/teams
 
   Scenario: Create new team/group
     Given I am logged in as a techadmin
