@@ -20,8 +20,11 @@ public class UserPageStepDefs {
     @Steps
 
     UserSteps userSteps;
+
     AllUsersPage allUsersPage;
+
     EditUsersPage editUsersPage;
+
     DeleteConfirmationPage deleteUsersPage;
 
     @And("^I am on the create new user page$")

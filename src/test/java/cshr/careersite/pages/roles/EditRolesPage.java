@@ -9,9 +9,11 @@ import java.util.Map;
 
 public class EditRolesPage extends PageObject {
 
-    String grantColumnCheckbox = "td[class='column-grant'] input[value='%s']";
-    String denyColumnCheckbox = "td[class='column-deny'] input[value='%s']";
-    String capabilitiesHeading = "//li[@class='members-tab-title']//span[@class='label'][contains(.,'%s')]";
+    private String grantColumnCheckbox = "td[class='column-grant'] input[value='%s']";
+
+    private String denyColumnCheckbox = "td[class='column-deny'] input[value='%s']";
+
+    private String capabilitiesHeading = "//li[@class='members-tab-title']//span[@class='label'][contains(.,'%s')]";
 
     @FindBy(css = "[class='granted-count']")
     public WebElementFacade grantedCount;
@@ -33,8 +35,8 @@ public class EditRolesPage extends PageObject {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("granted", 3);
         map.put("denied", 1);
-        return map;
 
+        return map;
     }
 
 }

@@ -23,7 +23,9 @@ public class AllRolesPage extends PageObject {
     public List<WebElement> roleNames;
 
     private String roleTableRow = "//table[@class='wp-list-table widefat fixed striped roles']//tr[contains(.,'%s')]";
+
     private String roleNameTd = "//table[@class='wp-list-table widefat fixed striped roles']//td[contains(.,'%s')]";
+
     private String deleteByRoleName = roleTableRow + "//a[@class='members-delete-role-link']";
 
     public boolean checkIfRoleNameExists(String rolename) {

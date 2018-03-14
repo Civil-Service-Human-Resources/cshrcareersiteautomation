@@ -20,6 +20,7 @@ public class SideNavBarPage extends PageObject {
     public boolean sideNavContainsHeadingsList(String[] strHeadingsList)
     {
         List<String> temp = new ArrayList<String>();
+
         for (WebElement G : sideNavMainHeadings ) {
             if(G.getText().contains("Workflows"))
             {

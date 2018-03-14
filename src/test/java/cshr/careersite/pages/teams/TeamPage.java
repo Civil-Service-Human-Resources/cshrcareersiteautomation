@@ -38,7 +38,7 @@ public class TeamPage extends PageObject{
 
     private String teamTableRow = "//table[@class='wp-list-table widefat fixed striped tags']//tr[contains(.,'%s')]";
 
-    private String deleteByTeamName = teamTableRow + "//a[@class='members-delete-role-link']";
+    private String deleteByTeamName = teamTableRow + "//a[@class='delete-tag aria-button-if-js']";
 
     public String addTeam(boolean addParentTeam) {
 
@@ -73,6 +73,7 @@ public class TeamPage extends PageObject{
 
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
+        element(By.xpath(String.format(teamTableRow, teamName))).waitUntilNotVisible();
     }
 
     public boolean checkIfTeamNameExists(String teamName) {
@@ -85,4 +86,8 @@ public class TeamPage extends PageObject{
         return temp.contains(teamName);
     }
 
+    public void selectTeamByName(String teamName)
+    {
+            element(By.xpath(String.format(teamTableRow, teamName))).click();
+    }
 }

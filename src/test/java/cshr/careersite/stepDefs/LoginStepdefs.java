@@ -14,6 +14,7 @@ import org.junit.Assert;
 public class LoginStepdefs {
 
     CareerSiteLoginPage careerSiteLoginPage;
+
     SideNavBarPage sideNavBarPage;
 
     @Steps
@@ -21,7 +22,6 @@ public class LoginStepdefs {
 
     @Managed
     WebDriver browser;
-
 
     @Then("^I am successfully logged in as (.*)$")
     public void iAmSuccessfullyLoggedIn(String username) throws Throwable {

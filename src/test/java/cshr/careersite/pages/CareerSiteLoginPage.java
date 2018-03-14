@@ -24,7 +24,6 @@ public class CareerSiteLoginPage extends PageObject{
     @FindBy(id="login_error")
     public WebElement loginError;
 
-
     public void login(String userName, String passWord)
     {
         typeInto(username,userName);
@@ -35,7 +34,6 @@ public class CareerSiteLoginPage extends PageObject{
     @WhenPageOpens
     public void makeBrowserWindowFullScreen() {
         getDriver().manage().window().fullscreen();
-
     }
 }
 
