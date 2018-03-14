@@ -10,6 +10,6 @@ public class EditTeamPage extends PageObject {
     public WebElementFacade parentTeam;
 
     @FindBy(css = "input[value='Update']")
-    public WebElementFacade addNewTeamButton;
+    public WebElementFacade updateTeamButton;
 
 }

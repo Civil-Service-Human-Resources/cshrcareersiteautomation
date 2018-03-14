@@ -38,6 +38,8 @@ public class TeamPage extends PageObject{
 
     private String teamTableRow = "//table[@class='wp-list-table widefat fixed striped tags']//tr[contains(.,'%s')]";
 
+    private String teamTableTd = "//table[@class='wp-list-table widefat fixed striped tags']//td[contains(.,'%s')]//strong";
+
     private String deleteByTeamName = teamTableRow + "//a[@class='delete-tag aria-button-if-js']";
 
     public String addTeam(boolean addParentTeam) {
@@ -88,6 +90,6 @@ public class TeamPage extends PageObject{
 
     public void selectTeamByName(String teamName)
     {
-            element(By.xpath(String.format(teamTableRow, teamName))).click();
+            element(By.xpath(String.format(teamTableTd, teamName))).click();
     }
 }

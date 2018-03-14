@@ -3,7 +3,6 @@ package cshr.careersite.stepDefs;
 import cshr.careersite.pages.teams.EditTeamPage;
 import cshr.careersite.pages.teams.TeamPage;
 import cshr.careersite.steps.TeamPageSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -46,14 +45,15 @@ public class TeamPageStepDefs {
         String teamName = Serenity.sessionVariableCalled("Team Name");
         teamPage.selectTeamByName(teamName);
         editTeamPage.selectFromDropdown(editTeamPage.parentTeam, "Team1");
-        editTeamPage.addNewTeamButton.click();
+        editTeamPage.updateTeamButton.click();
     }
 
     @Then("^the team is updated$")
     public void theTeamIsUpdated() throws Throwable {
         String teamName = Serenity.sessionVariableCalled("Team Name");
+        teamPageSteps.openTeamListPage();
         teamPage.selectTeamByName(teamName);
-        Assert.assertEquals("Team1" ,editTeamPage.parentTeam.getText());
+        Assert.assertEquals("Team1" ,editTeamPage.parentTeam.getSelectedVisibleTextValue());
     }
 
     @When("^I choose to delete the just created team$")
