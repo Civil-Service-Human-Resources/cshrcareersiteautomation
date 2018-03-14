@@ -22,19 +22,22 @@ public class TeamPage extends PageObject{
     }
 
     @FindBy(id = "tag-name")
-    WebElementFacade teamName;
+    public WebElementFacade teamName;
 
     @FindBy(id = "parent")
     WebElementFacade parentTeam;
 
     @FindBy(css = "input[value='Add New Team']")
-    WebElementFacade addNewTeamButton;
+    public WebElementFacade addNewTeamButton;
 
     @FindBy(id = "tag-description")
     WebElementFacade teamDescription;
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped tags']//tr/td[@data-colname='Name']/strong/a")
     public List<WebElement> teamNames;
+
+    @FindBy(className = "error")
+    public WebElementFacade error;
 
     private String teamTableRow = "//table[@class='wp-list-table widefat fixed striped tags']//tr[contains(.,'%s')]";
 

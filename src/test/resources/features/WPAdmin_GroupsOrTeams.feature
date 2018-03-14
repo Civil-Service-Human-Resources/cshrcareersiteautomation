@@ -20,7 +20,7 @@ Feature: WP admin - create/amend groups(teams)
 
   Scenario: Duplicate team/group
     Given I am logged in as a techadmin
-    And I am on create new team page
+    And I navigate to the create new team page
     When I try to add a team with the same name as an already existing team
     Then an error message indicating team already exists should be shown
 

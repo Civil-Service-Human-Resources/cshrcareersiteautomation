@@ -8,7 +8,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import org.joda.time.Seconds;
 import org.junit.Assert;
+
+import java.time.Duration;
 
 public class TeamPageStepDefs {
 
@@ -68,19 +71,16 @@ public class TeamPageStepDefs {
         Assert.assertFalse(teamPage.checkIfTeamNameExists(teamName));
     }
 
-    @And("^I am on create new team page$")
-    public void iAmOnCreateNewTeamPage() throws Throwable {
-
-    }
-
     @When("^I try to add a team with the same name as an already existing team$")
     public void iTryToAddATeamWithTheSameNameAsAnAlreadyExistingTeam() throws Throwable {
-
+        teamPage.typeInto(teamPage.teamName, "Team1");
+        teamPage.addNewTeamButton.click();
     }
 
     @Then("^an error message indicating team already exists should be shown$")
     public void anErrorMessageIndicatingTeamAlreadyExistsShouldBeShown() throws Throwable {
-
+        teamPage.waitFor(teamPage.error);
+        Assert.assertTrue(teamPage.error.isCurrentlyVisible());
     }
 
 }
