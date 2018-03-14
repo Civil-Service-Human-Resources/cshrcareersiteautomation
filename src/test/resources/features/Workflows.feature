@@ -13,7 +13,3 @@ Feature: Workflows
   Scenario: Publisher edits submitted content before publishing
 
   Scenario: Workflows history
-
-
-
-

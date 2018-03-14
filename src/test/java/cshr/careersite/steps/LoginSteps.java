@@ -3,6 +3,7 @@ package cshr.careersite.steps;
 import cshr.careersite.pages.CareerSiteHomePage;
 import cshr.careersite.pages.CareerSiteLoginPage;
 import net.thucydides.core.annotations.Step;
+import org.aspectj.lang.annotation.Before;
 
 public class LoginSteps {
     CareerSiteLoginPage careerSiteLoginPage;
@@ -57,6 +58,8 @@ public class LoginSteps {
     {
         return careerSiteHomePage.loggedInAs.getText().replaceAll("\\s","").contains(username);
     }
+
+
 
 
 }

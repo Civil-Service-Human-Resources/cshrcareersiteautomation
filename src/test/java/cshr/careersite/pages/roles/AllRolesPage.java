@@ -1,5 +1,6 @@
 package cshr.careersite.pages.roles;
 
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.NamedUrl;
 import net.thucydides.core.annotations.NamedUrls;
 import net.thucydides.core.pages.PageObject;
@@ -21,6 +22,15 @@ public class AllRolesPage extends PageObject {
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped roles']//tr/td[@data-colname='Role Name']/strong/a")
     public List<WebElement> roleNames;
+
+    @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped roles']//tr[contains(.,'test_')]/th/input")
+    private List<WebElement> testRoleCheckboxes;
+
+    @FindBy(id = "bulk-action-selector-bottom")
+    private WebElementFacade bulkDelete;
+
+    @FindBy(id= "doaction2")
+    private WebElementFacade applyButton;
 
     private String roleTableRow = "//table[@class='wp-list-table widefat fixed striped roles']//tr[contains(.,'%s')]";
 
@@ -49,5 +59,17 @@ public class AllRolesPage extends PageObject {
 
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
+    }
+
+    public void cleanUpRolesTestData() {
+
+        if(testRoleCheckboxes.size() > 0) {
+            for (WebElement G : testRoleCheckboxes) {
+                G.click();
+            }
+
+            selectFromDropdown(bulkDelete, "Delete");
+            applyButton.click();
+        }
     }
 }
