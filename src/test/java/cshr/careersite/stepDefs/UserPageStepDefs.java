@@ -25,7 +25,6 @@ public class UserPageStepDefs {
 
     EditUsersPage editUsersPage;
 
-    DeleteConfirmationPage deleteUsersPage;
 
     @And("^I am on the create new user page$")
     public void iAmOnTheCreateNewUserPage() throws Throwable {
@@ -118,8 +117,7 @@ public class UserPageStepDefs {
     public void iChooseToDeleteTheJustCreatedUser() throws Throwable {
         String currentUserName = Serenity.sessionVariableCalled("User Name");
 
-        allUsersPage.deleteUser(currentUserName);
-        deleteUsersPage.confirmDelete.click();
+        userSteps.deleteUser(currentUserName);
     }
 
     @Then("^the user is deleted$")

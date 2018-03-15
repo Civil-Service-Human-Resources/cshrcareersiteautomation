@@ -15,6 +15,7 @@
         <serenity.maven.version>1.8.1</serenity.maven.version>
         <serenity.cucumber.version>1.6.5</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
+        <webdriver.base.url>https://careers-site.test.cshr-gov.uk/wp-admin/</webdriver.base.url>
         <parallel.tests>4</parallel.tests>
     </properties>
 
@@ -93,6 +94,12 @@
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
+        <!-- Cannot update to latest version because of this - https://github.com/temyers/cucumber-jvm-parallel-plugin/issues/148 -->
+        <dependency>
+            <groupId>com.github.temyers</groupId>
+            <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+            <version>1.3.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -108,16 +115,12 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.20</version>
                 <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                        <include>**/Test*.java</include>
-                        <include>**/*TestSuite.java</include>
-                        <include>**/When*.java</include>
-                    </includes>
                     <systemPropertyVariables>
+                        <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                     </systemPropertyVariables>
                     <parallel>classes</parallel>
                     <threadCount>${parallel.tests}</threadCount>
+                    <perCoreThreadCount>true</perCoreThreadCount>
                     <forkCount>${parallel.tests}</forkCount>
                 </configuration>
                 <executions>
@@ -151,6 +154,32 @@
                         <goals>
                             <goal>aggregate</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.github.temyers</groupId>
+                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                <version>4.2.0</version>
+                <executions>
+                    <execution>
+                        <id>generateRunners</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Mandatory -->
+                            <!-- List of package names to scan for glue code. -->
+                            <glue>
+
+                                <package>cshr.careersite</package>
+                            </glue>
+                            <featuresDirectory>src/test/resources/features/</featuresDirectory>
+
+                            <parallelScheme>FEATURE</parallelScheme>
+                            <customVmTemplate>src/test/resources/cucumber-serenity-runner.vm</customVmTemplate>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

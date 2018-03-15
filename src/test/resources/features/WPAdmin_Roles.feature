@@ -1,11 +1,13 @@
 Feature: WP admin - create amend roles
 
+  @roles
   Scenario: Create new role
     Given I am logged in as a techadmin
     And I am on create new role page
     When I add a new role with default capability
     Then the role is added
 
+  @roles
   Scenario: Edit role
     Given I am logged in as a techadmin
     And I create a new role

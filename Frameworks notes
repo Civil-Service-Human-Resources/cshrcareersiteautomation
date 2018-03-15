@@ -1,0 +1,4 @@
+Notes on parallel testing for framework:
+
+Followed instructions available at url - https://johnfergusonsmart.com/running-parallel-tests-serenity-bdd-cucumber/
+Could not use the latest version of cucumber-jvm-parallel-plugin because of this issue - https://github.com/temyers/cucumber-jvm-parallel-plugin/issues/148 -->

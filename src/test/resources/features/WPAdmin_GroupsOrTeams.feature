@@ -1,11 +1,13 @@
 Feature: WP admin - create/amend groups/teams
 
+  @groups
   Scenario: Create new team/group
     Given I am logged in as a techadmin
     And I navigate to the create new team page
     When I add a new team
     Then the team is added
 
+  @groups
   Scenario: Edit team/group
     Given I am logged in as a techadmin
     And I create a new team
