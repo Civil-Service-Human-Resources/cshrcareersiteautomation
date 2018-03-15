@@ -33,7 +33,8 @@ public class CareerSiteLoginPage extends PageObject{
 
     @WhenPageOpens
     public void makeBrowserWindowFullScreen() {
-        getDriver().manage().window().fullscreen();
+        // Disabling as doesn't work when running in parallel. Instead it's being set in the properties file
+        //getDriver().manage().window().fullscreen();
     }
 }
 
