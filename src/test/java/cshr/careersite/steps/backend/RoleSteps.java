@@ -1,8 +1,8 @@
-package cshr.careersite.steps;
+package cshr.careersite.steps.backend;
 
 import cshr.careersite.Utils.RandomTestData;
-import cshr.careersite.pages.roles.AddNewRolePage;
-import cshr.careersite.pages.roles.AllRolesPage;
+import cshr.careersite.pages.backend.roles.AddNewRolePage;
+import cshr.careersite.pages.backend.roles.AllRolesPage;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;

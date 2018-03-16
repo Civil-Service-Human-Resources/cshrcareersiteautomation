@@ -1,6 +1,6 @@
-package cshr.careersite.stepDefs;
+package cshr.careersite.stepDefs.backend;
 
-import cshr.careersite.steps.LoginSteps;
+import cshr.careersite.steps.backend.LoginSteps;
 import cucumber.api.java.en.Given;
 import net.thucydides.core.annotations.Steps;
 

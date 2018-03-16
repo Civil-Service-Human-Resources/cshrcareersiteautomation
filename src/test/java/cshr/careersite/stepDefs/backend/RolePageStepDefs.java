@@ -1,17 +1,12 @@
-package cshr.careersite.stepDefs;
+package cshr.careersite.stepDefs.backend;
 
-import cshr.careersite.pages.roles.AddNewRolePage;
-import cshr.careersite.pages.roles.AllRolesPage;
-import cshr.careersite.pages.roles.EditRolesPage;
-import cshr.careersite.pages.users.DeleteConfirmationPage;
-import cshr.careersite.pages.users.EditUsersPage;
-import cshr.careersite.steps.RoleSteps;
-import cucumber.api.PendingException;
+import cshr.careersite.pages.backend.roles.AddNewRolePage;
+import cshr.careersite.pages.backend.roles.AllRolesPage;
+import cshr.careersite.pages.backend.roles.EditRolesPage;
+import cshr.careersite.steps.backend.RoleSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.eo.Se;
-import jnr.ffi.annotations.In;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;

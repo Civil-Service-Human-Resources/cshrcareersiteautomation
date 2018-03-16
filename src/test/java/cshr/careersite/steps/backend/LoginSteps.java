@@ -1,9 +1,8 @@
-package cshr.careersite.steps;
+package cshr.careersite.steps.backend;
 
-import cshr.careersite.pages.CareerSiteHomePage;
-import cshr.careersite.pages.CareerSiteLoginPage;
+import cshr.careersite.pages.backend.CareerSiteHomePage;
+import cshr.careersite.pages.backend.CareerSiteLoginPage;
 import net.thucydides.core.annotations.Step;
-import org.aspectj.lang.annotation.Before;
 
 public class LoginSteps {
     CareerSiteLoginPage careerSiteLoginPage;

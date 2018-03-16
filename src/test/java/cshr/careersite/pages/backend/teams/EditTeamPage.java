@@ -1,4 +1,4 @@
-package cshr.careersite.pages.teams;
+package cshr.careersite.pages.backend.teams;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;

@@ -1,17 +1,14 @@
-package cshr.careersite.stepDefs;
+package cshr.careersite.stepDefs.backend;
 
-import cshr.careersite.pages.teams.EditTeamPage;
-import cshr.careersite.pages.teams.TeamPage;
-import cshr.careersite.steps.TeamPageSteps;
+import cshr.careersite.pages.backend.teams.EditTeamPage;
+import cshr.careersite.pages.backend.teams.TeamPage;
+import cshr.careersite.steps.backend.TeamPageSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
-import org.joda.time.Seconds;
 import org.junit.Assert;
-
-import java.time.Duration;
 
 public class TeamPageStepDefs {
 

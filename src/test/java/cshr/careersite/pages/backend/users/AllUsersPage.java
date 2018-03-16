@@ -1,4 +1,4 @@
-package cshr.careersite.pages.users;
+package cshr.careersite.pages.backend.users;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -21,7 +21,6 @@ public class AllUsersPage extends PageObject {
 
     @FindBy(className = "delete")
     WebElementFacade deleteButton;
-
 
     @FindBy(className = "edit")
     WebElementFacade editButton;

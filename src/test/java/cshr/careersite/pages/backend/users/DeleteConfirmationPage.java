@@ -1,4 +1,4 @@
-package cshr.careersite.pages.users;
+package cshr.careersite.pages.backend.users;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;

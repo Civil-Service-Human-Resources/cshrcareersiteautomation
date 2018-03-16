@@ -1,4 +1,4 @@
-package cshr.careersite.pages;
+package cshr.careersite.pages.backend;
 
 import net.thucydides.core.annotations.WhenPageOpens;
 import net.thucydides.core.pages.PageObject;

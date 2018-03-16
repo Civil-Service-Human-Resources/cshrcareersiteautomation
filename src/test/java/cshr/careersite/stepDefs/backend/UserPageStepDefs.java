@@ -1,10 +1,9 @@
-package cshr.careersite.stepDefs;
+package cshr.careersite.stepDefs.backend;
 
-import cshr.careersite.pages.users.AllUsersPage;
-import cshr.careersite.pages.users.DeleteConfirmationPage;
-import cshr.careersite.pages.users.EditUsersPage;
-import cshr.careersite.steps.LoginSteps;
-import cshr.careersite.steps.UserSteps;
+import cshr.careersite.pages.backend.users.AllUsersPage;
+import cshr.careersite.pages.backend.users.EditUsersPage;
+import cshr.careersite.steps.backend.LoginSteps;
+import cshr.careersite.steps.backend.UserSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

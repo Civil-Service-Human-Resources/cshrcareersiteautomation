@@ -1,11 +1,11 @@
 package cshr.careersite.stepDefs;
 
-import cshr.careersite.pages.roles.AllRolesPage;
-import cshr.careersite.pages.teams.TeamPage;
-import cshr.careersite.pages.users.AllUsersPage;
-import cshr.careersite.steps.RoleSteps;
-import cshr.careersite.steps.TeamPageSteps;
-import cshr.careersite.steps.UserSteps;
+import cshr.careersite.pages.backend.roles.AllRolesPage;
+import cshr.careersite.pages.backend.teams.TeamPage;
+import cshr.careersite.pages.backend.users.AllUsersPage;
+import cshr.careersite.steps.backend.RoleSteps;
+import cshr.careersite.steps.backend.TeamPageSteps;
+import cshr.careersite.steps.backend.UserSteps;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import net.serenitybdd.core.Serenity;

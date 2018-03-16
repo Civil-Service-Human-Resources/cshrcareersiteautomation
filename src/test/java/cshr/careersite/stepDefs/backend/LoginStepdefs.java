@@ -1,8 +1,8 @@
-package cshr.careersite.stepDefs;
+package cshr.careersite.stepDefs.backend;
 
-import cshr.careersite.pages.CareerSiteLoginPage;
-import cshr.careersite.pages.SideNavBarPage;
-import cshr.careersite.steps.LoginSteps;
+import cshr.careersite.pages.backend.CareerSiteLoginPage;
+import cshr.careersite.pages.backend.SideNavBarPage;
+import cshr.careersite.steps.backend.LoginSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

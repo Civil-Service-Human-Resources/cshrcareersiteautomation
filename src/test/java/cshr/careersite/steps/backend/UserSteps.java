@@ -1,9 +1,9 @@
-package cshr.careersite.steps;
+package cshr.careersite.steps.backend;
 
 import cshr.careersite.Utils.RandomTestData;
-import cshr.careersite.pages.users.AllUsersPage;
-import cshr.careersite.pages.users.AddNewUserPage;
-import cshr.careersite.pages.users.DeleteConfirmationPage;
+import cshr.careersite.pages.backend.users.AllUsersPage;
+import cshr.careersite.pages.backend.users.AddNewUserPage;
+import cshr.careersite.pages.backend.users.DeleteConfirmationPage;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;

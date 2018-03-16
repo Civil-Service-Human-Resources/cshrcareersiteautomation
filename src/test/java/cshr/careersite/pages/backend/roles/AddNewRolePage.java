@@ -1,6 +1,5 @@
-package cshr.careersite.pages.roles;
+package cshr.careersite.pages.backend.roles;
 
-import cshr.careersite.Utils.RandomTestData;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.NamedUrl;
 import net.thucydides.core.annotations.NamedUrls;

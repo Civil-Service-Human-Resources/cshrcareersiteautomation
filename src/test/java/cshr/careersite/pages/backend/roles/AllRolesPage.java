@@ -1,4 +1,4 @@
-package cshr.careersite.pages.roles;
+package cshr.careersite.pages.backend.roles;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.NamedUrl;

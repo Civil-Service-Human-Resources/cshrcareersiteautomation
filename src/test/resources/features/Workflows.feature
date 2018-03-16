@@ -1,15 +1,30 @@
 Feature: Workflows
 
-  Scenario: Author submits content without comments, content approver approves , publisher approves and publishes
+  Scenario: Author submits content, content approver approves , publisher approves and publishes
+    #(Do I need to test that the messages are taken off inbox?)
+  Given I am logged in as a contentauthor
+  And I add a new page with the default template
+  When the contentapprover approves my request
+  And the content publisher approves my request
+  Then the page is published
 
-  Scenario: Author submits with comments, content approver rejects with comments
+  Scenario: Author submits, content approver rejects with comments
 
   Scenario: Author submits, content approver approves without comments but publisher rejects with comments, sends it back to author
 
   Scenario: Author submits, content approver approves but publisher rejects, sends it back to approver ?
+
+  Scenario: Can the author edit submitted content?
 
   Scenario: Approver edits submitted content
 
   Scenario: Publisher edits submitted content before publishing
 
   Scenario: Workflows history
+
+  Scenario: Unpublish
+
+  Scenario: Delete Pages - Only Approver + Publisher?
+
+  Scenario: E2E user, group, role test
+
