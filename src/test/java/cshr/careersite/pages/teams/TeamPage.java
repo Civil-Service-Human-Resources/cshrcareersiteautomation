@@ -25,13 +25,13 @@ public class TeamPage extends PageObject{
     public WebElementFacade teamName;
 
     @FindBy(id = "parent")
-    WebElementFacade parentTeam;
+    public WebElementFacade parentTeam;
 
     @FindBy(css = "input[value='Add New Team']")
     public WebElementFacade addNewTeamButton;
 
     @FindBy(id = "tag-description")
-    WebElementFacade teamDescription;
+    public WebElementFacade teamDescription;
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped tags']//tr/td[@data-colname='Name']/strong/a")
     public List<WebElement> teamNames;
@@ -44,28 +44,6 @@ public class TeamPage extends PageObject{
     private String teamTableTd = "//table[@class='wp-list-table widefat fixed striped tags']//td[contains(.,'%s')]//strong";
 
     private String deleteByTeamName = teamTableRow + "//a[@class='delete-tag aria-button-if-js']";
-
-    public String addTeam(boolean addParentTeam) {
-
-        RandomTestData randomTestData = new RandomTestData();
-        String tempTeamName = "test_team_" + randomTestData.getRandomString(5);
-
-        typeInto(teamName, tempTeamName);
-
-        if (addParentTeam) {
-            selectFromDropdown(parentTeam, "Team1");
-        }
-
-        typeInto(teamDescription, tempTeamName);
-        addNewTeamButton.click();
-
-        if (element(String.format(teamTableRow, tempTeamName)).isCurrentlyVisible())
-        {
-            return tempTeamName;
-        }
-        else
-            return "TEAM_NOT_CREATED";
-    }
 
     public void deleteTeamByName(String teamName)
     {
@@ -95,4 +73,10 @@ public class TeamPage extends PageObject{
     {
             element(By.xpath(String.format(teamTableTd, teamName))).click();
     }
+
+    public boolean isTeamCreated(String teamName)
+    {
+        return element(String.format(teamTableRow, teamName)).isCurrentlyVisible();
+    }
+
 }
