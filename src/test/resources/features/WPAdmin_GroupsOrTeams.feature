@@ -26,5 +26,3 @@ Feature: WP admin - create/amend groups/teams
     When I try to add a team with the same name as an already existing team
     Then an error message indicating team already exists should be shown
 
-  Scenario: Add child team to parent team
-  Scenario: Add parent team to child team

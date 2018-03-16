@@ -23,62 +23,35 @@ public class AddNewUserPage extends PageObject{
     }
 
     @FindBy(id = "user_login")
-    WebElementFacade username;
+    public WebElementFacade username;
 
     @FindBy(id = "email")
-    WebElementFacade email;
+    public WebElementFacade email;
 
     @FindBy(id = "first_name")
-    WebElementFacade firstName;
+    public WebElementFacade firstName;
 
     @FindBy(id = "last_name")
-    WebElementFacade lastName;
+    public WebElementFacade lastName;
 
     @FindBy(css = "button[class = 'button wp-generate-pw hide-if-no-js']")
-    WebElementFacade showPasswordButton;
+    public WebElementFacade showPasswordButton;
 
     @FindBy(id = "pass1-text")
-    WebElementFacade editPassword;
+    public WebElementFacade editPassword;
 
     @FindBy(className = "pw-checkbox")
-    WebElementFacade confirmPassword;
+    public WebElementFacade confirmPassword;
 
     @FindBy(id = "createusersub")
-    WebElementFacade addNewUserButton;
+    public WebElementFacade addNewUserButton;
 
     @FindBy(id = "error")
-    WebElementFacade addUserErrorMessage;
+    public WebElementFacade addUserErrorMessage;
 
     @FindBy( id = "content_team-team1")
-    WebElementFacade team1;
+    public WebElementFacade team1;
 
-    public String createNewUser(boolean defaultTeam)
-    {
-        randomTestData = new RandomTestData();
-        String userName = "test_" + randomTestData.getRandomString(10);
-        String password = "password123";
 
-        typeInto(username, userName);
-        typeInto(email, userName+"@gmail.com");
-        typeInto(firstName, userName);
-        typeInto(lastName, userName);
-        showPasswordButton.click();
-        typeInto(editPassword, password);
-        confirmPassword.click();
-
-        if(defaultTeam) {
-            team1.click();
-        }
-        addNewUserButton.click();
-
-        if(addNewUserButton.isCurrentlyVisible())
-        {
-            return "USER_CREATION_FAILED";
-        }
-        else {
-
-            return userName;
-        }
-    }
 
 }
