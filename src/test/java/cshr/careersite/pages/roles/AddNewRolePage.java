@@ -24,21 +24,4 @@ public class AddNewRolePage extends PageObject {
 
     @FindBy(css = "[id='publish'][value='Add Role'")
     public WebElementFacade addRoleButton;
-
-    public String addNewUserDefaultCapability()
-    {
-        RandomTestData randomTestData = new RandomTestData();
-        String role_name = "test_role_" + randomTestData.getRandomString(10);
-
-        typeInto(roleName, role_name);
-        addRoleButton.click();
-
-        if(!addRoleButton.isCurrentlyVisible())
-        {
-            return role_name;
-        }
-        else
-            return "ROLE_NOT_CREATED";
-
-    }
 }

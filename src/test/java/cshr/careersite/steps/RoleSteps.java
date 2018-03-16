@@ -1,5 +1,6 @@
 package cshr.careersite.steps;
 
+import cshr.careersite.Utils.RandomTestData;
 import cshr.careersite.pages.roles.AddNewRolePage;
 import cshr.careersite.pages.roles.AllRolesPage;
 import net.serenitybdd.core.Serenity;
@@ -25,10 +26,19 @@ public class RoleSteps {
     @Step
     public boolean createNewRole()
     {
-        String roleName = addNewRolePage.addNewUserDefaultCapability();
+        RandomTestData randomTestData = new RandomTestData();
+        String role_name = "test_role_" + randomTestData.getRandomString(10);
 
-        Serenity.setSessionVariable("Role Name").to(roleName);
+        addNewRolePage.typeInto(addNewRolePage.roleName, role_name);
+        addNewRolePage.addRoleButton.click();
 
-        return !roleName.equals("ROLE_CREATION_FAILED");
+        if(!addNewRolePage.addRoleButton.isCurrentlyVisible())
+        {
+            Serenity.setSessionVariable("Role Name").to(role_name);
+            return true;
+        }
+        else
+            return false;
+
     }
 }

@@ -60,16 +60,4 @@ public class AllRolesPage extends PageObject {
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
     }
-
-    public void cleanUpRolesTestData() {
-
-        if(testRoleCheckboxes.size() > 0) {
-            for (WebElement G : testRoleCheckboxes) {
-                G.click();
-            }
-
-            selectFromDropdown(bulkDelete, "Delete");
-            applyButton.click();
-        }
-    }
 }

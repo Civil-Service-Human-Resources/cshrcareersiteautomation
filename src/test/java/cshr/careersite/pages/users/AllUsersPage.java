@@ -27,10 +27,15 @@ public class AllUsersPage extends PageObject {
     WebElementFacade editButton;
 
     private String userTableRow = "//table[@class='wp-list-table widefat fixed striped users']//tr[contains(.,'%s')]";
+
     private String userNameTd = "//table[@class='wp-list-table widefat fixed striped users']//td[contains(.,'%s')]";
+
     private String userNameLink = userNameTd + "//a";
+
     private String selectRoleByUserName = userTableRow + "/td[@data-colname='Roles']";
+
     private String selectGroupsByUserName = userTableRow + "/td[@data-colname='Teams']";
+
     private String deleteByUserName = userTableRow + "//a[@class='submitdelete']";
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped users']//tr/td[@data-colname='Username']/strong/a")
