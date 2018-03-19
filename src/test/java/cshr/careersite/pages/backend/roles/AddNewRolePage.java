@@ -1,18 +1,19 @@
 package cshr.careersite.pages.backend.roles;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.NamedUrl;
 import net.thucydides.core.annotations.NamedUrls;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.support.FindBy;
 
-@NamedUrls({@NamedUrl(name = "new.role", url="/users.php?page=role-new")})
 
 public class AddNewRolePage extends PageObject {
 
-    @Override
-    public void setDefaultBaseUrl(String defaultBaseUrl) {
-        super.setDefaultBaseUrl(defaultBaseUrl);
+    public void openNewRolePage()
+    {
+        String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
+        getDriver().navigate().to(url + "/users.php?page=role-new");
     }
 
     @FindBy(name = "role_name")

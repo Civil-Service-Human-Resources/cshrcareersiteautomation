@@ -1,9 +1,8 @@
 package cshr.careersite.pages.backend.users;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.NamedUrl;
-import net.thucydides.core.annotations.NamedUrls;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,12 +10,12 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedUrls({ @NamedUrl(name = "all.users", url="/users.php")})
 public class AllUsersPage extends PageObject {
 
-    @Override
-    public void setDefaultBaseUrl(String defaultBaseUrl) {
-        super.setDefaultBaseUrl(defaultBaseUrl);
+    public void openAllUsersPage()
+    {
+        String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
+        getDriver().navigate().to(url + "/users.php");
     }
 
     @FindBy(className = "delete")

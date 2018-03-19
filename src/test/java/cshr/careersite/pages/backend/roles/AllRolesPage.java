@@ -1,8 +1,7 @@
 package cshr.careersite.pages.backend.roles;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.NamedUrl;
-import net.thucydides.core.annotations.NamedUrls;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -12,12 +11,12 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedUrls({@NamedUrl(name = "all.roles", url="/users.php?page=roles")})
 public class AllRolesPage extends PageObject {
 
-    @Override
-    public void setDefaultBaseUrl(String defaultBaseUrl) {
-        super.setDefaultBaseUrl(defaultBaseUrl);
+    public void openAllRolesPage()
+    {
+        String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
+        getDriver().navigate().to(url + "/users.php?page=roles");
     }
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped roles']//tr/td[@data-colname='Role Name']/strong/a")

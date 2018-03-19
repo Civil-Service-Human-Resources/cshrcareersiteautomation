@@ -1,17 +1,17 @@
 package cshr.careersite.pages.backend;
 
-import net.thucydides.core.annotations.WhenPageOpens;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class CareerSiteLoginPage extends PageObject{
 
-    @Override
-    public void setDefaultBaseUrl(String defaultBaseUrl) {
-        super.setDefaultBaseUrl(defaultBaseUrl);
+    public void openLoginPage()
+    {
+        String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
+        getDriver().navigate().to(url + '/');
     }
-
     @FindBy(id = "user_login")
     private WebElement username;
 
@@ -29,12 +29,6 @@ public class CareerSiteLoginPage extends PageObject{
         typeInto(username,userName);
         typeInto(password,passWord);
         element(submit).click();
-    }
-
-    @WhenPageOpens
-    public void makeBrowserWindowFullScreen() {
-        // Disabling as doesn't work when running in parallel. Instead it's being set in the properties file
-        //getDriver().manage().window().fullscreen();
     }
 }
 

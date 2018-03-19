@@ -1,5 +1,6 @@
 package cshr.careersite.pages.backend.teams;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.NamedUrl;
 import net.thucydides.core.annotations.NamedUrls;
@@ -12,12 +13,12 @@ import org.openqa.selenium.support.FindBy;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedUrls({@NamedUrl(name = "new.team", url = "/edit-tags.php?taxonomy=content_team")})
 public class TeamPage extends PageObject{
 
-    @Override
-    public void setDefaultBaseUrl(String defaultBaseUrl) {
-        super.setDefaultBaseUrl(defaultBaseUrl);
+    public void openTeamsPage()
+    {
+        String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
+        getDriver().navigate().to(url + "/edit-tags.php?taxonomy=content_team");
     }
 
     @FindBy(id = "tag-name")

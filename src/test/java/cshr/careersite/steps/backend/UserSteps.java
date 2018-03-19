@@ -5,7 +5,6 @@ import cshr.careersite.pages.backend.users.AllUsersPage;
 import cshr.careersite.pages.backend.users.AddNewUserPage;
 import cshr.careersite.pages.backend.users.DeleteConfirmationPage;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 
 public class UserSteps {
@@ -16,10 +15,11 @@ public class UserSteps {
 
     DeleteConfirmationPage deleteUsersPage;
 
+
     @Step
     public void openNewUserPage()
     {
-        addNewUserPage.open("new.user", PageObject.withParameters());
+        addNewUserPage.openAddNewUserPage();
     }
 
     @Step
@@ -57,7 +57,7 @@ public class UserSteps {
     @Step
     public void openAllUsersPage()
     {
-        allUsersPage.open("all.users", PageObject.withParameters());
+        allUsersPage.openAllUsersPage();
     }
 
     @Step

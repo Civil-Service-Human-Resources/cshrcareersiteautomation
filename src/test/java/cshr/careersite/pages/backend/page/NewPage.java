@@ -1,19 +1,18 @@
 package cshr.careersite.pages.backend.page;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.NamedUrl;
 import net.thucydides.core.annotations.NamedUrls;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.support.FindBy;
 
-@NamedUrls({@NamedUrl(name = "new.page", url = "/post-new.php?post_type=page")})
 public class NewPage extends PageObject {
-
-    @Override
-    public void setDefaultBaseUrl(String defaultBaseUrl) {
-        super.setDefaultBaseUrl(defaultBaseUrl);
+    public void openNewPage()
+    {
+        String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
+        getDriver().navigate().to(url + "/post-new.php?post_type=page");
     }
-
     @FindBy(id = "post_title")
     public WebElementFacade pageName;
 

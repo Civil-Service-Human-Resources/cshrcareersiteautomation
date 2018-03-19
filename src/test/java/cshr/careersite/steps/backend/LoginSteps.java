@@ -2,17 +2,22 @@ package cshr.careersite.steps.backend;
 
 import cshr.careersite.pages.backend.CareerSiteHomePage;
 import cshr.careersite.pages.backend.CareerSiteLoginPage;
+import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.pages.PageObject;
+import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.annotations.ManagedPages;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.pages.Pages;
 
 public class LoginSteps {
     CareerSiteLoginPage careerSiteLoginPage;
     CareerSiteHomePage careerSiteHomePage;
 
+
     @Step
     public void logoutAndLoginWithDifferentCredentials(String username, String password)
     {
-        careerSiteLoginPage.open();
-        careerSiteHomePage.logout();
+        openLoginPage();
         careerSiteLoginPage.login(username, password);
     }
 
@@ -47,8 +52,7 @@ public class LoginSteps {
             password = "VmN0ZgqpNCkP!n0Xfrz$w$Cg";
         }
 
-        careerSiteLoginPage.open();
-        careerSiteHomePage.logout();
+        openLoginPage();
         careerSiteLoginPage.login(username, password);
     }
 
@@ -58,7 +62,18 @@ public class LoginSteps {
         return careerSiteHomePage.loggedInAs.getText().replaceAll("\\s","").contains(username);
     }
 
+    private void openLoginPage()
+    {
+        careerSiteLoginPage.openLoginPage();
+        careerSiteHomePage.logout();
+    }
 
+    @ManagedPages
+    public Pages pages;
 
-
+    public void setBaseURLFromSerenityProperties()
+    {
+        Serenity.setSessionVariable("BASE_URL").to(pages.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_BASE_URL.getPropertyName()));
+        Serenity.setSessionVariable("BACKEND_BASE_URL").to(pages.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_BASE_URL.getPropertyName()) + "wp-admin/");
+    }
 }

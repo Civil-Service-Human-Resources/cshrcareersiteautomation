@@ -15,7 +15,7 @@
         <serenity.maven.version>1.8.1</serenity.maven.version>
         <serenity.cucumber.version>1.6.5</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
-        <webdriver.base.url>https://careers-site.test.cshr-gov.uk/wp-admin/</webdriver.base.url>
+        <webdriver.base.url>https://careers-site.test.cshr-gov.uk/</webdriver.base.url>
         <parallel.tests>4</parallel.tests>
     </properties>
 

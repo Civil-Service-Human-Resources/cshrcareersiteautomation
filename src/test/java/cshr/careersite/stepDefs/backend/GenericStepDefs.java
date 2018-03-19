@@ -2,7 +2,9 @@ package cshr.careersite.stepDefs.backend;
 
 import cshr.careersite.steps.backend.LoginSteps;
 import cucumber.api.java.en.Given;
+import net.thucydides.core.annotations.ManagedPages;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.pages.Pages;
 
 public class GenericStepDefs {
     @Steps

@@ -1,25 +1,16 @@
 package cshr.careersite.pages.backend.users;
 
-import cshr.careersite.Utils.RandomTestData;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.NamedUrl;
-import net.thucydides.core.annotations.NamedUrls;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.support.FindBy;
 
-@NamedUrls(
-    {
-        @NamedUrl(name = "new.user", url="/user-new.php")
-    }
-)
 public class AddNewUserPage extends PageObject{
 
-    private RandomTestData randomTestData;
-
-    @Override
-    public void setDefaultBaseUrl(String defaultBaseUrl) {
-
-        super.setDefaultBaseUrl(defaultBaseUrl);
+    public void openAddNewUserPage()
+    {
+        String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
+        getDriver().navigate().to(url + "/user-new.php");
     }
 
     @FindBy(id = "user_login")

@@ -14,13 +14,13 @@ public class RoleSteps {
     @Step
     public void openAddNewRolePage()
     {
-        addNewRolePage.open("new.role", PageObject.withParameters());
+        addNewRolePage.openNewRolePage();
     }
 
     @Step
     public void openAllRolesPage()
     {
-        allRolesPage.open("all.roles", PageObject.withParameters());
+        allRolesPage.openAllRolesPage();
     }
 
     @Step

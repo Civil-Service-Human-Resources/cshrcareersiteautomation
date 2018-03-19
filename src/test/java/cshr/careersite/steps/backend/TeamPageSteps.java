@@ -13,7 +13,7 @@ public class TeamPageSteps {
     @Step
     public void openTeamListPage()
     {
-        teamPage.open("new.team", PageObject.withParameters());
+        teamPage.openTeamsPage();
     }
 
     @Step
