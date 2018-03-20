@@ -24,6 +24,8 @@ Feature: Workflows
 
   Scenario: Unpublish
 
+  Scenario: Revise
+
   Scenario: Delete Pages - Only Approver + Publisher?
 
   Scenario: E2E user, group, role test
