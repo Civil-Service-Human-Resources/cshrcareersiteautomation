@@ -2,8 +2,6 @@ package cshr.careersite.pages.backend.page;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.NamedUrl;
-import net.thucydides.core.annotations.NamedUrls;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.support.FindBy;
 
