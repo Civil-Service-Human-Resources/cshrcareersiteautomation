@@ -9,12 +9,20 @@ public class SignOffPage extends PageObject {
     @FindBy(id = "decision-select")
     public WebElementFacade ddAction;
 
-    @FindBy(id = "step-select")
-    public WebElementFacade ddStep;
+    @FindBy(id = "priority-select")
+    public WebElementFacade priority;
 
-    @FindBy(id = "completeSave")
-    public WebElementFacade signOff;
+    @FindBy(id = "workflowComments")
+    public WebElementFacade workflowComments;
 
     @FindBy(id = "immediately-chk")
     public WebElementFacade chkBoxPublishImmediately;
+
+    @FindBy(id = "submitSave")
+    public WebElementFacade signOff;
+
+    @FindBy(id = "completeSave")
+    public WebElementFacade signOffComplete;
+
+
 }

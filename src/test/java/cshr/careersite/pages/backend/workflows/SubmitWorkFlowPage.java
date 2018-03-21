@@ -8,15 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class SubmitWorkFlowPage extends PageObject{
 
-    public void selectTheDropDownList(WebElement dropDown, String text)
-    {
-        Select select = new Select(dropDown);
-        select.selectByVisibleText(text);
-    }
-
-    @FindBy(id = "actors-list-select")
-    public WebElementFacade assignActors;
-
     @FindBy(id = "submitSave")
     public WebElementFacade submit;
+
 }

@@ -13,22 +13,26 @@ public class InboxPage extends PageObject{
         getDriver().navigate().to(url + "/admin.php?page=oasiswf-inbox");
     }
 
-    @FindBy(className = "quick_sign_off")
-    private WebElementFacade signOff;
-
     @FindBy(className = "reassign")
     private WebElementFacade reassign;
 
     private String pageName = "//table[@class='wp-list-table widefat fixed posts']//td[contains(.,'%s')]";
 
+    private String signOff = pageName + "//a[@class='quick_sign_off']";
+
     public void clickSignOff(String strPageName)
     {
         withAction().
                 moveToElement(element(String.format(pageName, strPageName))).
-                moveToElement(element(signOff)).
+                moveToElement(element(String.format(signOff, strPageName))).
                 click().
                 build().
                 perform();
+    }
+
+    public boolean doesMessageExist(String strPageName)
+    {
+        return  element(String.format(pageName, strPageName)).isCurrentlyVisible();
     }
 
     public void clickReassign(String strPageName)

@@ -11,14 +11,18 @@ public class NewPage extends PageObject {
         String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
         getDriver().navigate().to(url + "/post-new.php?post_type=page");
     }
-    @FindBy(id = "post_title")
+
+    @FindBy(id = "title")
     public WebElementFacade pageName;
 
     @FindBy(id = "insert-media-button")
     public WebElementFacade addMediaButton;
 
+    @FindBy(id = "content_ifr")
+    private WebElementFacade htmlBodyFrame;
+
     @FindBy(id = "tinymce")
-    public WebElementFacade htmlBody;
+    private WebElementFacade htmlBody;
 
     @FindBy(id = "workflow_submit")
     public WebElementFacade submitWorkflowButton;
@@ -26,4 +30,10 @@ public class NewPage extends PageObject {
     @FindBy(id = "page_template")
     public WebElementFacade pageTemplate;
 
+    public void editHTMLBody(String body)
+    {
+        getDriver().switchTo().frame(htmlBodyFrame);
+        typeInto(htmlBody, body);
+        getDriver().switchTo().defaultContent();
+    }
 }
