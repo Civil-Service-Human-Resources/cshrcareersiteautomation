@@ -4,7 +4,6 @@ import cshr.careersite.Utils.RandomTestData;
 import cshr.careersite.pages.backend.roles.AddNewRolePage;
 import cshr.careersite.pages.backend.roles.AllRolesPage;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 
 public class RoleSteps {

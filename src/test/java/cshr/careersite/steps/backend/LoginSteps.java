@@ -3,7 +3,6 @@ package cshr.careersite.steps.backend;
 import cshr.careersite.pages.backend.CareerSiteHomePage;
 import cshr.careersite.pages.backend.CareerSiteLoginPage;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.ThucydidesSystemProperty;
 import net.thucydides.core.annotations.ManagedPages;
 import net.thucydides.core.annotations.Step;

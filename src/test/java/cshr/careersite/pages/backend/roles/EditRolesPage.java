@@ -22,7 +22,7 @@ public class EditRolesPage extends PageObject {
     public WebElementFacade deniedCount;
 
     @FindBy(css = "[value = 'Update']")
-    public WebElementFacade updateButton;
+    private WebElementFacade updateButton;
 
     public Map<String, Integer> editRoleWithRandomCapabilities()
     {

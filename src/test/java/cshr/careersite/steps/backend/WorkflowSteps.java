@@ -20,7 +20,7 @@ public class WorkflowSteps {
     AllPages allPages;
 
     @Step
-    public void acceptRejectWorkflowByName(Workflows acceptReject, UserType userType)
+    public void acceptRejectWorkflow(Workflows acceptReject, UserType userType)
     {
         String pageName = Serenity.sessionVariableCalled("Page Name");
 

@@ -20,16 +20,7 @@ public class AllRolesPage extends PageObject {
     }
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped roles']//tr/td[@data-colname='Role Name']/strong/a")
-    public List<WebElement> roleNames;
-
-    @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped roles']//tr[contains(.,'test_')]/th/input")
-    private List<WebElement> testRoleCheckboxes;
-
-    @FindBy(id = "bulk-action-selector-bottom")
-    private WebElementFacade bulkDelete;
-
-    @FindBy(id= "doaction2")
-    private WebElementFacade applyButton;
+    private List<WebElement> roleNames;
 
     private String roleTableRow = "//table[@class='wp-list-table widefat fixed striped roles']//tr[contains(.,'%s')]";
 

@@ -23,6 +23,4 @@ public class SignOffPage extends PageObject {
 
     @FindBy(id = "completeSave")
     public WebElementFacade signOffComplete;
-
-
 }

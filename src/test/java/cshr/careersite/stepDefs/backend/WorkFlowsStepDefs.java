@@ -24,20 +24,19 @@ public class WorkFlowsStepDefs {
 
     @And("^I add a new page with the default template$")
     public void iAddANewPageWithTheDefaultTemplate() throws Throwable {
-        String contentAuthor = UserType.CONTENT_AUTHOR.getValue();
         Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage());
     }
 
     @When("^the content approver approves my request$")
     public void theContentapproverApprovesMyRequest() throws Throwable {
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
-        workflowSteps.acceptRejectWorkflowByName(Workflows.ACCEPT, UserType.CONTENT_APPROVER);
+        workflowSteps.acceptRejectWorkflow(Workflows.ACCEPT, UserType.CONTENT_APPROVER);
     }
 
     @And("^the content publisher approves my request$")
     public void theContentPublisherApprovesMyRequest() throws Throwable {
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
-        workflowSteps.acceptRejectWorkflowByName(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
+        workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
     }
 
     @Then("^the page is published$")

@@ -3,7 +3,6 @@ package cshr.careersite.steps.backend;
 import cshr.careersite.Utils.RandomTestData;
 import cshr.careersite.pages.backend.teams.TeamPage;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Step;
 
 public class TeamPageSteps {

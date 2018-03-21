@@ -37,7 +37,7 @@ public class AllUsersPage extends PageObject {
     private String deleteByUserName = userTableRow + "//a[@class='submitdelete']";
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped users']//tr/td[@data-colname='Username']/strong/a")
-    public List<WebElement> userNames;
+    private List<WebElement> userNames;
 
     public void clickUserNameLink(String username)
     {

@@ -1,7 +1,6 @@
 package cshr.careersite.steps.backend;
 
 import cshr.careersite.Utils.RandomTestData;
-import cshr.careersite.model.UserType;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
