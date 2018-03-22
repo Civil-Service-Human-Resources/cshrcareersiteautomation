@@ -36,7 +36,7 @@ Feature: WP admin - create/amend groups/teams
 
   Scenario: Team cannot see pages if not assigned to them
     Given I am logged in as a contentpublisher
-    And I add a new page with the default template and assigned to team1
+    And I add a new page with the default template and assigned to team2
     And I publish the page
     When I create a new user assigned to team1
     And I login as the newly created user
