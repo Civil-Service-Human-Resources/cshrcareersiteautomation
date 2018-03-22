@@ -16,12 +16,13 @@ public class PageSteps {
     ReusableComponentsPage reusableComponentsPage;
 
     @Step
-    public boolean addRandomPage()
+    public boolean addRandomPage(String teamName)
     {
         RandomTestData testData = new RandomTestData();
         String pageName = testData.getRandomString(7);
         Serenity.setSessionVariable("Page Name").to(pageName);
         newPage.openNewPage();
+        newPage.selectTeam(teamName);
         newPage.typeInto(newPage.pageName,  pageName);
         newPage.editHTMLBody(pageName);
         newPage.submitWorkflowButton.click();

@@ -3,6 +3,7 @@ package cshr.careersite.stepDefs.backend;
 import cshr.careersite.pages.backend.teams.EditTeamPage;
 import cshr.careersite.pages.backend.teams.TeamPage;
 import cshr.careersite.steps.backend.TeamPageSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -80,4 +81,33 @@ public class TeamPageStepDefs {
         Assert.assertTrue(teamPage.error.isCurrentlyVisible());
     }
 
+    @And("^I add a new page with the default template and assigned to (.*)$")
+    public void iAddANewPageWithTheDefaultTemplateAndAssignedToTeam(String arg0) throws Throwable {
+
+    }
+
+    @And("^I publish the page$")
+    public void iPublishThePage() throws Throwable {
+
+    }
+
+    @When("^I create a new user assigned to (.*)$")
+    public void iCreateANewUserAssignedToTeam(String arg0) throws Throwable {
+
+    }
+
+    @Then("^I should be able to see the published page$")
+    public void iShouldBeAbleToSeeThePublishedPage() throws Throwable {
+
+    }
+
+    @Then("^I should not be able to see the published page$")
+    public void iShouldNotBeAbleToSeeThePublishedPage() throws Throwable {
+
+    }
+
+    @And("^I add a new page with the default template and assigned to (.*) and (.*)$")
+    public void iAddANewPageWithTheDefaultTemplateAndAssignedToTeamAndTeam(int arg0, int arg1) throws Throwable {
+
+    }
 }

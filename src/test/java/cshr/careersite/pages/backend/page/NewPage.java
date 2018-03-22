@@ -30,10 +30,20 @@ public class NewPage extends PageObject {
     @FindBy(id = "page_template")
     public WebElementFacade pageTemplate;
 
+    @FindBy(id = "publish")
+    public WebElementFacade publish;
+
+    private String strTeamCheckbox = "in-rpg-%s";
+
     public void editHTMLBody(String body)
     {
         getDriver().switchTo().frame(htmlBodyFrame);
         typeInto(htmlBody, body);
         getDriver().switchTo().defaultContent();
+    }
+
+    public void selectTeam(String teamName)
+    {
+        element(String.format(strTeamCheckbox, teamName.toLowerCase())).click();
     }
 }

@@ -33,7 +33,7 @@ public class WorkFlowsStepDefs {
 
     @And("^I add a new page with the default template$")
     public void iAddANewPageWithTheDefaultTemplate() throws Throwable {
-        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage());
+        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage("team1"));
     }
 
     @When("^the content approver approves my request$")
