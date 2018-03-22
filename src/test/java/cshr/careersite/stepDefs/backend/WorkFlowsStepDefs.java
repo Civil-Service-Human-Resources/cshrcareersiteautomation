@@ -2,12 +2,16 @@ package cshr.careersite.stepDefs.backend;
 
 import cshr.careersite.model.UserType;
 import cshr.careersite.model.Workflows;
+import cshr.careersite.pages.backend.page.AllPages;
+import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.backend.WorkflowSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 
@@ -21,6 +25,11 @@ public class WorkFlowsStepDefs {
 
     @Steps
     WorkflowSteps workflowSteps;
+
+    AllPages allPages;
+
+    NewPage newPage;
+
 
     @And("^I add a new page with the default template$")
     public void iAddANewPageWithTheDefaultTemplate() throws Throwable {
@@ -42,5 +51,24 @@ public class WorkFlowsStepDefs {
     @Then("^the page is published$")
     public void thePageIsPublished() throws Throwable {
         Assert.assertTrue("Page was not published" ,workflowSteps.isPagePublished());
+    }
+
+    @When("^the content approver rejects author's request with comments$")
+    public void theContentApproverRejectsAuthorSRequestWithComments() throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.REJECT, UserType.CONTENT_APPROVER);
+    }
+
+    @Then("^the content is sent back to the author for review$")
+    public void theContentIsSentBackToTheAuthorForReview() throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_AUTHOR.getValue());
+
+        allPages.openPagesMenu();
+
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Draft"));
+
+        allPages.openPage(pageName);
+        Assert.assertTrue(newPage.submitWorkflowButton.isCurrentlyVisible());
     }
 }

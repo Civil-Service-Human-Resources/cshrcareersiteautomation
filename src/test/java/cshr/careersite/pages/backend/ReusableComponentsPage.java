@@ -11,6 +11,9 @@ public class ReusableComponentsPage extends PageObject {
     @FindBy(id = "actors-list-select")
     public WebElementFacade assignActors;
 
+    @FindBy(id = "actors-set-select")
+    public WebElementFacade assignedActors;
+
     @FindBy(id = "assignee-set-point")
     private WebElementFacade assignActor;
 
@@ -22,7 +25,11 @@ public class ReusableComponentsPage extends PageObject {
 
     public void selectActor(String actorName)
     {
-        selectTheDropDownList(assignActors, actorName);
-        assignActor.click();
+        waitABit(3000);
+
+        if(!assignedActors.getText().contains(actorName)) {
+            selectTheDropDownList(assignActors, actorName);
+            assignActor.click();
+        }
     }
 }

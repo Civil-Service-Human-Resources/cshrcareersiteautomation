@@ -22,6 +22,9 @@ public class AllPages extends PageObject {
 
     private String strPageNameStatus = "//td[@class='title column-title has-row-actions column-primary page-title'][contains(.,'%s')]";
 
+    private String strPage = "//td[@class='title column-title has-row-actions column-primary page-title'][contains(.,'%s')]//a";
+
+
     public boolean pageWithGivenStatusExists(String pageName, String pageStatus)
     {
         WebElementFacade pageNameStatus = element(String.format(strPageNameStatus, pageName));
@@ -33,5 +36,10 @@ public class AllPages extends PageObject {
     public boolean isPagePublished(String pageName)
     {
         return element(String.format(strPublished, pageName)).isCurrentlyVisible();
+    }
+
+    public void openPage(String pageName)
+    {
+        element(String.format(strPage, pageName)).click();
     }
 }

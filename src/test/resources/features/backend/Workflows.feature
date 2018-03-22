@@ -8,7 +8,10 @@ Feature: Workflows
     Then the page is published
 
   Scenario: Author submits, content approver rejects with comments
-
+    Given I am logged in as a contentauthor
+    And I add a new page with the default template
+    When the content approver rejects author's request with comments
+    Then the content is sent back to the author for review
 
   Scenario: Author submits, content approver approves without comments but publisher rejects with comments, sends it back to author
 
