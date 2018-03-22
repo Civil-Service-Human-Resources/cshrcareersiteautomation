@@ -1,5 +1,7 @@
 Feature: Workflows
 
+  Scenario: Author saves to draft
+
   Scenario: Author submits content, content approver approves , publisher approves and publishes
     Given I am logged in as a contentauthor
     And I add a new page with the default template
@@ -33,6 +35,8 @@ Feature: Workflows
   Scenario: Revise
 
   Scenario: Delete Pages - Only Approver + Publisher?
+
+  Scenario: Abort workflow
 
   Scenario: E2E user, group, role test
 

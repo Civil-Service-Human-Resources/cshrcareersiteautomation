@@ -26,3 +26,26 @@ Feature: WP admin - create/amend groups/teams
     When I try to add a team with the same name as an already existing team
     Then an error message indicating team already exists should be shown
 
+  Scenario: Team can see specific pages if assigned to them
+    Given I am logged in as a contentpublisher
+    And I add a new page with the default template and assigned to team2
+    And I publish the page
+    When I create a new user assigned to team2
+    And I login as the newly created user
+    Then I should be able to see the published page
+
+  Scenario: Team cannot see pages if not assigned to them
+    Given I am logged in as a contentpublisher
+    And I add a new page with the default template and assigned to team1
+    And I publish the page
+    When I create a new user assigned to team1
+    And I login as the newly created user
+    Then I should not be able to see the published page
+
+  Scenario: Two teams can see the same page if assigned to both of them
+    Given I am logged in as a contentpublisher
+    And I add a new page with the default template and assigned to team1 and team2
+    And I publish the page
+    When I create a new user assigned to team1
+    And I login as the newly created user
+    Then I should not be able to see the published page
