@@ -13,9 +13,12 @@ Feature: Workflows
     When the content approver rejects author's request with comments
     Then the content is sent back to the author for review
 
-  Scenario: Author submits, content approver approves without comments but publisher rejects with comments, sends it back to author
-
-  Scenario: Author submits, content approver approves but publisher rejects, sends it back to approver ?
+  Scenario: Author submits, content approver approves publisher rejects with comments, sends it back to author
+    Given I am logged in as a contentauthor
+    And I add a new page with the default template
+    And the content approver approves my request
+    When the content publisher rejects my request
+    Then the content is sent back to the author for review
 
   Scenario: Can the author edit submitted content?
 

@@ -71,4 +71,10 @@ public class WorkFlowsStepDefs {
         allPages.openPage(pageName);
         Assert.assertTrue(newPage.submitWorkflowButton.isCurrentlyVisible());
     }
+
+    @When("^the content publisher rejects my request$")
+    public void theContentPublisherRejectsMyRequest() throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.UNABLE_TO_COMPLETE, UserType.CONTENT_PUBLISHER);
+    }
 }

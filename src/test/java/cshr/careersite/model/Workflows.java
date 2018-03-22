@@ -4,7 +4,7 @@ public enum Workflows {
     ACCEPT ("Approved"),
     REJECT ("Reject"),
     COMPLETE ("Complete"),
-    UNABLE_TO_COMPLETE("Unable to complete");
+    UNABLE_TO_COMPLETE("Unable to Complete");
 
     private String value;
 

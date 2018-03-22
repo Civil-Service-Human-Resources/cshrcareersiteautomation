@@ -64,7 +64,7 @@ public class WorkflowSteps {
             signOffPage.chkBoxPublishImmediately.click();
         }
 
-        if (userType == UserType.CONTENT_PUBLISHER)
+        if (userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE)
             signOffPage.signOffComplete.click();
         else
             signOffPage.signOff.click();
