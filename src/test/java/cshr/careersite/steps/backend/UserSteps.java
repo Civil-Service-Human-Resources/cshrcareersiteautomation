@@ -9,12 +9,11 @@ import net.thucydides.core.annotations.Step;
 
 public class UserSteps {
 
-    AddNewUserPage addNewUserPage;
+    private AddNewUserPage addNewUserPage;
 
-    AllUsersPage allUsersPage;
+    private AllUsersPage allUsersPage;
 
-    DeleteConfirmationPage deleteUsersPage;
-
+    private DeleteConfirmationPage deleteUsersPage;
 
     @Step
     public void openNewUserPage()
@@ -68,6 +67,10 @@ public class UserSteps {
     public void deleteUser(String userName)
     {
         allUsersPage.deleteUser(userName);
+        if(deleteUsersPage.deleteAllContent.isCurrentlyVisible())
+        {
+            deleteUsersPage.deleteAllContent.click();
+        }
         deleteUsersPage.confirmDelete.click();
     }
 }

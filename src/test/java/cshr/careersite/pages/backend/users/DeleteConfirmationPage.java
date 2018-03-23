@@ -8,4 +8,7 @@ public class DeleteConfirmationPage extends PageObject {
     @FindBy(id = "submit")
     public WebElementFacade confirmDelete;
 
+    @FindBy(id = "delete_option0")
+    public WebElementFacade deleteAllContent;
+
 }
