@@ -44,4 +44,9 @@ public class InboxPage extends PageObject{
                 build().
                 perform();
     }
+
+    public String getAuthorName(String strPageName)
+    {
+        return element(String.format(pageName, strPageName) + "//following-sibling::td[2]").getText();
+    }
 }

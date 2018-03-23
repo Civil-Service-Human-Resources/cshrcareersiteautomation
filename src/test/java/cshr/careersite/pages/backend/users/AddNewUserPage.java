@@ -43,4 +43,7 @@ public class AddNewUserPage extends PageObject{
     @FindBy( id = "content_team-team1")
     public WebElementFacade team1;
 
+    @FindBy( id = "content_team-team2")
+    public WebElementFacade team2;
+
 }

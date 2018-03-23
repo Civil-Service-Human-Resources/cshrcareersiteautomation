@@ -40,6 +40,10 @@ public class UserSteps {
         if(defaultTeam) {
             addNewUserPage.team1.click();
         }
+        else
+        {
+            addNewUserPage.team2.click();
+        }
 
         addNewUserPage.addNewUserButton.click();
 

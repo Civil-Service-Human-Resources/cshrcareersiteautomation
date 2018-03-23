@@ -1,8 +1,11 @@
 package cshr.careersite.stepDefs.backend;
 
+import cshr.careersite.model.UserType;
+import cshr.careersite.model.Workflows;
+import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.teams.EditTeamPage;
 import cshr.careersite.pages.backend.teams.TeamPage;
-import cshr.careersite.steps.backend.TeamPageSteps;
+import cshr.careersite.steps.backend.*;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -13,11 +16,27 @@ import org.junit.Assert;
 
 public class TeamPageStepDefs {
 
-    TeamPage teamPage;
-    EditTeamPage editTeamPage;
+    private TeamPage teamPage;
+
+    private EditTeamPage editTeamPage;
 
     @Steps
-    TeamPageSteps teamPageSteps;
+    private TeamPageSteps teamPageSteps;
+
+    @Steps
+    private PageSteps pageSteps;
+
+    @Steps
+    private LoginSteps loginSteps;
+
+    @Steps
+    private WorkflowSteps workflowSteps;
+
+    @Steps
+    private UserSteps userSteps;
+
+    @Steps
+    private AllPages allPages;
 
     @And("^I navigate to the create new team page$")
     public void iNavigateToTheCreateNewTeamPage() throws Throwable {
@@ -83,31 +102,53 @@ public class TeamPageStepDefs {
 
     @And("^I add a new page with the default template and assigned to (.*)$")
     public void iAddANewPageWithTheDefaultTemplateAndAssignedToTeam(String arg0) throws Throwable {
-
+        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{arg0}));
     }
 
     @And("^I publish the page$")
     public void iPublishThePage() throws Throwable {
-
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.ACCEPT, UserType.CONTENT_APPROVER);
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
     }
 
     @When("^I create a new user assigned to (.*)$")
     public void iCreateANewUserAssignedToTeam(String arg0) throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_ADMIN.getValue());
+        userSteps.openNewUserPage();
+
+        boolean team1 = true;
+        if(arg0.equals("team2"))
+        {
+            team1 = false;
+        }
+
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(team1));
 
     }
 
     @Then("^I should be able to see the published page$")
     public void iShouldBeAbleToSeeThePublishedPage() throws Throwable {
 
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+
+        allPages.openPagesMenu();
+        Assert.assertTrue(allPages.isPagePublished(pageName));
     }
 
     @Then("^I should not be able to see the published page$")
     public void iShouldNotBeAbleToSeeThePublishedPage() throws Throwable {
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+
+        allPages.openPagesMenu();
+        Assert.assertFalse(allPages.isPagePublished(pageName));
 
     }
 
-    @And("^I add a new page with the default template and assigned to (.*) and (.*)$")
-    public void iAddANewPageWithTheDefaultTemplateAndAssignedToTeamAndTeam(int arg0, int arg1) throws Throwable {
+    @And("^I add a new page with the default template and assign to (.*) and (.*)$")
+    public void iAddANewPageWithTheDefaultTemplateAndAssignedToTeamAndTeam(String arg0, String arg1) throws Throwable {
+        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{arg0, arg1}));
 
     }
 }

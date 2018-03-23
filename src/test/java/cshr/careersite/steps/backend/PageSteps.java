@@ -16,15 +16,18 @@ public class PageSteps {
     ReusableComponentsPage reusableComponentsPage;
 
     @Step
-    public boolean addRandomPage(String teamName)
+    public boolean addRandomPage(String[] teamNames)
     {
         RandomTestData testData = new RandomTestData();
-        String pageName = testData.getRandomString(7);
+        String pageName = "test_" + testData.getRandomString(7);
         Serenity.setSessionVariable("Page Name").to(pageName);
         newPage.openNewPage();
-        newPage.selectTeam(teamName);
+        for(String teamName : teamNames) {
+            newPage.selectTeam(teamName);
+        }
+
         newPage.typeInto(newPage.pageName,  pageName);
-        newPage.editHTMLBody(pageName);
+        //newPage.editHTMLBody(pageName);
         newPage.submitWorkflowButton.click();
         reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.click();

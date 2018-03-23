@@ -26,6 +26,10 @@ public class WorkflowSteps {
 
         inboxPage.openInbox();
         inboxPage.clickSignOff(pageName);
+
+        // If content publisher is the author then the assigned actor text is different(Used in assignActors below)
+        String strAuthor = inboxPage.getAuthorName(pageName);
+
         signOffPage.selectFromDropdown(signOffPage.ddAction, acceptReject.getValue());
 
         if(signOffPage.priority.isCurrentlyVisible())
@@ -38,7 +42,12 @@ public class WorkflowSteps {
             String value = "";
             if(userType == UserType.CONTENT_APPROVER && acceptReject == Workflows.ACCEPT)
             {
-                value = "Content Publisher 1";
+                if(strAuthor.equals("Content Publisher 1"))
+                {
+                    value = "Content Publisher 1 (Post Author)";
+                }
+                else
+                    value = "Content Publisher 1";
             }
 
             if(userType == UserType.CONTENT_APPROVER && acceptReject == Workflows.REJECT)
@@ -50,7 +59,11 @@ public class WorkflowSteps {
             {
                 value = "Content Author 1";
             }
-            reusableComponentsPage.selectActor(value);
+
+            if(!(userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE))
+            {
+                reusableComponentsPage.selectActor(value);
+            }
         }
 
         if(signOffPage.workflowComments.isCurrentlyVisible())

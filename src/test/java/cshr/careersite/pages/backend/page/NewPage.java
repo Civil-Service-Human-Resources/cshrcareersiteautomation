@@ -3,6 +3,7 @@ package cshr.careersite.pages.backend.page;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
 public class NewPage extends PageObject {
@@ -44,6 +45,6 @@ public class NewPage extends PageObject {
 
     public void selectTeam(String teamName)
     {
-        element(String.format(strTeamCheckbox, teamName.toLowerCase())).click();
+        element(By.id(String.format(strTeamCheckbox, teamName.toLowerCase()))).click();
     }
 }

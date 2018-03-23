@@ -4,7 +4,8 @@ public enum UserType {
     TECH_ADMIN ("techadmin"),
     CONTENT_AUTHOR ("contentauthor"),
     CONTENT_PUBLISHER ("contentpublisher"),
-    CONTENT_APPROVER ("contentapprover");
+    CONTENT_APPROVER ("contentapprover"),
+    CONTENT_ADMIN ("contentadmin");
 
     private String value;
 
