@@ -32,7 +32,7 @@ public class UserPageStepDefs {
 
     @When("^I create a new user with a default role and a team$")
     public void iCreateANewUserWithADefaultRoleAndATeam() throws Throwable {
-        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(true));
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(true, false));
     }
 
     @Then("^a user is created$")
@@ -54,7 +54,7 @@ public class UserPageStepDefs {
     public void iCreateANewUser() throws Throwable {
         userSteps.openNewUserPage();
 
-        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(true));
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(true, false));
     }
 
     @And("^I login as the newly created user$")
@@ -133,7 +133,7 @@ public class UserPageStepDefs {
 
     @Then("^the user is not created$")
     public void theUserIsNotCreated() throws Throwable {
-        Assert.assertFalse("User Creation Failed", userSteps.createNewUser(false));
+        Assert.assertFalse("User Creation was successful when it should be unsuccessful", userSteps.createNewUser(false, false));
 
     }
 }

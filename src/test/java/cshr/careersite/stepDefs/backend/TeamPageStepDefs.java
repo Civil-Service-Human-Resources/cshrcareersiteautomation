@@ -119,12 +119,14 @@ public class TeamPageStepDefs {
         userSteps.openNewUserPage();
 
         boolean team1 = true;
+        boolean team2 = false;
         if(arg0.equals("team2"))
         {
             team1 = false;
+            team2 = true;
         }
 
-        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(team1));
+        Assert.assertTrue("User Creation Failed", userSteps.createNewUser(team1, team2));
 
     }
 

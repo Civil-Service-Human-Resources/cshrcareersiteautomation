@@ -23,7 +23,7 @@ public class UserSteps {
     }
 
     @Step
-    public boolean createNewUser(boolean defaultTeam)
+    public boolean createNewUser(boolean addTeam1, boolean addTeam2)
     {
         RandomTestData randomTestData = new RandomTestData();
         String userName = "test_" + randomTestData.getRandomString(10);
@@ -37,10 +37,10 @@ public class UserSteps {
         addNewUserPage.typeInto(addNewUserPage.editPassword, password);
         addNewUserPage.confirmPassword.click();
 
-        if(defaultTeam) {
+        if(addTeam1) {
             addNewUserPage.team1.click();
         }
-        else
+        if(addTeam2)
         {
             addNewUserPage.team2.click();
         }
