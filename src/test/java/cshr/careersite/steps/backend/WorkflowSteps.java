@@ -40,6 +40,7 @@ public class WorkflowSteps {
         if(reusableComponentsPage.assignActors.isCurrentlyVisible())
         {
             String value = "";
+
             if(userType == UserType.CONTENT_APPROVER && acceptReject == Workflows.ACCEPT)
             {
                 if(strAuthor.equals("Content Publisher 1"))
@@ -50,14 +51,9 @@ public class WorkflowSteps {
                     value = "Content Publisher 1";
             }
 
-            if(userType == UserType.CONTENT_APPROVER && acceptReject == Workflows.REJECT)
+            if(acceptReject == Workflows.REJECT || acceptReject == Workflows.UNABLE_TO_COMPLETE)
             {
-                value = "Content Author 1";
-            }
-
-            if(userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.UNABLE_TO_COMPLETE)
-            {
-                value = "Content Author 1";
+                value = "Content Author 1 (Post Author)";
             }
 
             if(!(userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE))
