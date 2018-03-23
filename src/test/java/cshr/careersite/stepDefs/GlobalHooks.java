@@ -1,5 +1,6 @@
 package cshr.careersite.stepDefs;
 
+import cshr.careersite.model.UserType;
 import cshr.careersite.pages.backend.roles.AllRolesPage;
 import cshr.careersite.pages.backend.teams.TeamPage;
 import cshr.careersite.pages.backend.users.AllUsersPage;
@@ -73,7 +74,10 @@ public class GlobalHooks{
     public void afterCreateAmendUsers(Scenario scenario)
     {
         System.out.println("after @users");
-
+        if(!loginSteps.isLoggedinUserNameCorrect("admin"))
+        {
+            loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_ADMIN.getValue());
+        }
         usersSteps.openAllUsersPage();
         String userName = Serenity.sessionVariableCalled("User Name");
         System.out.println(userName);
