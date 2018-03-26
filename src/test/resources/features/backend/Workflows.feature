@@ -35,6 +35,12 @@ Feature: Workflows
     Then I should be able to edit the page and save
 
   Scenario: Publisher edits submitted content before publishing
+    Given I am logged in as a contentauthor
+    And I add a new page with the default template and submit for review
+    And the content approver approves my request
+    When I am logged in as a contentpublisher
+    And I should be able to edit the page and publish
+    Then the edited page is published
 
   Scenario: Workflows history
 

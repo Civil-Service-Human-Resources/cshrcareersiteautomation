@@ -18,17 +18,17 @@ import org.junit.Assert;
 public class WorkFlowsStepDefs {
 
     @Steps
-    PageSteps pageSteps;
+    private PageSteps pageSteps;
 
     @Steps
-    LoginSteps loginSteps;
+    private LoginSteps loginSteps;
 
     @Steps
-    WorkflowSteps workflowSteps;
+    private WorkflowSteps workflowSteps;
 
-    AllPages allPages;
+    private AllPages allPages;
 
-    NewPage newPage;
+    private NewPage newPage;
 
 
     @And("^I add a new page with the default template and submit for review$")
@@ -96,5 +96,16 @@ public class WorkFlowsStepDefs {
         pageSteps.editContent("Edited content");
         Assert.assertTrue("Page does not contain updated text",
                 pageSteps.checkIfEditedContentContainsAsUser( "Edited content"));
+    }
+
+    @And("^I should be able to edit the page and publish$")
+    public void iShouldBeAbleToEditThePageAndPublish() throws Throwable {
+        pageSteps.editContent("Edited content");
+        workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
+    }
+
+    @Then("^the edited page is published$")
+    public void theEditedPageIsPublished() throws Throwable {
+        Assert.assertTrue("Page was not published" ,workflowSteps.isPagePublished());
     }
 }
