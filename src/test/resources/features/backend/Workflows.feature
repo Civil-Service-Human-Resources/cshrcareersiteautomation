@@ -29,6 +29,10 @@ Feature: Workflows
     Then the content approver should see my changes
 
   Scenario: Approver edits submitted content
+    Given I am logged in as a contentauthor
+    And I add a new page with the default template and submit for review
+    When I am logged in as a contentapprover
+    Then I should be able to edit the page and save
 
   Scenario: Publisher edits submitted content before publishing
 

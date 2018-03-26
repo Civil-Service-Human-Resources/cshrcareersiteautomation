@@ -1,6 +1,7 @@
 package cshr.careersite.steps.backend;
 
-import cshr.careersite.Utils.RandomTestData;
+import cshr.careersite.model.UserType;
+import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
@@ -14,6 +15,7 @@ public class PageSteps {
     SubmitWorkFlowPage submitWorkFlowPage;
     AllPages allPages;
     ReusableComponentsPage reusableComponentsPage;
+    private LoginSteps loginSteps;
 
     @Step
     public boolean addRandomPage(String[] teamNames)
@@ -32,5 +34,31 @@ public class PageSteps {
         reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.click();
         return allPages.pageWithGivenStatusExists(pageName, "Pending");
+    }
+
+    @Step
+    public boolean checkIfEditedContentContainsAsUser(String editContent)
+    {
+        allPages.openPagesMenu();
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.openPage(pageName);
+        if(newPage.takeOver.isCurrentlyVisible()) {
+            newPage.takeOver.click();
+        }
+        return newPage.getHTMLBody().contains(editContent);
+    }
+
+    @Step
+    public void editContent(String editContent)
+    {
+        allPages.openPagesMenu();
+
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.openPage(pageName);
+        if(newPage.takeOver.isCurrentlyVisible()) {
+            newPage.takeOver.click();
+        }
+        newPage.editHTMLBody(editContent);
+        newPage.save.click();
     }
 }

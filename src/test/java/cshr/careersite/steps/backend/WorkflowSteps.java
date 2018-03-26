@@ -4,6 +4,7 @@ import cshr.careersite.model.UserType;
 import cshr.careersite.model.Workflows;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
 import cshr.careersite.pages.backend.page.AllPages;
+import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.workflows.InboxPage;
 import cshr.careersite.pages.backend.workflows.SignOffPage;
 import net.serenitybdd.core.Serenity;
@@ -11,13 +12,13 @@ import net.thucydides.core.annotations.Step;
 
 public class WorkflowSteps {
 
-    InboxPage inboxPage;
+    private InboxPage inboxPage;
 
-    SignOffPage signOffPage;
+    private SignOffPage signOffPage;
 
-    ReusableComponentsPage reusableComponentsPage;
+    private ReusableComponentsPage reusableComponentsPage;
 
-    AllPages allPages;
+    private AllPages allPages;
 
     @Step
     public void acceptRejectWorkflow(Workflows acceptReject, UserType userType)

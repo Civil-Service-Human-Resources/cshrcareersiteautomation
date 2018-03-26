@@ -1,6 +1,6 @@
 package cshr.careersite.steps.backend;
 
-import cshr.careersite.Utils.RandomTestData;
+import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.roles.AddNewRolePage;
 import cshr.careersite.pages.backend.roles.AllRolesPage;
 import net.serenitybdd.core.Serenity;

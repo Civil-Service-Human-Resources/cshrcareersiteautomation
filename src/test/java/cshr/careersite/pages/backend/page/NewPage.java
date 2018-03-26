@@ -41,15 +41,25 @@ public class NewPage extends PageObject {
     public WebElementFacade takeOver;
 
     @FindBy(id = "wp-content-editor-container")
-    public WebElementFacade content;
+    private WebElementFacade content;
+
+    @FindBy(className = "wp-editor-area")
+    private WebElementFacade htmlBodyForApprover;
 
     private String strTeamCheckbox = "in-rpg-%s";
 
     public void editHTMLBody(String body)
     {
-        getDriver().switchTo().frame(htmlBodyFrame);
-        typeInto(htmlBody, body);
-        getDriver().switchTo().defaultContent();
+        // The content area seems to be different for different logins.
+        if(htmlBodyForApprover.isCurrentlyVisible())
+        {
+            typeInto(htmlBodyForApprover, body);
+        }
+        else {
+            getDriver().switchTo().frame(htmlBodyFrame);
+            typeInto(htmlBody, body);
+            getDriver().switchTo().defaultContent();
+        }
     }
 
     public String getHTMLBody()

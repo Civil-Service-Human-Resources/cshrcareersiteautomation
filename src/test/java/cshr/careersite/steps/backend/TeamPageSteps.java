@@ -1,6 +1,6 @@
 package cshr.careersite.steps.backend;
 
-import cshr.careersite.Utils.RandomTestData;
+import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.teams.TeamPage;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;

@@ -80,23 +80,21 @@ public class WorkFlowsStepDefs {
 
     @When("^I edit the page and save$")
     public void iEditThePageAndSave() throws Throwable {
-        allPages.openPagesMenu();
-
-        String pageName = Serenity.sessionVariableCalled("Page Name");
-        allPages.openPage(pageName);
-        newPage.editHTMLBody("Edited content");
-        newPage.save.click();
+        pageSteps.editContent("Edited content");
     }
 
     @Then("^the content approver should see my changes$")
     public void theContentApproverShouldSeeMyChanges() throws Throwable {
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
-        allPages.openPagesMenu();
-        String pageName = Serenity.sessionVariableCalled("Page Name");
-        allPages.openPage(pageName);
-        if(newPage.takeOver.isCurrentlyVisible()) {
-            newPage.takeOver.click();
-        }
-        Assert.assertTrue(newPage.getHTMLBody().contains("Edited content"));
+        Assert.assertTrue("Page does not contain updated text",
+                pageSteps.checkIfEditedContentContainsAsUser("Edited content"));
+    }
+
+
+    @Then("^I should be able to edit the page and save$")
+    public void iShouldBeAbleToEditThePageAndSave() throws Throwable {
+        pageSteps.editContent("Edited content");
+        Assert.assertTrue("Page does not contain updated text",
+                pageSteps.checkIfEditedContentContainsAsUser( "Edited content"));
     }
 }

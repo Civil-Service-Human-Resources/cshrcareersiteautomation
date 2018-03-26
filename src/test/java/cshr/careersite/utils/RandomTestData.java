@@ -1,4 +1,4 @@
-package cshr.careersite.Utils;
+package cshr.careersite.utils;
 
 import java.util.Random;
 
