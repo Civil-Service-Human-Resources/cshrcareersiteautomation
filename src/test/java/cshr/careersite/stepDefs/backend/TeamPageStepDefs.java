@@ -120,6 +120,7 @@ public class TeamPageStepDefs {
 
         boolean team1 = true;
         boolean team2 = false;
+
         if(arg0.equals("team2"))
         {
             team1 = false;
@@ -132,7 +133,6 @@ public class TeamPageStepDefs {
 
     @Then("^I should be able to see the published page$")
     public void iShouldBeAbleToSeeThePublishedPage() throws Throwable {
-
         String pageName = Serenity.sessionVariableCalled("Page Name");
 
         allPages.openPagesMenu();

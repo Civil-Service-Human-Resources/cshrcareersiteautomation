@@ -44,9 +44,11 @@ public class PageSteps {
         allPages.openPagesMenu();
         String pageName = Serenity.sessionVariableCalled("Page Name");
         allPages.openPage(pageName);
+
         if(newPage.takeOver.isCurrentlyVisible()) {
             newPage.takeOver.click();
         }
+
         return newPage.getHTMLBody().contains(editContent);
     }
 
@@ -54,12 +56,13 @@ public class PageSteps {
     public void editContent(String editContent)
     {
         allPages.openPagesMenu();
-
         String pageName = Serenity.sessionVariableCalled("Page Name");
         allPages.openPage(pageName);
+
         if(newPage.takeOver.isCurrentlyVisible()) {
             newPage.takeOver.click();
         }
+
         newPage.editHTMLBody(editContent);
         newPage.save.click();
     }
