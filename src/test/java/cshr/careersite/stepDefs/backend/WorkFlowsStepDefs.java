@@ -31,8 +31,8 @@ public class WorkFlowsStepDefs {
     NewPage newPage;
 
 
-    @And("^I add a new page with the default template$")
-    public void iAddANewPageWithTheDefaultTemplate() throws Throwable {
+    @And("^I add a new page with the default template and submit for review$")
+    public void iAddANewPageWithTheDefaultTemplateAndSubmitForReview() throws Throwable {
         Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{"team1"}));
     }
 
@@ -76,5 +76,27 @@ public class WorkFlowsStepDefs {
     public void theContentPublisherRejectsMyRequest() throws Throwable {
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
         workflowSteps.acceptRejectWorkflow(Workflows.UNABLE_TO_COMPLETE, UserType.CONTENT_PUBLISHER);
+    }
+
+    @When("^I edit the page and save$")
+    public void iEditThePageAndSave() throws Throwable {
+        allPages.openPagesMenu();
+
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.openPage(pageName);
+        newPage.editHTMLBody("Edited content");
+        newPage.save.click();
+    }
+
+    @Then("^the content approver should see my changes$")
+    public void theContentApproverShouldSeeMyChanges() throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+        allPages.openPagesMenu();
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.openPage(pageName);
+        if(newPage.takeOver.isCurrentlyVisible()) {
+            newPage.takeOver.click();
+        }
+        Assert.assertTrue(newPage.getHTMLBody().contains("Edited content"));
     }
 }

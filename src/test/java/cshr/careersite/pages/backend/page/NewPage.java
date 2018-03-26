@@ -34,6 +34,15 @@ public class NewPage extends PageObject {
     @FindBy(id = "publish")
     public WebElementFacade publish;
 
+    @FindBy(id = "save-post")
+    public WebElementFacade save;
+
+    @FindBy(xpath = "//a[text()='Take over']")
+    public WebElementFacade takeOver;
+
+    @FindBy(id = "wp-content-editor-container")
+    public WebElementFacade content;
+
     private String strTeamCheckbox = "in-rpg-%s";
 
     public void editHTMLBody(String body)
@@ -41,6 +50,13 @@ public class NewPage extends PageObject {
         getDriver().switchTo().frame(htmlBodyFrame);
         typeInto(htmlBody, body);
         getDriver().switchTo().defaultContent();
+    }
+
+    public String getHTMLBody()
+    {
+        waitABit(2000);
+
+        return content.getText();
     }
 
     public void selectTeam(String teamName)
