@@ -50,7 +50,7 @@ public class WorkFlowsStepDefs {
 
     @Then("^the page is published$")
     public void thePageIsPublished() throws Throwable {
-        Assert.assertTrue("Page was not published" ,workflowSteps.isPagePublished());
+        Assert.assertTrue("Page was not published - " + Serenity.sessionVariableCalled("Page Name")  ,workflowSteps.isPagePublished());
     }
 
     @When("^the content approver rejects author's request with comments$")
@@ -80,32 +80,34 @@ public class WorkFlowsStepDefs {
 
     @When("^I edit the page and save$")
     public void iEditThePageAndSave() throws Throwable {
-        pageSteps.editContent("Edited content");
+        pageSteps.editContent("Author edited content");
     }
 
     @Then("^the content approver should see my changes$")
     public void theContentApproverShouldSeeMyChanges() throws Throwable {
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
         Assert.assertTrue("Page does not contain updated text",
-                pageSteps.checkIfEditedContentContainsAsUser("Edited content"));
+                pageSteps.checkIfEditedContentContainsAsUser("Author edited content"));
     }
 
 
     @Then("^I should be able to edit the page and save$")
     public void iShouldBeAbleToEditThePageAndSave() throws Throwable {
-        pageSteps.editContent("Edited content");
+        pageSteps.editContent("Approver edited content");
         Assert.assertTrue("Page does not contain updated text",
-                pageSteps.checkIfEditedContentContainsAsUser( "Edited content"));
+                pageSteps.checkIfEditedContentContainsAsUser( "Approver edited content"));
     }
 
     @And("^I should be able to edit the page and publish$")
     public void iShouldBeAbleToEditThePageAndPublish() throws Throwable {
-        pageSteps.editContent("Edited content");
+        pageSteps.editContent("Publisher edited content");
         workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
     }
 
     @Then("^the edited page is published$")
     public void theEditedPageIsPublished() throws Throwable {
+        Assert.assertTrue("Page does not contain updated text",
+                pageSteps.checkIfEditedContentContainsAsUser( "Publisher edited content"));
         Assert.assertTrue("Page was not published" ,workflowSteps.isPagePublished());
     }
 }
