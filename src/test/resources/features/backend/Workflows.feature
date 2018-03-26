@@ -27,12 +27,14 @@ Feature: Workflows
     And I add a new page with the default template and submit for review
     When I edit the page and save
     Then the content approver should see my changes
+    And I should see the content author changes in the revision history
 
   Scenario: Approver edits submitted content
     Given I am logged in as a contentauthor
     And I add a new page with the default template and submit for review
     When I am logged in as a contentapprover
     Then I should be able to edit the page and save
+    And I should see the content approver changes in the revision history
 
   Scenario: Publisher edits submitted content before publishing
     Given I am logged in as a contentauthor
@@ -41,6 +43,7 @@ Feature: Workflows
     When I am logged in as a contentpublisher
     And I should be able to edit the page and publish
     Then the edited page is published
+    And I should see the content publisher changes in the revision history
 
   Scenario: Workflows history
 

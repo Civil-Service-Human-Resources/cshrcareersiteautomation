@@ -110,4 +110,25 @@ public class WorkFlowsStepDefs {
                 pageSteps.checkIfEditedContentContainsAsUser( "Publisher edited content"));
         Assert.assertTrue("Page was not published" ,workflowSteps.isPagePublished());
     }
+
+    @And("^I should see the (.*) changes in the revision history$")
+    public void iShouldSeeTheContentAuthorChangesInTheRevisionHistory(String userType) throws Throwable {
+        String changedContentContains = "";
+
+        if(userType.contains("author"))
+        {
+            changedContentContains = "author";
+        }
+        else if(userType.contains("approver"))
+        {
+            changedContentContains = "approver";
+        }
+        else if(userType.contains("publisher"))
+        {
+            changedContentContains = "publisher";
+        }
+
+        Assert.assertTrue("Revision history does not contain changed author or added line details",
+                pageSteps.checkRevisionHistory(userType, changedContentContains));
+    }
 }

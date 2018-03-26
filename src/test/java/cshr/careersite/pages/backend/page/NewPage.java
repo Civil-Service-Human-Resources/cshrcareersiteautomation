@@ -46,6 +46,9 @@ public class NewPage extends PageObject {
     @FindBy(className = "wp-editor-area")
     private WebElementFacade htmlBodyForApprover;
 
+    @FindBy(css = "[class='misc-pub-section misc-pub-revisions'] a")
+    public WebElementFacade browseRevisions;
+
     private String strTeamCheckbox = "in-rpg-%s";
 
     public void editHTMLBody(String body)
