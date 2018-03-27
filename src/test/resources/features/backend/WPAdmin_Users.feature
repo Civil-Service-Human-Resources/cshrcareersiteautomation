@@ -14,6 +14,14 @@ Feature: WP admin - create/amend users
     Then the user is not created
 
   @users
+  Scenario: Admin should not be able to remove the default team
+    Given I am logged in as a techadmin
+    And I create a new user
+    And I navigate to edit user page
+    When I try to remove the default team associated with the user
+    Then the user is not updated
+
+  @users
   Scenario: Reassign role for a user
     Given I am logged in as a contentadmin
     And I create a new user

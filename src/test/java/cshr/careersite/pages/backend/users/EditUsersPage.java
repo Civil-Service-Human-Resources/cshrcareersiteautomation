@@ -17,4 +17,7 @@ public class EditUsersPage extends PageObject {
 
     @FindBy(id = "content_team-team2")
     public  WebElementFacade defaultTeam2;
+
+    @FindBy(id = "content_team-team1")
+    public  WebElementFacade defaultTeam1;
 }

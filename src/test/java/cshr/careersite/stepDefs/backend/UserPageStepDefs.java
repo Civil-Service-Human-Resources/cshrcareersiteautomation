@@ -4,6 +4,7 @@ import cshr.careersite.pages.backend.users.AllUsersPage;
 import cshr.careersite.pages.backend.users.EditUsersPage;
 import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.backend.UserSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -135,5 +136,22 @@ public class UserPageStepDefs {
     public void theUserIsNotCreated() throws Throwable {
         Assert.assertFalse("User Creation was successful when it should be unsuccessful", userSteps.createNewUser(false, false));
 
+    }
+
+    @When("^I try to remove the default team associated with the user$")
+    public void iTryToRemoveTheDefaultTeamAssociatedWithTheUser() throws Throwable {
+        String currentUserName = Serenity.sessionVariableCalled("User Name");
+        allUsersPage.clickUserNameLink(currentUserName);
+        editUsersPage.defaultTeam1.click();
+        editUsersPage.updateUser.click();
+    }
+
+    @Then("^the user is not updated$")
+    public void theUserIsNotUpdated() throws Throwable {
+        userSteps.openAllUsersPage();
+        String currentUserName = Serenity.sessionVariableCalled("User Name");
+
+        Assert.assertTrue("The user is not assigned to team1",
+                allUsersPage.getGroupsForParticularUserName(currentUserName).contains("Team1"));
     }
 }
