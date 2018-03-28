@@ -1,5 +1,6 @@
 package cshr.careersite.stepDefs.backend;
 
+import cshr.careersite.model.PublishActionType;
 import cshr.careersite.model.UserType;
 import cshr.careersite.model.Workflows;
 import cshr.careersite.pages.backend.page.AllPages;
@@ -33,7 +34,7 @@ public class WorkFlowsStepDefs {
 
     @And("^I add a new page with the default template and submit for review$")
     public void iAddANewPageWithTheDefaultTemplateAndSubmitForReview() throws Throwable {
-        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{"team1"}));
+        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{"team1"}, PublishActionType.PUBLISH));
     }
 
     @When("^the content approver approves my request$")
@@ -69,7 +70,7 @@ public class WorkFlowsStepDefs {
         Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Draft"));
 
         allPages.openPage(pageName);
-        Assert.assertTrue(newPage.submitWorkflowButton.isCurrentlyVisible());
+        Assert.assertTrue("Author can't resubmit page - " + pageName,newPage.submitWorkflowButton.isCurrentlyVisible());
     }
 
     @When("^the content publisher rejects my request$")
@@ -130,5 +131,45 @@ public class WorkFlowsStepDefs {
 
         Assert.assertTrue("Revision history does not contain changed author or added line details",
                 pageSteps.checkRevisionHistory(userType, changedContentContains));
+    }
+
+    @And("^get a page published$")
+    public void getAPagePublished() throws Throwable {
+        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{"team1"}, PublishActionType.PUBLISH));
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.ACCEPT, UserType.CONTENT_APPROVER);
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
+        Assert.assertTrue("Page was not published - " + Serenity.sessionVariableCalled("Page Name")  ,workflowSteps.isPagePublished());
+
+    }
+
+    @When("^I request to unpublish as content approver$")
+    public void iRequestToUnpublishAsContentApprover() throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+        pageSteps.resubmitPageWithAction(PublishActionType.UNPUBLISH);
+    }
+
+    @Then("^the page is unpublished$")
+    public void thePageIsUnpublished() throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
+
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_AUTHOR.getValue());
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Draft"));
+
+    }
+
+    @And("^I add a page with delete action and submit the workflow$")
+    public void iAddAPageWithDeleteActionAndSubmitTheWorkflow() throws Throwable {
+        Assert.assertTrue("Page not created", pageSteps.addRandomPage(new String[]{"team1"}, PublishActionType.DELETE));
+
+    }
+
+    @Then("^the page is deleted$")
+    public void thePageIsDeleted() throws Throwable {
+        Assert.assertFalse("Page was not deleted - " + Serenity.sessionVariableCalled("Page Name")  ,workflowSteps.isPagePublished());
+
     }
 }

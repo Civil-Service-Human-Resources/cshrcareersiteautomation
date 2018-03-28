@@ -1,5 +1,6 @@
 package cshr.careersite.pages.backend.page;
 
+import cshr.careersite.model.PublishActionType;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
@@ -51,6 +52,8 @@ public class NewPage extends PageObject {
 
     private String strTeamCheckbox = "in-rpg-%s";
 
+    private String pageActions = "input[type='radio'][value='%s']";
+
     public void editHTMLBody(String body)
     {
         // The content area seems to be different for different logins.
@@ -75,5 +78,12 @@ public class NewPage extends PageObject {
     public void selectTeam(String teamName)
     {
         element(By.id(String.format(strTeamCheckbox, teamName.toLowerCase()))).click();
+    }
+
+    public void selectPageAction(PublishActionType actionName)
+    {
+        WebElementFacade pageAction = element(By.cssSelector(String.format(pageActions, actionName.getValue())));
+        waitFor(pageAction);
+        pageAction.click();
     }
 }

@@ -49,13 +49,26 @@ Feature: Workflows
 
   Scenario: Workflows history
 
-  Scenario: Unpublish
+  #Blocked - Defect 866
+  #Scenario: Unpublish
+    #Given I am logged in as a contentauthor
+    #And get a page published
+    #When I request to unpublish as content approver
+    #Then the page is unpublished
+
 
   Scenario: Revise
 
-  Scenario: Delete Pages - Only Approver + Publisher?
+  Scenario: Delete Pages
+    Given I am logged in as a contentauthor
+    And I add a page with delete action and submit the workflow
+    And the content approver approves my request
+    And the content publisher approves my request
+    Then the page is deleted
 
   Scenario: Abort workflow
+
+  Scenario: What should happen when two approvers are selected?
 
   Scenario: E2E user, group, role test
 

@@ -1,5 +1,6 @@
 package cshr.careersite.steps.backend;
 
+import cshr.careersite.model.PublishActionType;
 import cshr.careersite.model.UserType;
 import cshr.careersite.pages.backend.page.RevisionHistoryPage;
 import cshr.careersite.utils.RandomTestData;
@@ -20,7 +21,7 @@ public class PageSteps {
     private RevisionHistoryPage revisionHistoryPage;
 
     @Step
-    public boolean addRandomPage(String[] teamNames)
+    public boolean addRandomPage(String[] teamNames, PublishActionType publishActionType)
     {
         RandomTestData testData = new RandomTestData();
         String pageName = "test_" + testData.getRandomString(7);
@@ -31,6 +32,7 @@ public class PageSteps {
         }
 
         newPage.typeInto(newPage.pageName,  pageName);
+        newPage.selectPageAction(publishActionType);
         //newPage.editHTMLBody(pageName);
         newPage.submitWorkflowButton.click();
         reusableComponentsPage.selectActor("Content Approver 1");
@@ -82,5 +84,21 @@ public class PageSteps {
 
         return revisionHistoryPage.authorName.getText().replaceAll("\\s", "").toLowerCase().contains(whoChangedContent) &&
                 revisionHistoryPage.addedLine.getText().contains(content);
+    }
+
+    @Step
+    public void resubmitPageWithAction(PublishActionType actionType)
+    {
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.openPagesMenu();
+        allPages.openPage(pageName);
+
+        if(newPage.takeOver.isCurrentlyVisible()) {
+            newPage.takeOver.click();
+        }
+
+        newPage.selectPageAction(actionType);
+        newPage.submitWorkflowButton.click();
+
     }
 }

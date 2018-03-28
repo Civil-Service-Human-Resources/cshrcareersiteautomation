@@ -1,5 +1,6 @@
 package cshr.careersite.stepDefs.backend;
 
+import cshr.careersite.model.PublishActionType;
 import cshr.careersite.model.UserType;
 import cshr.careersite.model.Workflows;
 import cshr.careersite.pages.backend.page.AllPages;
@@ -102,7 +103,7 @@ public class TeamPageStepDefs {
 
     @And("^I add a new page with the default template and assigned to (.*)$")
     public void iAddANewPageWithTheDefaultTemplateAndAssignedToTeam(String arg0) throws Throwable {
-        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{arg0}));
+        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{arg0}, PublishActionType.PUBLISH));
     }
 
     @And("^I publish the page$")
@@ -150,7 +151,8 @@ public class TeamPageStepDefs {
 
     @And("^I add a new page with the default template and assign to (.*) and (.*)$")
     public void iAddANewPageWithTheDefaultTemplateAndAssignedToTeamAndTeam(String arg0, String arg1) throws Throwable {
-        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{arg0, arg1}));
+        Assert.assertTrue("Page not created or page status is not pending", pageSteps.addRandomPage(new String[]{arg0, arg1},
+                PublishActionType.PUBLISH));
 
     }
 }
