@@ -37,7 +37,14 @@ public class PageSteps {
         newPage.submitWorkflowButton.click();
         reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.click();
-        return allPages.pageWithGivenStatusExists(pageName, "Publish");
+
+        String pageStatus = "Publish";
+
+        if(publishActionType == PublishActionType.DELETE)
+        {
+            pageStatus = "Deletion";
+        }
+        return allPages.pageWithGivenStatusExists(pageName,pageStatus);
     }
 
     @Step

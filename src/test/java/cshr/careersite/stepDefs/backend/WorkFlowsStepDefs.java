@@ -164,12 +164,12 @@ public class WorkFlowsStepDefs {
     @And("^I add a page with delete action and submit the workflow$")
     public void iAddAPageWithDeleteActionAndSubmitTheWorkflow() throws Throwable {
         Assert.assertTrue("Page not created", pageSteps.addRandomPage(new String[]{"team1"}, PublishActionType.DELETE));
-
     }
 
     @Then("^the page is deleted$")
     public void thePageIsDeleted() throws Throwable {
-        Assert.assertFalse("Page was not deleted - " + Serenity.sessionVariableCalled("Page Name")  ,workflowSteps.isPagePublished());
-
+        allPages.openPagesMenu();
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        Assert.assertFalse("Page was not deleted - " +  pageName ,allPages.pageExists(pageName));
     }
 }

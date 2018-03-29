@@ -70,7 +70,7 @@ public class NewPage extends PageObject {
 
     public String getHTMLBody()
     {
-        waitABit(2000);
+        waitABit(500);
 
         return content.getText();
     }
@@ -82,8 +82,8 @@ public class NewPage extends PageObject {
 
     public void selectPageAction(PublishActionType actionName)
     {
+        waitABit(1000);
         WebElementFacade pageAction = element(By.cssSelector(String.format(pageActions, actionName.getValue())));
-        waitFor(pageAction);
         pageAction.click();
     }
 }
