@@ -102,4 +102,11 @@ public class GlobalHooks{
     {
         loginSteps.setBaseURLFromSerenityProperties();
     }
+
+    @Before("@media")
+    public void uploadRelevantImages()
+    {
+        System.out.println("before @media");
+
+    }
 }
