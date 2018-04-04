@@ -1,13 +1,11 @@
 package cshr.careersite.stepDefs;
 
 import cshr.careersite.model.UserType;
+import cshr.careersite.pages.backend.media.MediaPage;
 import cshr.careersite.pages.backend.roles.AllRolesPage;
 import cshr.careersite.pages.backend.teams.TeamPage;
 import cshr.careersite.pages.backend.users.AllUsersPage;
-import cshr.careersite.steps.backend.LoginSteps;
-import cshr.careersite.steps.backend.RoleSteps;
-import cshr.careersite.steps.backend.TeamPageSteps;
-import cshr.careersite.steps.backend.UserSteps;
+import cshr.careersite.steps.backend.*;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -17,23 +15,28 @@ import org.junit.Assert;
 
 public class GlobalHooks{
 
-    AllRolesPage allRolesPage;
+    private AllRolesPage allRolesPage;
 
-    AllUsersPage allUsersPage;
+    private AllUsersPage allUsersPage;
 
-    TeamPage teamPage;
-
-    @Steps
-    RoleSteps roleSteps;
+    private TeamPage teamPage;
 
     @Steps
-    UserSteps usersSteps;
+    private RoleSteps roleSteps;
 
     @Steps
-    TeamPageSteps teamPageSteps;
+    private UserSteps usersSteps;
 
     @Steps
-    LoginSteps loginSteps;
+    private TeamPageSteps teamPageSteps;
+
+    @Steps
+    private LoginSteps loginSteps;
+
+    @Steps
+    private MediaSteps mediaSteps;
+
+    private MediaPage mediaPage;
 
 
     /*@Before
@@ -107,6 +110,7 @@ public class GlobalHooks{
     public void uploadRelevantImages()
     {
         System.out.println("before @media");
-
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
+        mediaSteps.addMediaRequiredForTests();
     }
 }

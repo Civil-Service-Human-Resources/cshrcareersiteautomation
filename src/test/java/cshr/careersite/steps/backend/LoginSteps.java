@@ -50,7 +50,11 @@ public class LoginSteps {
             username = "ContentPublisher1";
             password = "VmN0ZgqpNCkP!n0Xfrz$w$Cg";
         }
-
+        else if(defaultUserName.equals("contentsnippets"))
+        {
+            username = "ContentSnippets1";
+            password = "Cj92zbI4nVLFsmWvC85aR1Uy";
+        }
         openLoginPage();
         careerSiteLoginPage.login(username, password);
     }

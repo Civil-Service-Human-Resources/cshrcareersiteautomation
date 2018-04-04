@@ -10,7 +10,7 @@ public class GenericStepDefs {
     @Steps
     LoginSteps loginSteps;
 
-    @Given("^I am logged in as a (techadmin|contentadmin|contentauthor|contentapprover|contentpublisher)")
+    @Given("^I am logged in as a (techadmin|contentadmin|contentauthor|contentapprover|contentpublisher|contentsnippets)")
     public void iAmLoggedInAsATechadmin(String admin) throws Throwable {
        loginSteps.logoutAndLoginWithDifferentCredentials(admin);
 

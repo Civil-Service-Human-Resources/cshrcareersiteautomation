@@ -7,6 +7,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Assert;
 
 public class MediaStepDefs {
     private MediaPage mediaPage;
@@ -21,14 +22,34 @@ public class MediaStepDefs {
 
     @When("^I upload media$")
     public void iUploadMedia() throws Throwable {
-        mediaSteps.openAddNew();
         mediaSteps.addSampleMedia();
-
     }
 
-    @Then("^the media is uploaded$")
-    public void theMediaIsUploaded() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    @Then("^I see media assigned to team(\\d+)$")
+    public void iSeeMediaAssignedToTeam(int arg0) throws Throwable {
+       if(arg0 == 1)
+       {
+           Assert.assertTrue(mediaPage.checkIfMediaExists("team1"));
+           Assert.assertTrue(mediaPage.checkIfMediaExists("team1and2"));
+       }
+
+        if(arg0 == 2)
+        {
+            Assert.assertTrue(mediaPage.checkIfMediaExists("team1and2"));
+            Assert.assertTrue(mediaPage.checkIfMediaExists("team2"));
+        }
+    }
+
+    @And("^I do not see media assigned to team(\\d+)$")
+    public void iDoNotSeeMediaAssignedToTeam(int arg0) throws Throwable {
+        if(arg0 == 2)
+        {
+            Assert.assertFalse(mediaPage.checkIfMediaExists("team2"));
+        }
+
+        if(arg0 == 1)
+        {
+            Assert.assertFalse(mediaPage.checkIfMediaExists("team1"));
+        }
     }
 }
