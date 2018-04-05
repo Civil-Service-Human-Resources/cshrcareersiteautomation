@@ -29,7 +29,16 @@ Feature: Media
     Then the <file_name> of type <media_type> is uploaded
     And I can delete media of type <media_type> and file name <file_name>
     Examples:
-      |media_type    |file_name               |
+      |media_type    |file_name         |
       | mp4         | testmp4.mp4       |
       | gif         | testgif.gif       |
-    
+
+    Scenario Outline: Max sizes for images and videos
+      Given I am logged in as a techadmin
+      When I try to upload <media_type> of name <file_name> of greater than max size of <file_size> configured
+      Then an error message <error> is shown
+      And the <media_type> of name <file_name> is not uploaded
+      Examples:
+      |media_type |file_name             |file_size | error|
+      |image      |testimagemax.jpg       |450 kb    | too large|
+      |video      |testmp4max.mp4        |12 mb     | exceeds the maximum|

@@ -1,6 +1,7 @@
 package cshr.careersite.steps.backend;
 
 import cshr.careersite.pages.backend.media.MediaPage;
+import cshr.careersite.stepDefs.backend.MediaStepDefs;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
 
@@ -68,5 +69,12 @@ public class MediaSteps {
         mediaPage.delete();
         mediaPage.waitFor(mediaPage.addMedia);
         return mediaPage.checkIfMediaExists(mediaName);
+    }
+
+    public boolean uploadMedia(String fileName) {
+        mediaPage.openAllMediaPage();
+        String baseDir = System.getProperty("user.dir").toString();
+        return addMediaByFileName(baseDir + "/src/test/resources/" + fileName);
+
     }
 }

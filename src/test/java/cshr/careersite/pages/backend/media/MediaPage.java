@@ -47,6 +47,9 @@ public class MediaPage extends PageObject {
     @FindBy(css = "[class='button-link delete-attachment']")
     public WebElementFacade deletePermanently;
 
+    @FindBy(className = "upload-error-message")
+    public WebElementFacade uploadErrorMessage;
+
     public boolean uploadMedia(String fileName)
     {
         selectFiles.waitUntilVisible();
@@ -56,7 +59,13 @@ public class MediaPage extends PageObject {
         if(!checkIfMediaExists(fileNameWithoutExt)) {
 
             getDriver().findElement(By.xpath("//input[starts-with(@id,'html5_')]")).sendKeys(fileName);
+            if(uploadErrorMessage.getText().contains("too large") || uploadErrorMessage.getText().contains("exceeds"))
+            {
+                return false;
+            }
+
             withTimeoutOf(30, SECONDS).elementIsCurrentlyVisible(By.id("title"));
+
             return true;
         }
 

@@ -55,10 +55,7 @@ public class MediaStepDefs {
 
     @When("^I upload media of type (.*) and (.*)$")
     public void iUploadMediaOfTypeMedia_typeAndFile_name(String arg0, String arg1) throws Throwable {
-        mediaPage.openAllMediaPage();
-        String baseDir = System.getProperty("user.dir").toString();
-        boolean addMedia = mediaSteps.addMediaByFileName(baseDir + "/src/test/resources/" + arg1);
-
+        boolean addMedia = mediaSteps.uploadMedia(arg1);
         if(addMedia)
         {
             mediaPage.selectTeam(false, true);
@@ -75,5 +72,21 @@ public class MediaStepDefs {
     public void iCanDeleteMediaOfTypeMedia_typeAndFile_name(String arg0, String arg1) throws Throwable {
 
         Assert.assertFalse(mediaSteps.deleteMedia(arg1.split("\\.")[0]));
+    }
+
+    @When("^I try to upload (.*) of name (.*) of greater than max size of (.*) configured$")
+    public void iTryToUploadMedia_typeOfGreaterThanMaxSizeOfFile_sizeConfigured(String arg0, String arg1, String arg2) throws Throwable {
+        mediaSteps.uploadMedia(arg1);
+    }
+
+    @Then("^an error message (.*) is shown$")
+    public void anErrorMessageIsShown(String arg0) throws Throwable {
+        Assert.assertTrue(mediaPage.uploadErrorMessage.getText().contains(arg0));
+    }
+
+    @And("^the (.*) of name (.*) is not uploaded$")
+    public void theMedia_typeOfNameFile_nameIsNotUploaded(String arg0, String arg1) throws Throwable {
+        mediaPage.openAllMediaPage();
+        Assert.assertFalse(mediaPage.checkIfMediaExists(arg1.split("\\.")[0]));
     }
 }
