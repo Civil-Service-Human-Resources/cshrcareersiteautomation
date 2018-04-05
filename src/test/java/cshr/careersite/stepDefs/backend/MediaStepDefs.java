@@ -52,4 +52,28 @@ public class MediaStepDefs {
             Assert.assertFalse(mediaPage.checkIfMediaExists("team1"));
         }
     }
+
+    @When("^I upload media of type (.*) and (.*)$")
+    public void iUploadMediaOfTypeMedia_typeAndFile_name(String arg0, String arg1) throws Throwable {
+        mediaPage.openAllMediaPage();
+        String baseDir = System.getProperty("user.dir").toString();
+        boolean addMedia = mediaSteps.addMediaByFileName(baseDir + "/src/test/resources/" + arg1);
+
+        if(addMedia)
+        {
+            mediaPage.selectTeam(false, true);
+        }
+    }
+
+    @Then("^the (.*) of type (.*) is uploaded$")
+    public void theFile_nameOfTypeMedia_typeIsUploaded(String arg0, String arg1) throws Throwable {
+        mediaPage.openAllMediaPage();
+        Assert.assertTrue(mediaPage.checkIfMediaExists(arg1));
+    }
+
+    @And("^I can delete media of type (.*) and file name (.*)$")
+    public void iCanDeleteMediaOfTypeMedia_typeAndFile_name(String arg0, String arg1) throws Throwable {
+
+        Assert.assertFalse(mediaSteps.deleteMedia(arg1.split("\\.")[0]));
+    }
 }

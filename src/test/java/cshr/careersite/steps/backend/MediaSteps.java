@@ -6,19 +6,12 @@ import org.junit.Assert;
 
 public class MediaSteps {
 
-    MediaPage mediaPage;
-
-    @Step
-    public void openAddNew()
-    {
-        mediaPage.addMedia.click();
-        mediaPage.selectFiles.waitUntilVisible();
-    }
+    private MediaPage mediaPage;
 
     @Step
     public void addSampleMedia()
     {
-        openAddNew();
+        mediaPage.openAddNew();
         String baseDir = System.getProperty("user.dir").toString();
         addMediaByFileName(baseDir + "/src/test/resources/team1.png");
 
@@ -26,7 +19,7 @@ public class MediaSteps {
 
     public boolean addMediaByFileName(String fileNameWholePath)
     {
-        openAddNew();
+        mediaPage.openAddNew();
         return mediaPage.uploadMedia(fileNameWholePath);
     }
 
@@ -67,6 +60,13 @@ public class MediaSteps {
 
         Assert.assertTrue(mediaPage.checkIfMediaExists("team1and2"));
 
+    }
 
+    public boolean deleteMedia(String mediaName) {
+        mediaPage.openAllMediaPage();
+        mediaPage.selectMediaByName(mediaName);
+        mediaPage.delete();
+        mediaPage.waitFor(mediaPage.addMedia);
+        return mediaPage.checkIfMediaExists(mediaName);
     }
 }

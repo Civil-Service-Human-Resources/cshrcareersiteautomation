@@ -2,7 +2,9 @@ package cshr.careersite.pages.backend.media;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -31,19 +33,19 @@ public class MediaPage extends PageObject {
     public WebElementFacade inputFileName;
 
     @FindBy(css = "button[id='__wp-uploader-id-1']")
-    public WebElementFacade selectFiles;
+    private WebElementFacade selectFiles;
 
     @FindBys({@FindBy(css = "li[class='attachment save-ready']"),})
-    public List<WebElementFacade> mediaList;
+    private List<WebElementFacade> mediaList;
 
     @FindBy(className = "no-media")
-    public WebElementFacade noMedia;
+    private WebElementFacade noMedia;
 
     @FindBy(css = "input[name='save'][value='Update']")
-    public WebElementFacade update;
+    private WebElementFacade update;
 
-    @FindBy(id = "__wp-uploader-id-0")
-    public WebElementFacade attachmentPage;
+    @FindBy(css = "[class='button-link delete-attachment']")
+    public WebElementFacade deletePermanently;
 
     public boolean uploadMedia(String fileName)
     {
@@ -91,5 +93,32 @@ public class MediaPage extends PageObject {
         }
         update.waitUntilVisible();
         update.sendKeys(Keys.ENTER);
+    }
+
+    public void openAddNew()
+    {
+        addMedia.click();
+        withTimeoutOf(15, SECONDS).elementIsCurrentlyVisible(By.cssSelector("button[id='__wp-uploader-id-1']"));
+    }
+
+    public void selectMediaByName(String mediaName)
+    {
+        if(!noMedia.isCurrentlyVisible()) {
+            for (WebElement w : mediaList) {
+                if (w.getAttribute("aria-label").toLowerCase().contains(mediaName.toLowerCase())) {
+                    w.click();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void delete()
+    {
+        withTimeoutOf(15, SECONDS).elementIsCurrentlyVisible(By.cssSelector("[class='button-link delete-attachment']"));
+        deletePermanently.click();
+
+        Alert alert = getDriver().switchTo().alert();
+        alert.accept();
     }
 }
