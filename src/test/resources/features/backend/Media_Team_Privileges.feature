@@ -14,12 +14,13 @@ Feature: Media
     Then I see media assigned to team1
     And I see media assigned to team2
 
-  @media
-  Scenario:  Content admin can see all images irrespective of teams assigned to the user
-    Given I am logged in as a contentadmin
-    When I navigate to the media page
-    Then I see media assigned to team1
-    And I see media assigned to team2
+  #Will be enabled after this has been implemented
+  # @media
+  #Scenario:  Content admin can see all images irrespective of teams assigned to the user
+    #Given I am logged in as a contentadmin
+    #When I navigate to the media page
+    #Then I see media assigned to team1
+    #And I see media assigned to team2
 
   Scenario Outline: Only accepted file types allowed in the media centre are jpg, jpeg, png, gif, svg, mp4 and delete media
     # Jpeg and png uploads already tested in @media before hook
@@ -31,5 +32,4 @@ Feature: Media
       |media_type    |file_name               |
       | mp4         | testmp4.mp4       |
       | gif         | testgif.gif       |
-
-    Scenario: Test max size
+    
