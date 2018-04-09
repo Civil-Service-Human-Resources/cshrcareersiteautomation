@@ -11,9 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.8.1</serenity.version>
-        <serenity.maven.version>1.8.1</serenity.maven.version>
-        <serenity.cucumber.version>1.6.5</serenity.cucumber.version>
+        <serenity.version>1.9.4</serenity.version>
+        <serenity.maven.version>1.9.4</serenity.maven.version>
+        <serenity.cucumber.version>1.9.4</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <webdriver.base.url>https://careers-site.test.cshr-gov.uk/</webdriver.base.url>
         <parallel.tests>4</parallel.tests>

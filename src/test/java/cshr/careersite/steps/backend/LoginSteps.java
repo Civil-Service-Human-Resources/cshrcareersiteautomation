@@ -62,7 +62,7 @@ public class LoginSteps {
     @Step
     public boolean isLoggedinUserNameCorrect(String username)
     {
-        return careerSiteHomePage.loggedInAs.getText().replaceAll("\\s","").contains(username);
+        return careerSiteHomePage.loggedInAs.getText().toLowerCase().replaceAll("\\s","").contains(username.toLowerCase());
     }
 
     private void openLoginPage()

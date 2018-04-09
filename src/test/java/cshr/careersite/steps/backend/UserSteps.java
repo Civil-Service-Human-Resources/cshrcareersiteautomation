@@ -34,6 +34,7 @@ public class UserSteps {
         addNewUserPage.typeInto(addNewUserPage.lastName, userName);
         addNewUserPage.showPasswordButton.click();
         addNewUserPage.typeInto(addNewUserPage.editPassword, password);
+        addNewUserPage.typeInto(addNewUserPage.editPassword, password);
         addNewUserPage.confirmPassword.click();
 
         if(addTeam1) {

@@ -11,6 +11,7 @@ public class AddNewUserPage extends PageObject{
     {
         String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
         getDriver().navigate().to(url + "/user-new.php");
+        getDriver().navigate().refresh();
     }
 
     @FindBy(id = "user_login")

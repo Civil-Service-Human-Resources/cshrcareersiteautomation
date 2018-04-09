@@ -17,6 +17,7 @@ public class AllRolesPage extends PageObject {
     {
         String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
         getDriver().navigate().to(url + "/users.php?page=roles");
+        getDriver().navigate().refresh();
     }
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped roles']//tr/td[@data-colname='Role Name']/strong/a")

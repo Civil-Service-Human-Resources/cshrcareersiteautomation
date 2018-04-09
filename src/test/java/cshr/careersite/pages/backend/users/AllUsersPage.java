@@ -24,6 +24,9 @@ public class AllUsersPage extends PageObject {
     @FindBy(className = "edit")
     WebElementFacade editButton;
 
+    @FindBy(id="user-search-input")
+    WebElementFacade searchUserBox;
+
     private String userTableRow = "//table[@class='wp-list-table widefat fixed striped users']//tr[contains(.,'%s')]";
 
     private String userNameTd = "//table[@class='wp-list-table widefat fixed striped users']//td[contains(.,'%s')]";
@@ -41,10 +44,12 @@ public class AllUsersPage extends PageObject {
 
     public void clickUserNameLink(String username)
     {
+        searchUser(username);
         element(By.xpath(String.format(userNameLink, username))).click();
     }
 
     public void deleteUser(String username) {
+        searchUser(username);
         withAction().
                 moveToElement(element(By.xpath(String.format(userNameTd, username)))).
                 moveToElement(element(By.xpath(String.format(deleteByUserName, username)))).
@@ -64,11 +69,13 @@ public class AllUsersPage extends PageObject {
 
     public String getRolesForParticularUserName(String username)
     {
+        searchUser(username);
         return element(By.xpath(String.format(selectRoleByUserName, username))).getText();
     }
 
     public String getGroupsForParticularUserName(String username)
     {
+        searchUser(username);
         return element(By.xpath(String.format(selectGroupsByUserName, username))).getText();
     }
 
@@ -80,5 +87,13 @@ public class AllUsersPage extends PageObject {
         }
 
         return temp.contains(username);
+    }
+
+    private void searchUser(String username)
+    {
+        searchUserBox.typeAndEnter(username);
+        element(By.linkText(username)).waitUntilPresent();
+        waitFor(500);
+
     }
 }

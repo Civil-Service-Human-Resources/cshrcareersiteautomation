@@ -10,8 +10,16 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import net.serenitybdd.core.Serenity;
+import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.annotations.ManagedPages;
 import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.pages.Pages;
 import org.junit.Assert;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
+
+import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class GlobalHooks{
 
@@ -70,6 +78,7 @@ public class GlobalHooks{
         roleSteps.openAllRolesPage();
         String roleName = Serenity.sessionVariableCalled("Role Name");
         allRolesPage.deleteRole(roleName);
+        roleSteps.openAllRolesPage();
         Assert.assertFalse(allRolesPage.checkIfRoleNameExists(roleName));
     }
 
@@ -85,6 +94,7 @@ public class GlobalHooks{
         String userName = Serenity.sessionVariableCalled("User Name");
         System.out.println(userName);
         usersSteps.deleteUser(userName);
+        usersSteps.openAllUsersPage();
         Assert.assertFalse(allUsersPage.checkIfUserNameExists(userName));
     }
 
@@ -99,11 +109,20 @@ public class GlobalHooks{
         teamPage.deleteTeamByName(teamName);
         Assert.assertFalse(teamPage.checkIfTeamNameExists(teamName));
     }
+    @ManagedPages
+    private Pages pages1;
 
     @Before
     public void setBaseUrlFromSerenityProp()
     {
+
         loginSteps.setBaseURLFromSerenityProperties();
+
+        if(!pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("chrome"))
+        {
+            getDriver().manage().window().maximize();
+        }
+
     }
 
     @Before("@media")
