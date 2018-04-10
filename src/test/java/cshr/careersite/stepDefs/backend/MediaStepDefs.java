@@ -74,7 +74,7 @@ public class MediaStepDefs {
         Assert.assertFalse(mediaSteps.deleteMedia(arg1.split("\\.")[0]));
     }
 
-    @When("^I try to upload (.*) of name (.*) of greater than max size of (.*) configured$")
+    @When("^I try to upload (.*) of name (.*) and greater than max size of (.*) configured$")
     public void iTryToUploadMedia_typeOfGreaterThanMaxSizeOfFile_sizeConfigured(String arg0, String arg1, String arg2) throws Throwable {
         mediaSteps.uploadMedia(arg1);
     }

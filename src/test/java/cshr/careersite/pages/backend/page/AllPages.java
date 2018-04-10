@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllPages extends PageObject {
+
     PaginationPage paginationPage;
 
     public void openPagesMenu()
@@ -40,21 +41,11 @@ public class AllPages extends PageObject {
     public List<WebElement> pageTitle;
 
 
-    /*public boolean pageWithGivenStatusExists(String pageName, String pageStatus)
-    {
-        WebElementFacade pageNameStatus = element(String.format(strPageNameStatus, pageName));
-
-        return pageNameStatus.isCurrentlyVisible() && pageNameStatus.getText().toLowerCase().contains(pageStatus.toLowerCase());
-
-    }*/
-
     public boolean isPagePublished(String pageName)
     {
         List<PageTableColumns> temp = getRowDetails();
 
         return temp.stream().filter(o -> o.getPageTitle().contains(pageName) && o.getDateStatus().toLowerCase().contains("published")).findFirst().isPresent();
-
-
         //return element(String.format(strPublished, pageName)).isCurrentlyVisible();
     }
 
@@ -83,9 +74,11 @@ public class AllPages extends PageObject {
                 temp.add(G.getText().split(" - ")[0]);
 
             }
+
             paginationPage.goToNextPage();
 
         }
+
         return temp;
     }
 

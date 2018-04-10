@@ -2,7 +2,6 @@ package cshr.careersite.model;
 
 public class PageTableColumns {
 
-
     private String pageTitle;
     private String pageStatus;
     private String pageAuthor;
@@ -57,6 +56,4 @@ public class PageTableColumns {
     public void setTeamList(String teamList) {
         this.teamList = teamList;
     }
-
-
 }

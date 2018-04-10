@@ -35,7 +35,7 @@ Feature: Media
 
   Scenario Outline: Max sizes for images and videos
     Given I am logged in as a techadmin
-    When I try to upload <media_type> of name <file_name> of greater than max size of <file_size> configured
+    When I try to upload <media_type> of name <file_name> and greater than max size of <file_size> configured
     Then an error message <error> is shown
     And the <media_type> of name <file_name> is not uploaded
     Examples:

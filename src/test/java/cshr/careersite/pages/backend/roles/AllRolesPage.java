@@ -31,6 +31,7 @@ public class AllRolesPage extends PageObject {
 
     public boolean checkIfRoleNameExists(String rolename) {
         List<String> temp = new ArrayList<String>();
+
         for (WebElement G : roleNames) {
             temp.add(G.getText());
 

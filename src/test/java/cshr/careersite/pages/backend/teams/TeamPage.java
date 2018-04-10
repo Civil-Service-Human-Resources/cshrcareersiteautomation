@@ -61,6 +61,7 @@ public class TeamPage extends PageObject{
 
     public boolean checkIfTeamNameExists(String teamName) {
         List<String> temp = new ArrayList<String>();
+
         for (WebElement G : teamNames) {
             temp.add(G.getText().replace("— ", ""));
 
@@ -78,5 +79,4 @@ public class TeamPage extends PageObject{
     {
         return element(String.format(teamTableRow, teamName)).isCurrentlyVisible();
     }
-
 }

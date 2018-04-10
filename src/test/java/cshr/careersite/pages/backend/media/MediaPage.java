@@ -76,7 +76,9 @@ public class MediaPage extends PageObject {
     {
 
         if(!noMedia.isCurrentlyVisible()) {
+
             for (WebElement w : mediaList) {
+
                 if (w.getAttribute("aria-label").toLowerCase().contains(fileName.toLowerCase())) {
                     return true;
                 }
@@ -84,7 +86,6 @@ public class MediaPage extends PageObject {
         }
 
         return false;
-
     }
 
     public void selectTeam(boolean Team1, boolean Team2)
@@ -113,7 +114,9 @@ public class MediaPage extends PageObject {
     public void selectMediaByName(String mediaName)
     {
         if(!noMedia.isCurrentlyVisible()) {
+
             for (WebElement w : mediaList) {
+
                 if (w.getAttribute("aria-label").toLowerCase().contains(mediaName.toLowerCase())) {
                     w.click();
                     break;

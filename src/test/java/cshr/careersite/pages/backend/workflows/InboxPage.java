@@ -35,11 +35,6 @@ public class InboxPage extends PageObject{
                 perform();
     }
 
-    public boolean doesMessageExist(String strPageName)
-    {
-        return  element(String.format(pageName, strPageName)).isCurrentlyVisible();
-    }
-
     public void clickReassign(String strPageName)
     {
         withAction().
