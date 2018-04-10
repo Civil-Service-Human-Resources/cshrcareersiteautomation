@@ -5,6 +5,7 @@ import cshr.careersite.model.UserType;
 import cshr.careersite.model.Workflows;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
+import cshr.careersite.pages.backend.workflows.InboxPage;
 import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.backend.WorkflowSteps;
@@ -30,6 +31,8 @@ public class WorkFlowsStepDefs {
     private AllPages allPages;
 
     private NewPage newPage;
+
+    private InboxPage inboxPage;
 
 
     @And("^I add a new page with the default template and submit for review$")
@@ -69,6 +72,7 @@ public class WorkFlowsStepDefs {
         String pageName = Serenity.sessionVariableCalled("Page Name");
         Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Draft"));
 
+        allPages.openPagesMenu();
         allPages.openPage(pageName);
         Assert.assertTrue("Author can't resubmit page - " + pageName,newPage.submitWorkflowButton.isCurrentlyVisible());
     }

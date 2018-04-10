@@ -26,6 +26,7 @@ public class WorkflowSteps {
         String pageName = Serenity.sessionVariableCalled("Page Name");
 
         inboxPage.openInbox();
+        inboxPage.findPageWithMessage(pageName);
         inboxPage.clickSignOff(pageName);
 
         // If content publisher is the author then the assigned actor text is different(Used in assignActors below)
