@@ -72,7 +72,6 @@ public class WorkFlowsStepDefs {
         String pageName = Serenity.sessionVariableCalled("Page Name");
         Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Draft"));
 
-        allPages.openPagesMenu();
         allPages.openPage(pageName);
         Assert.assertTrue("Author can't resubmit page - " + pageName,newPage.submitWorkflowButton.isCurrentlyVisible());
     }

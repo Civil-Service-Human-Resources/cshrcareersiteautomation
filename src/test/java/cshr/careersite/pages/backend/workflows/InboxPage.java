@@ -4,7 +4,11 @@ import cshr.careersite.pages.backend.PaginationPage;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class InboxPage extends PageObject{
 
@@ -51,16 +55,36 @@ public class InboxPage extends PageObject{
     }
 
     public void findPageWithMessage(String strPageName) {
+        boolean breakwhile = false;
+
         while(!paginationPage.previousPageNumbers.isCurrentlyVisible())
         {
-            if(!element(String.format(inboxTableRow, strPageName)).isCurrentlyVisible())
+            List<WebElementFacade> tableRows = findAll(By.cssSelector(("[class='wp-list-table widefat fixed posts'] tr")));
+
+            for(WebElement w: tableRows)
             {
-                paginationPage.goToNextPageType2();
+               if(w.getText().contains(strPageName)) {
+                   breakwhile = true;
+                   break;
+               }
+
             }
-            else
+
+            if(breakwhile)
             {
                 break;
             }
+
+            paginationPage.goToNextPageType2();
+
+            /*if(element(String.format(inboxTableRow, strPageName)).isCurrentlyVisible())
+            {
+                break;
+            }
+            else
+            {
+                paginationPage.goToNextPageType2();
+            }*/
         }
     }
 }

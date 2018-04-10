@@ -51,7 +51,7 @@ public class AllPages extends PageObject {
 
     public boolean pageWithGivenStatusExists(String pageName, String pageStatus)
     {
-        List<String> temp = getPageTitles();
+        List<String> temp = getPageTitles("1");
 
 
         return temp.contains(pageName + " — " + pageStatus);
@@ -59,13 +59,13 @@ public class AllPages extends PageObject {
 
     public boolean pageExists(String pageName)
     {
-        List<String> temp = getPageTitles();
+        List<String> temp = getPageTitles("all");
 
 
         return temp.contains(pageName);
     }
 
-    private List<String> getPageTitles() {
+    private List<String> getPageTitles(String pageNumber) {
         List<String> temp = new ArrayList<String>();
 
         for(int i=1; i< Integer.parseInt(paginationPage.totalPages.getText()); i++)
@@ -73,6 +73,11 @@ public class AllPages extends PageObject {
             for (WebElement G : pageTitle ) {
                 temp.add(G.getText().split(" - ")[0]);
 
+            }
+
+            if(pageNumber.equals("1"))
+            {
+                break;
             }
 
             paginationPage.goToNextPage();
@@ -84,7 +89,19 @@ public class AllPages extends PageObject {
 
     public void openPage(String pageName)
     {
-        element(String.format(strPage, pageName)).click();
+        openPagesMenu();
+
+        for(int i=1; i< Integer.parseInt(paginationPage.totalPages.getText()); i++) {
+
+            if(element(String.format(strPage, pageName)).isCurrentlyVisible())
+            {
+                element(String.format(strPage, pageName)).click();
+            }
+            else
+            {
+                paginationPage.goToNextPage();
+            }
+        }
     }
 
     private List<PageTableColumns> getRowDetails()
