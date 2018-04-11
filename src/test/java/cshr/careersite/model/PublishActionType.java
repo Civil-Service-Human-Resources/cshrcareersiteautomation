@@ -4,7 +4,8 @@ public enum PublishActionType {
     PUBLISH("publish"),
     REVISE("revise"),
     DELETE("delete"),
-    UNPUBLISH("unpublish");
+    UNPUBLISH("unpublish"),
+    SAVE("save");
 
     private String value;
 

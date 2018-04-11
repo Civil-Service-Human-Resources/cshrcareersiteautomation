@@ -1,5 +1,6 @@
 package cshr.careersite.pages.backend.page;
 
+import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -85,5 +86,10 @@ public class NewPage extends PageObject {
         waitABit(1000);
         WebElementFacade pageAction = element(By.cssSelector(String.format(pageActions, actionName.getValue())));
         pageAction.click();
+    }
+
+    public void selectTemplate(PageTemplates strPageTemplate)
+    {
+        pageTemplate.selectByValue(strPageTemplate.getValue());
     }
 }
