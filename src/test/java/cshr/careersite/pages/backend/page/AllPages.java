@@ -96,6 +96,7 @@ public class AllPages extends PageObject {
             if(element(String.format(strPage, pageName)).isCurrentlyVisible())
             {
                 element(String.format(strPage, pageName)).click();
+                break;
             }
             else
             {

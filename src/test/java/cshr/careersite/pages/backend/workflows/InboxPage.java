@@ -76,15 +76,6 @@ public class InboxPage extends PageObject{
             }
 
             paginationPage.goToNextPageType2();
-
-            /*if(element(String.format(inboxTableRow, strPageName)).isCurrentlyVisible())
-            {
-                break;
-            }
-            else
-            {
-                paginationPage.goToNextPageType2();
-            }*/
         }
     }
 }
