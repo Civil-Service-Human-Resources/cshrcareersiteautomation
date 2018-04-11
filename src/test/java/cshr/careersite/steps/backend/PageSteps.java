@@ -14,6 +14,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import java.util.List;
@@ -135,24 +136,11 @@ public class PageSteps {
     public void fillFormFields(String sectionName, DataTable table)
     {
         List<List<String>> data = table.raw();
-        RandomTestData randomTestData = new RandomTestData();
 
         for(int i = 1; i < data.size(); i++)
         {
-            String fieldType = "";
-
-            if(data.get(i).get(1).equalsIgnoreCase("input"))
-            {
-                 fieldType = "input:not([type='hidden'])";
-            }
-            else if(data.get(i).get(1).equalsIgnoreCase("textarea"))
-            {
-                fieldType = "textarea";
-            }
-            else if(data.get(i).get(1).equalsIgnoreCase("image"))
-            {
-                fieldType = "[data-name = 'add']";
-            }
+            String strFieldType = data.get(i).get(1);
+            String fieldType = getCSSSelectorForGivenFieldType(strFieldType);
 
             String strSectionName = sectionName.toLowerCase().replaceAll(" ", "_");
             String strFieldName = data.get(i).get(0).toLowerCase().replaceAll(" ", "_");
@@ -162,22 +150,53 @@ public class PageSteps {
 
             WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
 
-            System.out.println(elementOnPage.getAttribute("maxLength"));
-            System.out.println(elementOnPage.getAttribute("required"));
-
-            if(!data.get(i).get(1).equalsIgnoreCase("image"))
-            {
-                String maxLength = elementOnPage.getAttribute("maxLength");
-
-                elementOnPage.type(randomTestData.getRandomString(Integer.parseInt(maxLength)));
+            if(!strFieldType.equalsIgnoreCase("image")) {
+                Assert.assertEquals("Max length is not matching",data.get(i).get(2), elementOnPage.getAttribute("maxLength"));
+                Assert.assertEquals(data.get(i).get(3), elementOnPage.getAttribute("required"));
             }
-            else if(data.get(i).get(1).equalsIgnoreCase("image"))
-            {
-                elementOnPage.click();
-                newPage.element(By.cssSelector("[class='attachments-browser'] li")).waitUntilVisible();
-                newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
-                newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
-            }
+
+            createAndEnterRandomData(elementOnPage, strFieldType);
         }
+    }
+
+    private String getCSSSelectorForGivenFieldType(String strFieldType)
+    {
+        String fieldType = "";
+
+        if(strFieldType.equalsIgnoreCase("input"))
+        {
+            fieldType = "input:not([type='hidden'])";
+        }
+        else if(strFieldType.equalsIgnoreCase("textarea"))
+        {
+            fieldType = "textarea";
+        }
+        else if(strFieldType.equalsIgnoreCase("image"))
+        {
+            fieldType = "[data-name = 'add']";
+        }
+
+        return fieldType;
+
+    }
+
+    private void createAndEnterRandomData(WebElementFacade elementOnPage, String fieldType)
+    {
+        RandomTestData randomTestData = new RandomTestData();
+
+        if(!fieldType.equalsIgnoreCase("image"))
+        {
+            String maxLength = elementOnPage.getAttribute("maxLength");
+
+            elementOnPage.type(randomTestData.getRandomString(Integer.parseInt(maxLength)));
+        }
+        else if(fieldType.equalsIgnoreCase("image"))
+        {
+            elementOnPage.click();
+            newPage.element(By.cssSelector("[class='attachments-browser'] li")).waitUntilVisible();
+            newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
+            newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
+        }
+
     }
 }
