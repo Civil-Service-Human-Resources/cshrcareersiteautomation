@@ -26,30 +26,26 @@ Feature: Department page template
       |Forename         |input         |25            |true      |
       |Surname          |input         |25            |true      |
       |Role             |input         |50            |true      |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
+    And I fill in Factoid section details in the template
+      |field_name       |field_type    |max_characters |mandatory | repeater |
+      |Fact             |input         |100            |true      | 3        |
+    And I fill in Content Block Horizontal section details in the template
+       |field_name       |field_type    |max_characters|mandatory |
+       |Image            |image         |              |true      |
+       |Quote            |textarea      |200           |true      |
+       |Forename         |input         |25            |true      |
+       |Surname          |input         |25            |true      |
+       |Role             |input         |50            |true      |
+       |Extra text       |textarea      |500           |true      |
+   
+    And I fill in Sub content section details in the template
+       |field_name       |field_type    |max_characters|mandatory |  repeater|subsection1|
+       |Heading          |input         |40            |true      |          |           |
+       |Intro            |textarea      |500           |true      |          |           |
+       |Image            |image         |              |true      | 2        | Driver    |
+       |Headline         |input         |40            |true      | 2        | Driver    |
+       |Link             |input         |              |true      | 2        | Driver    |
+       |Text             |textarea      |150           |true      | 2        | Driver    |
     And I save the page
     #Then the page is saved
     #And the departments preview page has the all the elements of the department page
