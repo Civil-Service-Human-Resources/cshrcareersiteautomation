@@ -139,6 +139,7 @@ public class PageSteps {
     {
         WebElementFacade sectionTab = newPage.element(By.xpath("//a[@class='acf-tab-button'][contains(.,'"+sectionName +"')]"));
 
+        // If heading tabs available, click on tab
         if(sectionTab.isCurrentlyVisible())
         {
            sectionTab.click();
@@ -148,12 +149,14 @@ public class PageSteps {
 
         for(int i = 1; i < data.size(); i++)
         {
+            // Get CSS string for given filed type
             String strFieldType = data.get(i).get(1);
             String fieldType = getCSSSelectorForGivenFieldType(strFieldType);
 
             String strSectionName = sectionName.toLowerCase().replaceAll(" ", "_");
             String strFieldName = data.get(i).get(0).toLowerCase().replaceAll(" ", "_");
 
+            // Create generic css selector based on section names, subsection names and field name
             String createCssSelector = String.format("[data-name='%s'] [data-name='%s'] ",strSectionName, strFieldName) + fieldType;
 
             if(data.get(0).contains("subsection"))
@@ -169,8 +172,10 @@ public class PageSteps {
 
             System.out.println(createCssSelector);
 
+            // Input random data based on type of input
             WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
 
+            // Check max length and if mandatory where available
             if(!strFieldType.equalsIgnoreCase("image") && !data.get(i).get(0).equalsIgnoreCase("link")) {
                 Assert.assertEquals("Max length is not matching",data.get(i).get(2), elementOnPage.getAttribute("maxLength"));
                 Assert.assertEquals(data.get(i).get(3), elementOnPage.getAttribute("required"));
@@ -223,6 +228,7 @@ public class PageSteps {
     {
         RandomTestData randomTestData = new RandomTestData();
         String testData = "";
+
         if(!fieldType.equalsIgnoreCase("image"))
         {
             String maxLength = elementOnPage.getAttribute("maxLength");
