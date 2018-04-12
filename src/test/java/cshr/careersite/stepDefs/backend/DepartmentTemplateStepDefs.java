@@ -1,6 +1,7 @@
 package cshr.careersite.stepDefs.backend;
 
 import cshr.careersite.model.PageTemplates;
+import cshr.careersite.model.PublishActionType;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.PageSteps;
@@ -9,6 +10,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
+import org.openqa.selenium.Keys;
 
 import javax.xml.crypto.Data;
 import java.lang.reflect.Array;
@@ -34,5 +36,25 @@ public class DepartmentTemplateStepDefs {
     @And("^I fill in (.*) section details in the template$")
     public void iFillInBillboardSectionDetailsInTheTemplate(String arg0, DataTable arg1) throws Throwable {
         pageSteps.fillFormFields(arg0, arg1);
+    }
+
+    //Temp
+    @When("^I edit the page$")
+    public void iEditThePage() throws Throwable {
+
+        allPages.openPage("test_puxhhfw");
+       // pageSteps.draftNewPageWithTemplateTeam(PageTemplates.DEPARTMENT_PAGE_TEMPLATE, new String[]{"team1"});
+
+        newPage.selectTeam("team1");
+
+        newPage.selectPageAction(PublishActionType.SAVE);
+
+        newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
+        newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
+    }
+
+    @And("^I save the page$")
+    public void iSaveThePage() throws Throwable {
+        newPage.save.sendKeys(Keys.ENTER);
     }
 }

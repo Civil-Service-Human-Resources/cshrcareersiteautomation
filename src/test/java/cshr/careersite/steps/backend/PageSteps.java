@@ -14,8 +14,10 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
@@ -135,6 +137,14 @@ public class PageSteps {
     @Step
     public void fillFormFields(String sectionName, DataTable table)
     {
+        //String section = StringUtils.capitalize(sectionName);
+        WebElementFacade sectionTab = newPage.element(By.xpath("//a[@class='acf-tab-button'][contains(.,'"+sectionName +"')]"));
+
+        if(sectionTab.isCurrentlyVisible())
+        {
+           // sectionTab.click();
+        }
+
         List<List<String>> data = table.raw();
 
         for(int i = 1; i < data.size(); i++)
@@ -192,10 +202,12 @@ public class PageSteps {
         }
         else if(fieldType.equalsIgnoreCase("image"))
         {
-            elementOnPage.click();
-            newPage.element(By.cssSelector("[class='attachments-browser'] li")).waitUntilVisible();
-            newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
-            newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
+            if(elementOnPage.isCurrentlyVisible()) {
+                elementOnPage.click();
+                newPage.element(By.cssSelector("[class='attachments-browser'] li")).waitUntilVisible();
+                newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
+                newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
+            }
         }
 
     }

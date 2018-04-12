@@ -1,8 +1,10 @@
 package cshr.careersite.model;
 
 public enum PageTemplates {
-    DEPARTMENT_PAGE_TEMPLATE("page-layout-a.php"),
-    HOME_PAGE_TEMPLATE("page-home.php");
+    DEPARTMENT_PAGE_TEMPLATE("default"),
+    HOME_PAGE_TEMPLATE("page-home.php"),
+    DEFAULT_TEMPLATE("page-hub.php");
+
 
     private String value;
 
