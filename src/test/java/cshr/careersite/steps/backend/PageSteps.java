@@ -1,5 +1,6 @@
 package cshr.careersite.steps.backend;
 
+import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.model.UserType;
@@ -10,14 +11,19 @@ import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.workflows.SubmitWorkFlowPage;
 import cucumber.api.DataTable;
+import de.svenjacobs.loremipsum.LoremIpsum;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
+import org.junit.rules.ExpectedException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -226,7 +232,8 @@ public class PageSteps {
 
     private void createAndEnterRandomData(WebElementFacade elementOnPage, String fieldType)
     {
-        RandomTestData randomTestData = new RandomTestData();
+        //RandomTestData randomTestData = new RandomTestData();
+        LoremIpsum randomTestData = new LoremIpsum();
         String testData = "";
 
         if(!fieldType.equalsIgnoreCase("image"))
@@ -239,7 +246,8 @@ public class PageSteps {
             }
             else
             {
-                testData = randomTestData.getRandomString(Integer.parseInt(maxLength));
+                //testData = randomTestData.getRandomString(Integer.parseInt(maxLength));
+                testData = randomTestData.getWords(50);
             }
             elementOnPage.type(testData);
         }
@@ -247,12 +255,75 @@ public class PageSteps {
         {
             if(elementOnPage.isCurrentlyVisible()) {
                 elementOnPage.click();
-                newPage.waitFor(2000);
-                newPage.element(By.cssSelector("[class='attachments-browser'] li")).waitUntilVisible();
+                WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 10);
+                wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class='attachments-browser'] li")));
                 newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
                 newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
             }
         }
 
     }
+
+    @Step
+    public void fillFormFields_2(List<PageTemplateObject> pageTemplateObject)
+    {
+
+        System.out.println("fillform_2");
+
+
+
+        //List<List<String>> data = table.raw();
+
+        for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
+            String[] sectionNames = aPageTemplateObject.sections_sub_sections.split(",");
+            WebElementFacade sectionTab = newPage.element(By.xpath("//a[@class='acf-tab-button'][contains(.,'" + sectionNames[0] + "')]"));
+
+            // If heading tabs available, click on tab
+            sectionTab.waitUntilEnabled();
+            if (sectionTab.isCurrentlyEnabled() && !sectionTab.findElement(By.xpath("..")).getAttribute("class").equals("active")){
+                sectionTab.sendKeys(Keys.ENTER);
+            }
+
+            // Get CSS string for given filed type
+            String strFieldType = aPageTemplateObject.field_type;
+            String fieldType = getCSSSelectorForGivenFieldType(strFieldType);
+
+            String strFieldName = aPageTemplateObject.field_name.toLowerCase().replaceAll(" ", "_");
+
+            // Create generic css selector based on section names, subsection names and field name
+            String cssSelectorSectionNames = "";
+            String strSectionName = "";
+
+            for (String sectionName : sectionNames) {
+                strSectionName = sectionName.toLowerCase().replaceAll(" ", "_");
+                cssSelectorSectionNames = cssSelectorSectionNames.concat(String.format("[data-name='%s'] ", strSectionName));
+            }
+
+            String createCssSelector = cssSelectorSectionNames + String.format("[data-name ='%s'] ", strFieldName)+ fieldType;
+
+            System.out.println(createCssSelector);
+
+            // Input random data based on type of input
+            WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
+
+            // Check max length and if mandatory where available
+            if (!strFieldType.equalsIgnoreCase("image") && !aPageTemplateObject.field_name.equalsIgnoreCase("link")) {
+               // Assert.assertEquals("Max length is not matching", aPageTemplateObject.max_characters, elementOnPage.getAttribute("maxLength"));
+                Assert.assertEquals(aPageTemplateObject.mandatory.toString(), elementOnPage.getAttribute("required"));
+            }
+
+
+            if (!aPageTemplateObject.repeater.equals("")) {
+                List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
+
+                for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater); x++) {
+                    createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
+                }
+            } else {
+                createAndEnterRandomData(elementOnPage, strFieldType);
+            }
+        }
+
+    }
+
 }

@@ -1,5 +1,6 @@
 package cshr.careersite.stepDefs.backend;
 
+import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.pages.backend.page.AllPages;
@@ -14,6 +15,7 @@ import org.openqa.selenium.Keys;
 
 import javax.xml.crypto.Data;
 import java.lang.reflect.Array;
+import java.util.List;
 
 public class DepartmentTemplateStepDefs {
 
@@ -40,14 +42,13 @@ public class DepartmentTemplateStepDefs {
 
     //Temp
     @When("^I edit the page$")
-    public void iEditThePage() throws Throwable {
+    public void  iEditThePage() throws Throwable {
 
-        allPages.openPage("test_puxhhfw");
-       // pageSteps.draftNewPageWithTemplateTeam(PageTemplates.DEPARTMENT_PAGE_TEMPLATE, new String[]{"team1"});
+        allPages.openPage("test");
 
-        newPage.selectTeam("team1");
+        //newPage.selectTeam("team1");
 
-        newPage.selectPageAction(PublishActionType.SAVE);
+        //newPage.selectPageAction(PublishActionType.SAVE);
 
         newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
         newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
@@ -56,5 +57,11 @@ public class DepartmentTemplateStepDefs {
     @And("^I save the page$")
     public void iSaveThePage() throws Throwable {
         newPage.save.sendKeys(Keys.ENTER);
+    }
+
+    @And("^I fill in the form template$")
+    public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
+        pageSteps.fillFormFields_2(pageTemplateObject);
+
     }
 }

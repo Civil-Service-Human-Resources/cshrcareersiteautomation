@@ -100,6 +100,12 @@
             <artifactId>cucumber-jvm-parallel-plugin</artifactId>
             <version>1.3.0</version>
         </dependency>
+        <dependency>
+            <groupId>de.sven-jacobs</groupId>
+            <artifactId>loremipsum</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
