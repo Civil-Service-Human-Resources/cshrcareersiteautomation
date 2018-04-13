@@ -44,11 +44,11 @@ public class DepartmentTemplateStepDefs {
     @When("^I edit the page$")
     public void  iEditThePage() throws Throwable {
 
-        allPages.openPage("test");
+        allPages.openPage("test_april13");
 
         //newPage.selectTeam("team1");
 
-        //newPage.selectPageAction(PublishActionType.SAVE);
+        newPage.selectPageAction(PublishActionType.SAVE);
 
         newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
         newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);

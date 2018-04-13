@@ -65,7 +65,6 @@ public class PageSteps {
         }
 
         newPage.typeInto(newPage.pageName,  pageName);
-        // To be re-enabled ******
         newPage.selectPageAction(publishActionType);
 
         return pageName;
