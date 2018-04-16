@@ -38,11 +38,6 @@ public class DepartmentTemplateStepDefs {
         pageSteps.draftNewPageWithTemplateTeam(PageTemplates.DEPARTMENT_PAGE_TEMPLATE, new String[]{arg0});
     }
 
-    @And("^I fill in (.*) section details in the template$")
-    public void iFillInBillboardSectionDetailsInTheTemplate(String arg0, DataTable arg1) throws Throwable {
-        pageSteps.fillFormFields(arg0, arg1);
-    }
-
     //Temp
     @When("^I edit the page$")
     public void  iEditThePage() throws Throwable {
