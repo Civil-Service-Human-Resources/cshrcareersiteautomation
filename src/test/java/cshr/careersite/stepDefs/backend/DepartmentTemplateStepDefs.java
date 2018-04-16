@@ -6,10 +6,13 @@ import cshr.careersite.model.PublishActionType;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.PageSteps;
+import cshr.careersite.steps.frontend.DepartmentPageSteps;
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.Keys;
 
@@ -24,6 +27,9 @@ public class DepartmentTemplateStepDefs {
 
     @Steps
     PageSteps pageSteps;
+
+    @Steps
+    DepartmentPageSteps departmentPageSteps;
 
     @And("^I navigate to pages menu$")
     public void iNavigateToPagesMenu() throws Throwable {
@@ -48,7 +54,7 @@ public class DepartmentTemplateStepDefs {
 
         //newPage.selectTeam("team1");
 
-        newPage.selectPageAction(PublishActionType.SAVE);
+//        newPage.selectPageAction(PublishActionType.SAVE);
 
         newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
         newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
@@ -61,7 +67,15 @@ public class DepartmentTemplateStepDefs {
 
     @And("^I fill in the form template$")
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
-        pageSteps.fillFormFields_2(pageTemplateObject);
+        Serenity.setSessionVariable("Department Page table").to(pageTemplateObject);
+        //pageSteps.fillFormFields_2(pageTemplateObject);
 
+    }
+
+    @Then("^the departments preview page has the all the elements of the department page$")
+    public void theDepartmentsPreviewPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
+        String pageLink = newPage.previewLink.getAttribute("href");
+        newPage.getDriver().navigate().to(pageLink);
+        departmentPageSteps.checkFrontEnd();
     }
 }

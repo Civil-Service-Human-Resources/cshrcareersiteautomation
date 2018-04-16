@@ -87,6 +87,5 @@ Feature: Department page template
     |Sub content,Driver         |Headline         |input         |40            |true      | 2          |
     |Sub content,Driver         |Link             |input         |              |true      | 2          |
     |Sub content,Driver         |Text             |textarea      |150           |true      | 2          |
-    And I save the page
-    #Then the page is saved
-    #And the departments preview page has the all the elements of the department page
+    #And I save the page
+    Then the departments preview page has the all the elements of the department page

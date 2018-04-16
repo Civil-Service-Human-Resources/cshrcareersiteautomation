@@ -55,6 +55,9 @@ public class NewPage extends PageObject {
 
     private String pageActions = "input[type='radio'][value='%s']";
 
+    @FindBy(css = "#sample-permalink a")
+    public WebElementFacade previewLink;
+
     public void editHTMLBody(String body)
     {
         // The content area seems to be different for different logins.
@@ -92,4 +95,5 @@ public class NewPage extends PageObject {
     {
         pageTemplate.selectByValue(strPageTemplate.getValue());
     }
+
 }

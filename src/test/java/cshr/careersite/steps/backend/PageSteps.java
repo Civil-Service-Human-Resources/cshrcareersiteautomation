@@ -4,6 +4,7 @@ import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.model.UserType;
+import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.pages.backend.page.RevisionHistoryPage;
 import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
@@ -25,6 +26,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class PageSteps {
@@ -35,6 +37,8 @@ public class PageSteps {
     private ReusableComponentsPage reusableComponentsPage;
     private LoginSteps loginSteps;
     private RevisionHistoryPage revisionHistoryPage;
+    private DepartmentTemplatePage departmentTemplatePage;
+
 
     @Step
     public boolean addRandomPage(String[] teamNames, PublishActionType publishActionType)
@@ -246,7 +250,7 @@ public class PageSteps {
             else
             {
                 //testData = randomTestData.getRandomString(Integer.parseInt(maxLength));
-                testData = randomTestData.getWords(50);
+                testData = randomTestData.getWords(75);
             }
             elementOnPage.type(testData);
         }
@@ -266,12 +270,7 @@ public class PageSteps {
     @Step
     public void fillFormFields_2(List<PageTemplateObject> pageTemplateObject)
     {
-
         System.out.println("fillform_2");
-
-
-
-        //List<List<String>> data = table.raw();
 
         for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
             String[] sectionNames = aPageTemplateObject.sections_sub_sections.split(",");
@@ -325,4 +324,47 @@ public class PageSteps {
 
     }
 
+
+  /*  @Step
+    public void fillFormFields_3(List<PageTemplateObject> pageTemplateObject)
+    {
+        System.out.println("fillform_3");
+
+        for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
+
+            departmentTemplatePage.selectTab(aPageTemplateObject.sections_sub_sections);
+
+
+            String strFieldName = aPageTemplateObject.sections_sub_sections.toLowerCase().concat(
+                    aPageTemplateObject.field_name.replaceAll(" ", ""));
+
+            try {
+                Field pageObjectField = departmentTemplatePage.getClass().getDeclaredField(strFieldName);
+                pageObjectField.
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            // Input random data based on type of input
+            WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
+
+            // Check max length and if mandatory where available
+            if (!strFieldType.equalsIgnoreCase("image") && !aPageTemplateObject.field_name.equalsIgnoreCase("link")) {
+                // Assert.assertEquals("Max length is not matching", aPageTemplateObject.max_characters, elementOnPage.getAttribute("maxLength"));
+                Assert.assertEquals(aPageTemplateObject.mandatory.toString(), elementOnPage.getAttribute("required"));
+            }
+
+
+            if (!aPageTemplateObject.repeater.equals("")) {
+                List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
+
+                for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater); x++) {
+                    createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
+                }
+            } else {
+                createAndEnterRandomData(elementOnPage, strFieldType);
+            }
+        }
+
+    }
+*/
 }
