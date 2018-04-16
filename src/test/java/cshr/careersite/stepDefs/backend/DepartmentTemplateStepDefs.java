@@ -8,7 +8,6 @@ import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.frontend.DepartmentPageSteps;
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,8 +15,6 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.Keys;
 
-import javax.xml.crypto.Data;
-import java.lang.reflect.Array;
 import java.util.List;
 
 public class DepartmentTemplateStepDefs {
@@ -54,7 +51,7 @@ public class DepartmentTemplateStepDefs {
 
         //newPage.selectTeam("team1");
 
-//        newPage.selectPageAction(PublishActionType.SAVE);
+        newPage.selectPageAction(PublishActionType.SAVE);
 
         newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
         newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
@@ -68,14 +65,14 @@ public class DepartmentTemplateStepDefs {
     @And("^I fill in the form template$")
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
         Serenity.setSessionVariable("Department Page table").to(pageTemplateObject);
-        //pageSteps.fillFormFields_2(pageTemplateObject);
+        pageSteps.fillFormFields(pageTemplateObject);
 
     }
 
-    @Then("^the departments preview page has the all the elements of the department page$")
+    @Then("^the departments preview page has all the elements as defined in the table above$")
     public void theDepartmentsPreviewPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
         String pageLink = newPage.previewLink.getAttribute("href");
         newPage.getDriver().navigate().to(pageLink);
-        departmentPageSteps.checkFrontEnd();
+        departmentPageSteps.checkDepartmentPageFrontEnd();
     }
 }

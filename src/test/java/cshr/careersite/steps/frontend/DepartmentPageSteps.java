@@ -17,7 +17,7 @@ public class DepartmentPageSteps {
     DepartmentPage departmentPage;
 
     @Step
-    public void checkFrontEnd()
+    public void checkDepartmentPageFrontEnd()
     {
         List<PageTemplateObject> pageTemplateObjects = Serenity.sessionVariableCalled("Department Page table");
 
@@ -96,9 +96,35 @@ public class DepartmentPageSteps {
         temp = getStringToCompare("Content Block Horizontal", "Extra text", pageTemplateObjects);
         Assert.assertEquals(temp.trim(), departmentPage.contentBlockHorizontalExtraText.getText());
 
+        // Sub content
+        temp = getStringToCompare("Sub content", "Heading", pageTemplateObjects);
+        //Assert.assertEquals(temp.trim(), departmentPage.subContentHeading.getText());
+
+        temp = getStringToCompare("Sub content", "Intro", pageTemplateObjects);
+        Assert.assertEquals(temp.trim(), departmentPage.subContentIntro.getText());
 
 
+        // Driver 2
+        Assert.assertTrue(departmentPage.subContentImage1.getAttribute("src").contains("/wp-content/uploads"));
 
+        temp = getStringToCompare("Sub content,Driver", "Headline", pageTemplateObjects);
+        Assert.assertEquals(temp.trim(), departmentPage.subContentHeadline1.getText());
+
+        Assert.assertEquals("http://sample/test", departmentPage.subContentLink1.getAttribute("href"));
+
+        temp = getStringToCompare("Sub content,Driver", "Text", pageTemplateObjects);
+        Assert.assertEquals(temp.trim(), departmentPage.subContentText1.getText());
+
+        // Driver 2
+        Assert.assertTrue(departmentPage.subContentImage2.getAttribute("src").contains("/wp-content/uploads"));
+
+        temp = getStringToCompare("Sub content,Driver", "Headline", pageTemplateObjects);
+        Assert.assertEquals(temp.trim(), departmentPage.subContentHeadline2.getText());
+
+        Assert.assertEquals("http://sample/test", departmentPage.subContentLink2.getAttribute("href"));
+
+        temp = getStringToCompare("Sub content,Driver", "Text", pageTemplateObjects);
+        Assert.assertEquals(temp.trim(), departmentPage.subContentText2.getText());
     }
 
     private String getStringToCompare(String section, String fieldName, List<PageTemplateObject> pageTemplateObjects)
@@ -111,6 +137,4 @@ public class DepartmentPageSteps {
         return testData.substring(0, Integer.parseInt(pageTemplateObject.get().max_characters));
 
     }
-
-
 }

@@ -79,10 +79,10 @@ public class DepartmentPage extends PageObject {
     @FindBy( css = "[class='content-two-col'] [class='content-two-col__first'] img")
     public WebElementFacade subContentImage1;
 
-    @FindBy(css ="class='content-two-col'] [class='content-two-col__first'] h3")
+    @FindBy(css ="[class='content-two-col'] [class='content-two-col__first'] h3")
     public WebElementFacade subContentHeadline1;
 
-    @FindBy(css ="class='content-two-col'] [class='content-two-col__first'] a")
+    @FindBy(css ="[class='content-two-col'] [class='content-two-col__first'] a")
     public WebElementFacade subContentLink1;
 
     @FindBy( css = "[class='content-two-col'] [class='content-two-col__first'] p")
@@ -92,10 +92,10 @@ public class DepartmentPage extends PageObject {
     @FindBy( css = "[class='content-two-col'] [class='content-two-col__last'] img")
     public WebElementFacade subContentImage2;
 
-    @FindBy(css ="class='content-two-col'] [class='content-two-col__last'] h3")
+    @FindBy(css ="[class='content-two-col'] [class='content-two-col__last'] h3")
     public WebElementFacade subContentHeadline2;
 
-    @FindBy(css ="class='content-two-col'] [class='content-two-col__last'] a")
+    @FindBy(css ="[class='content-two-col'] [class='content-two-col__last'] a")
     public WebElementFacade subContentLink2;
 
     @FindBy( css = "[class='content-two-col'] [class='content-two-col__last'] p")

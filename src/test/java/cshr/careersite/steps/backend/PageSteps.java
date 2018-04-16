@@ -143,75 +143,6 @@ public class PageSteps {
         newPage.selectTemplate(templateName);
     }
 
-    @Step
-    public void fillFormFields(String sectionName, DataTable table)
-    {
-        WebElementFacade sectionTab = newPage.element(By.xpath("//a[@class='acf-tab-button'][contains(.,'"+sectionName +"')]"));
-
-        // If heading tabs available, click on tab
-        if(sectionTab.isCurrentlyVisible())
-        {
-           sectionTab.click();
-        }
-
-        List<List<String>> data = table.raw();
-
-        for(int i = 1; i < data.size(); i++)
-        {
-            // Get CSS string for given filed type
-            String strFieldType = data.get(i).get(1);
-            String fieldType = getCSSSelectorForGivenFieldType(strFieldType);
-
-            String strSectionName = sectionName.toLowerCase().replaceAll(" ", "_");
-            String strFieldName = data.get(i).get(0).toLowerCase().replaceAll(" ", "_");
-
-            // Create generic css selector based on section names, subsection names and field name
-            String createCssSelector = String.format("[data-name='%s'] [data-name='%s'] ",strSectionName, strFieldName) + fieldType;
-
-            if(data.get(0).contains("subsection"))
-            {
-                if(data.get(i).get(5) != null)
-                {
-                    String strSubSection1 = data.get(i).get(5).toLowerCase().replaceAll(" ", "_");
-
-                    createCssSelector = String.format("[data-name='%s'] [data-name='%s'] [data-name='%s'] ",strSectionName, strSubSection1,strFieldName) + fieldType;
-
-                }
-            }
-
-            System.out.println(createCssSelector);
-
-            // Input random data based on type of input
-            WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
-
-            // Check max length and if mandatory where available
-            if(!strFieldType.equalsIgnoreCase("image") && !data.get(i).get(0).equalsIgnoreCase("link")) {
-                Assert.assertEquals("Max length is not matching",data.get(i).get(2), elementOnPage.getAttribute("maxLength"));
-                Assert.assertEquals(data.get(i).get(3), elementOnPage.getAttribute("required"));
-            }
-
-            if(data.get(0).contains("repeater"))
-            {
-                if(!data.get(i).get(4).equals(""))
-                {
-                    List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
-
-                    for(int x = 0; x < Integer.parseInt(data.get(i).get(4)) ; x++)
-                    {
-                        createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
-                    }
-                }
-                else
-                {
-                    createAndEnterRandomData(elementOnPage, strFieldType);
-                }
-            }
-            else {
-                createAndEnterRandomData(elementOnPage, strFieldType);
-            }
-        }
-    }
-
     private String getCSSSelectorForGivenFieldType(String strFieldType)
     {
         String fieldType = "";
@@ -235,7 +166,6 @@ public class PageSteps {
 
     private void createAndEnterRandomData(WebElementFacade elementOnPage, String fieldType)
     {
-        //RandomTestData randomTestData = new RandomTestData();
         LoremIpsum randomTestData = new LoremIpsum();
         String testData = "";
 
@@ -249,8 +179,7 @@ public class PageSteps {
             }
             else
             {
-                //testData = randomTestData.getRandomString(Integer.parseInt(maxLength));
-                testData = randomTestData.getWords(75);
+                testData = randomTestData.getWords(100).substring(0,Integer.parseInt(maxLength));
             }
             elementOnPage.type(testData);
         }
@@ -268,10 +197,8 @@ public class PageSteps {
     }
 
     @Step
-    public void fillFormFields_2(List<PageTemplateObject> pageTemplateObject)
+    public void fillFormFields(List<PageTemplateObject> pageTemplateObject)
     {
-        System.out.println("fillform_2");
-
         for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
             String[] sectionNames = aPageTemplateObject.sections_sub_sections.split(",");
             WebElementFacade sectionTab = newPage.element(By.xpath("//a[@class='acf-tab-button'][contains(.,'" + sectionNames[0] + "')]"));
@@ -306,10 +233,8 @@ public class PageSteps {
 
             // Check max length and if mandatory where available
             if (!strFieldType.equalsIgnoreCase("image") && !aPageTemplateObject.field_name.equalsIgnoreCase("link")) {
-               // Assert.assertEquals("Max length is not matching", aPageTemplateObject.max_characters, elementOnPage.getAttribute("maxLength"));
                 Assert.assertEquals(aPageTemplateObject.mandatory.toString(), elementOnPage.getAttribute("required"));
             }
-
 
             if (!aPageTemplateObject.repeater.equals("")) {
                 List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
