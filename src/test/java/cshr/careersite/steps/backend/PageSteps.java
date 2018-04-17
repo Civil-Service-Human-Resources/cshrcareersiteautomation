@@ -3,30 +3,23 @@ package cshr.careersite.steps.backend;
 import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
-import cshr.careersite.model.UserType;
-import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
-import cshr.careersite.pages.backend.page.RevisionHistoryPage;
-import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
 import cshr.careersite.pages.backend.page.AllPages;
+import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.pages.backend.page.NewPage;
+import cshr.careersite.pages.backend.page.RevisionHistoryPage;
 import cshr.careersite.pages.backend.workflows.SubmitWorkFlowPage;
-import cucumber.api.DataTable;
+import cshr.careersite.utils.RandomTestData;
 import de.svenjacobs.loremipsum.LoremIpsum;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
-import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
-import org.junit.rules.ExpectedException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class PageSteps {
@@ -232,69 +225,52 @@ public class PageSteps {
             WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
 
             // Check max length and if mandatory where available
-            if (!strFieldType.equalsIgnoreCase("image") && !aPageTemplateObject.field_name.equalsIgnoreCase("link")) {
-                Assert.assertEquals(aPageTemplateObject.mandatory.toString(), elementOnPage.getAttribute("required"));
-            }
-
-            if (!aPageTemplateObject.repeater.equals("")) {
-                List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
-
-                for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater); x++) {
-                    createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
+            if (!strFieldType.equalsIgnoreCase("image") && (!aPageTemplateObject.field_name.equalsIgnoreCase("link")||
+                    !elementOnPage.getAttribute("type").contains("link"))) {
+                if(elementOnPage.getAttribute("required") != null) {
+                    Assert.assertEquals(aPageTemplateObject.mandatory.toString(), elementOnPage.getAttribute("required"));
                 }
-            } else {
-                createAndEnterRandomData(elementOnPage, strFieldType);
             }
+
+            if(!aPageTemplateObject.repeater.equals(null))
+            {
+                if (!aPageTemplateObject.repeater.equals(""))
+                {
+                    List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
+
+                    for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater); x++) {
+                        createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
+                    }
+                }
+                else
+                {
+                    createAndEnterRandomData(elementOnPage, strFieldType);
+                }
+            }
+            else
+            {
+                    createAndEnterRandomData(elementOnPage, strFieldType);
+            }
+
         }
 
     }
 
-/*
-
-     @Step
-    public void fillFormFields_3(List<PageTemplateObject> pageTemplateObject)
+    public void openPage()
     {
-        System.out.println("fillform_3");
-
-        for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
-
-            departmentTemplatePage.selectTab(aPageTemplateObject.sections_sub_sections);
-
-
-            String strFieldName = aPageTemplateObject.sections_sub_sections.toLowerCase().concat(
-                    aPageTemplateObject.field_name.replaceAll(" ", ""));
-
-            try {
-                Field pageObjectField = departmentTemplatePage.getClass().getDeclaredField(strFieldName);
-                WebElementFacade elementFacade = pageObjectField.get(departmentTemplatePage);
-
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-            // Input random data based on type of input
-           */
-/* WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
-
-            // Check max length and if mandatory where available
-            if (!strFieldType.equalsIgnoreCase("image") && !aPageTemplateObject.field_name.equalsIgnoreCase("link")) {
-                // Assert.assertEquals("Max length is not matching", aPageTemplateObject.max_characters, elementOnPage.getAttribute("maxLength"));
-                Assert.assertEquals(aPageTemplateObject.mandatory.toString(), elementOnPage.getAttribute("required"));
-            }
-
-
-            if (!aPageTemplateObject.repeater.equals("")) {
-                List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
-
-                for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater); x++) {
-                    createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
-                }
-            } else {
-                createAndEnterRandomData(elementOnPage, strFieldType);
-            }*//*
-
-        }
-
+        allPages.openPagesMenu();
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.openPage(pageName);
     }
-*/
+
+    @Step
+    public void sendSavedDraftToApproval()
+    {
+        openPage();
+        newPage.selectPageAction(PublishActionType.PUBLISH);
+        newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
+        reusableComponentsPage.selectActor("Content Approver 1");
+        submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
+    }
 
 }

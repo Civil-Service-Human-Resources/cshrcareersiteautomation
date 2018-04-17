@@ -112,7 +112,14 @@ public class AllPages extends PageObject {
         List<WebElement> pageRows;
         List<PageTableColumns> pageTableColumnsArray = new ArrayList<>();
 
-        for(int i=1; i< Integer.parseInt(paginationPage.totalPages.getText()); i++)
+        Integer totalPages = 2;
+
+        if(paginationPage.totalPages.isCurrentlyVisible())
+        {
+            totalPages = Integer.parseInt(paginationPage.totalPages.getText());
+        }
+
+        for(int i=1; i< totalPages; i++)
         {
             pageRows = getDriver().findElements(By.xpath("//table[@class='wp-list-table widefat fixed striped pages']//tr"));
 
@@ -120,19 +127,26 @@ public class AllPages extends PageObject {
             for (WebElement G : pageRows.subList(1, pageRows.size()) ) {
 
                 List<WebElement> temp = G.findElements(By.tagName("td"));
+                String pageStatus = "";
+                    if(!temp.get(0).getText().contains("Select All")) {
+                        String pageTitle = temp.get(0).getText().split(" — ")[0];
 
-                if(temp.get(0).getText().split(" — ").length > 1) {
-                    String pageTitle = temp.get(0).getText().split(" — ")[0];
-                    String pageStatus = temp.get(0).getText().split(" — ")[1];
-                    String pageAuthor = temp.get(1).getText();
-                    String teamList = temp.get(3).getText();
-                    String dateStatus =temp.get(2).getText().split("\n")[0];
+                        if (temp.get(0).getText().split(" — ").length > 1) {
+                            pageStatus = temp.get(0).getText().split(" — ")[1];
+                        }
+                        String pageAuthor = temp.get(2).getText();
+                        String teamList = temp.get(4).getText();
+                        String dateStatus = temp.get(3).getText().split("\n")[0];
 
-                    PageTableColumns pageTableColumns = new PageTableColumns(pageTitle, pageStatus, pageAuthor, dateStatus, teamList);
+                        if (pageTitle.equals("Helo")) {
+                            System.out.println(pageTitle);
+                        }
+                        PageTableColumns pageTableColumns = new PageTableColumns(pageTitle, pageStatus, pageAuthor, dateStatus, teamList);
+                        System.out.println(pageTitle);
+                        pageTableColumnsArray.add(pageTableColumns);
+                    }
 
-                    pageTableColumnsArray.add(pageTableColumns);
 
-                }
             }
 
             paginationPage.goToNextPage();

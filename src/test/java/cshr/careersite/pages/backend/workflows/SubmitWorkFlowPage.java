@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 public class SubmitWorkFlowPage extends PageObject{
 
-    @FindBy(id = "submitSave")
+    @FindBy(css = "[class = 'simplemodal-wrap'] #submitSave")
     public WebElementFacade submit;
 
 }

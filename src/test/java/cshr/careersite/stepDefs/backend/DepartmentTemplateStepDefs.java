@@ -7,12 +7,14 @@ import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.frontend.DepartmentPageSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 import java.util.List;
@@ -22,6 +24,9 @@ public class DepartmentTemplateStepDefs {
     AllPages allPages;
 
     NewPage newPage;
+
+    @Steps
+    TeamPageStepDefs teamPageStepDefs;
 
     @Steps
     PageSteps pageSteps;
@@ -34,9 +39,16 @@ public class DepartmentTemplateStepDefs {
         allPages.openPagesMenu();
     }
 
-    @When("^I add a page with the department page template and assigned to (.*)$")
-    public void iAddAPageWithTheDepartmentPageTemplateAndAssignedToTeam(String arg0) throws Throwable {
-        pageSteps.draftNewPageWithTemplateTeam(PageTemplates.DEPARTMENT_PAGE_TEMPLATE, new String[]{arg0});
+    @When("^I add a page with the (.*) page template and assigned to (.*)$")
+    public void iAddAPageWithTheDepartmentPageTemplateAndAssignedToTeam(String arg0, String arg1) throws Throwable {
+        PageTemplates templateName = PageTemplates.DEPARTMENT_PAGE_TEMPLATE;
+
+        if(arg0.contains("home"))
+        {
+            templateName = PageTemplates.HOME_PAGE_TEMPLATE;
+        }
+
+        pageSteps.draftNewPageWithTemplateTeam(templateName, new String[]{arg1});
     }
 
     @And("^I save the page$")
@@ -59,17 +71,22 @@ public class DepartmentTemplateStepDefs {
     }
 
     //Temp
-    @When("^I edit the page$")
-    public void  iEditThePage() throws Throwable {
+    @When("^I edit the (.*) page$")
+    public void  iEditThePage(String arg0) throws Throwable {
 
-        allPages.openPage("test_april13");
+        PageTemplates templateName = PageTemplates.DEPARTMENT_PAGE_TEMPLATE;
+        if(arg0.contains("home"))
+            templateName = PageTemplates.HOME_PAGE_TEMPLATE;
+
+        String pageName = "test_ozlshva";
+        Serenity.setSessionVariable("Page Name").to(pageName);
+        allPages.openPage(pageName);
 
         //newPage.selectTeam("team1");
 
         newPage.selectPageAction(PublishActionType.SAVE);
 
-        newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
-        newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
+        newPage.selectTemplate(templateName);
     }
 
     @Given("^I have the below data table$")
@@ -96,8 +113,19 @@ public class DepartmentTemplateStepDefs {
             }
             System.out.print(";"+"\n\n");
         }
-
     }
 
+
+    @And("^I send the page for approval$")
+    public void iSendThePageForApproval() throws Throwable {
+        pageSteps.sendSavedDraftToApproval();
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Publish"));
+    }
+
+    @When("^the publisher publishes the page$")
+    public void thePublisherPublishesThePage() throws Throwable {
+        teamPageStepDefs.iPublishThePage();
+    }
 
 }
