@@ -249,8 +249,9 @@ public class PageSteps {
 
     }
 
+/*
 
-  /*  @Step
+     @Step
     public void fillFormFields_3(List<PageTemplateObject> pageTemplateObject)
     {
         System.out.println("fillform_3");
@@ -265,12 +266,14 @@ public class PageSteps {
 
             try {
                 Field pageObjectField = departmentTemplatePage.getClass().getDeclaredField(strFieldName);
-                pageObjectField.
+                WebElementFacade elementFacade = pageObjectField.get(departmentTemplatePage);
+
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             }
             // Input random data based on type of input
-            WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
+           */
+/* WebElementFacade elementOnPage = newPage.element(By.cssSelector(createCssSelector));
 
             // Check max length and if mandatory where available
             if (!strFieldType.equalsIgnoreCase("image") && !aPageTemplateObject.field_name.equalsIgnoreCase("link")) {
@@ -287,9 +290,11 @@ public class PageSteps {
                 }
             } else {
                 createAndEnterRandomData(elementOnPage, strFieldType);
-            }
+            }*//*
+
         }
 
     }
 */
+
 }

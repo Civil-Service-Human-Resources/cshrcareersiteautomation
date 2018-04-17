@@ -8,6 +8,7 @@ import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.frontend.DepartmentPageSteps;
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -38,20 +39,6 @@ public class DepartmentTemplateStepDefs {
         pageSteps.draftNewPageWithTemplateTeam(PageTemplates.DEPARTMENT_PAGE_TEMPLATE, new String[]{arg0});
     }
 
-    //Temp
-    @When("^I edit the page$")
-    public void  iEditThePage() throws Throwable {
-
-        allPages.openPage("test_april13");
-
-        //newPage.selectTeam("team1");
-
-        newPage.selectPageAction(PublishActionType.SAVE);
-
-        newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
-        newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
-    }
-
     @And("^I save the page$")
     public void iSaveThePage() throws Throwable {
         newPage.save.sendKeys(Keys.ENTER);
@@ -69,5 +56,26 @@ public class DepartmentTemplateStepDefs {
         String pageLink = newPage.previewLink.getAttribute("href");
         newPage.getDriver().navigate().to(pageLink);
         departmentPageSteps.checkDepartmentPageFrontEnd();
+    }
+
+    //Temp
+    @When("^I edit the page$")
+    public void  iEditThePage() throws Throwable {
+
+        allPages.openPage("test_april13");
+
+        //newPage.selectTeam("team1");
+
+        newPage.selectPageAction(PublishActionType.SAVE);
+
+        newPage.selectTemplate(PageTemplates.HOME_PAGE_TEMPLATE);
+        newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
+    }
+
+    @And("^I fill in the department form template$")
+    public void iFillInTheDepartmentFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
+        Serenity.setSessionVariable("Department Page table").to(pageTemplateObject);
+        //pageSteps.fillFormFields_3(pageTemplateObject);
+
     }
 }
