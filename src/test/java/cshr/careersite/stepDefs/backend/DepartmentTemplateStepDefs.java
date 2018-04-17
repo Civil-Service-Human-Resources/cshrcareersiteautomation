@@ -7,9 +7,8 @@ import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.frontend.DepartmentPageSteps;
-import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
@@ -21,6 +20,7 @@ import java.util.List;
 public class DepartmentTemplateStepDefs {
 
     AllPages allPages;
+
     NewPage newPage;
 
     @Steps
@@ -72,10 +72,32 @@ public class DepartmentTemplateStepDefs {
         newPage.selectTemplate(PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
     }
 
-    @And("^I fill in the department form template$")
-    public void iFillInTheDepartmentFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
-        Serenity.setSessionVariable("Department Page table").to(pageTemplateObject);
-        //pageSteps.fillFormFields_3(pageTemplateObject);
+    @Given("^I have the below data table$")
+    public void iHaveTheBelowDataTable(List<PageTemplateObject> pageTemplateObjects) throws Throwable {
+        for(PageTemplateObject pageTemplateObject: pageTemplateObjects)
+        {
+            System.out.println("@FindBy(css = \"\")");
+            String sectionName = "";
+
+            sectionName = pageTemplateObject.sections_sub_sections.split(",")[0] + " ";
+
+
+            String[] temp = sectionName.concat(pageTemplateObject.field_name).split(" ");
+
+            System.out.print("public WebElementFacade " + temp[0].replaceAll("[^a-zA-Z0-9]+","").toLowerCase());
+            for(int i=1; i< temp.length; i++)
+            {
+                StringBuilder myName = new StringBuilder(temp[i]);
+                Character c = Character.toUpperCase(temp[i].charAt(0));
+
+                myName.setCharAt(0, c);
+
+                System.out.print(myName.toString().replaceAll("[^a-zA-Z0-9]+",""));
+            }
+            System.out.print(";"+"\n\n");
+        }
 
     }
+
+
 }

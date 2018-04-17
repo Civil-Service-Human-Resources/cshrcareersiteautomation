@@ -1,6 +1,7 @@
 Feature: Department page template
 
   Scenario: Content Author can create page using department page template
+    # Change to publish when deployed on test site
     Given I am logged in as a contentauthor
     And I navigate to pages menu
     When I add a page with the department page template and assigned to team1
@@ -37,3 +38,4 @@ Feature: Department page template
     |Sub content,Driver         |Text             |textarea      |150           |true      | 2          |
     And I save the page
     Then the departments preview page has all the elements as defined in the table above
+
