@@ -232,7 +232,7 @@ public class PageSteps {
                 }
             }
 
-            if(!aPageTemplateObject.repeater.equals(null))
+            if(aPageTemplateObject.repeater != null)
             {
                 if (!aPageTemplateObject.repeater.equals(""))
                 {

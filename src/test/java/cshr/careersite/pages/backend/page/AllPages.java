@@ -34,7 +34,7 @@ public class AllPages extends PageObject {
 
     private String strPageNameStatus = "//td[@class='title column-title has-row-actions column-primary page-title'][contains(.,'%s')]";
 
-    private String strPage = "//td[@class='title column-title has-row-actions column-primary page-title'][contains(.,'%s')]//a";
+    private String strPage = "//td[@class='title column-title has-row-actions column-primary page-title']//a[contains(@class,'row-title')][text()='%s']";
 
 
     @FindBys({@FindBy(css="td[data-colname='Title']"),})
@@ -46,7 +46,6 @@ public class AllPages extends PageObject {
         List<PageTableColumns> temp = getRowDetails();
 
         return temp.stream().filter(o -> o.getPageTitle().contains(pageName) && o.getDateStatus().toLowerCase().contains("published")).findFirst().isPresent();
-        //return element(String.format(strPublished, pageName)).isCurrentlyVisible();
     }
 
     public boolean pageWithGivenStatusExists(String pageName, String pageStatus)
@@ -68,7 +67,14 @@ public class AllPages extends PageObject {
     private List<String> getPageTitles(String pageNumber) {
         List<String> temp = new ArrayList<String>();
 
-        for(int i=1; i< Integer.parseInt(paginationPage.totalPages.getText()); i++)
+        Integer totalPages = 2;
+
+        if(paginationPage.totalPages.isCurrentlyVisible())
+        {
+            totalPages = Integer.parseInt(paginationPage.totalPages.getText());
+        }
+
+        for(int i=1; i< totalPages; i++)
         {
             for (WebElement G : pageTitle ) {
                 temp.add(G.getText().split(" - ")[0]);
@@ -91,7 +97,15 @@ public class AllPages extends PageObject {
     {
         openPagesMenu();
 
-        for(int i=1; i< Integer.parseInt(paginationPage.totalPages.getText()); i++) {
+        Integer totalPages = 2;
+
+        if(paginationPage.totalPages.isCurrentlyVisible())
+        {
+            totalPages = Integer.parseInt(paginationPage.totalPages.getText());
+        }
+
+
+        for(int i=1; i < totalPages; i++) {
 
             if(element(String.format(strPage, pageName)).isCurrentlyVisible())
             {
@@ -128,25 +142,21 @@ public class AllPages extends PageObject {
 
                 List<WebElement> temp = G.findElements(By.tagName("td"));
                 String pageStatus = "";
-                    if(!temp.get(0).getText().contains("Select All")) {
-                        String pageTitle = temp.get(0).getText().split(" — ")[0];
 
-                        if (temp.get(0).getText().split(" — ").length > 1) {
-                            pageStatus = temp.get(0).getText().split(" — ")[1];
-                        }
-                        String pageAuthor = temp.get(2).getText();
-                        String teamList = temp.get(4).getText();
-                        String dateStatus = temp.get(3).getText().split("\n")[0];
+                if(!temp.get(0).getText().contains("Select All")) {
+                    String pageTitle = temp.get(0).getText().split(" — ")[0];
 
-                        if (pageTitle.equals("Helo")) {
-                            System.out.println(pageTitle);
-                        }
-                        PageTableColumns pageTableColumns = new PageTableColumns(pageTitle, pageStatus, pageAuthor, dateStatus, teamList);
-                        System.out.println(pageTitle);
-                        pageTableColumnsArray.add(pageTableColumns);
+                    if (temp.get(0).getText().split(" — ").length > 1) {
+                        pageStatus = temp.get(0).getText().split(" — ")[1];
                     }
 
+                    String pageAuthor = temp.get(2).getText();
+                    String teamList = temp.get(4).getText();
+                    String dateStatus = temp.get(3).getText().split("\n")[0];
 
+                    PageTableColumns pageTableColumns = new PageTableColumns(pageTitle, pageStatus, pageAuthor, dateStatus, teamList);
+                    pageTableColumnsArray.add(pageTableColumns);
+                }
             }
 
             paginationPage.goToNextPage();

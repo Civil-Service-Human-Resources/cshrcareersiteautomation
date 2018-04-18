@@ -54,7 +54,7 @@ public class HomePageTemplate extends PageObject {
     @FindBy(css = "[class='hero hero--where-to-find'] p")
     public WebElementFacade contentBlockImageBody;
 
-    @FindBy(css = "[class='hero hero--where-to-find'] img")
+    @FindBy(css = "[class='hero hero--where-to-find'] [class='hero__img']")
     public WebElementFacade contentBlockImageImage;
 
     @FindBy(css = "[class='content-two-col'] [class='content-two-col__last'] [class='tag']")
@@ -67,5 +67,5 @@ public class HomePageTemplate extends PageObject {
     public WebElementFacade contentBlockPromoHeadingTarget;
 
     @FindBys(@FindBy(css = "[class='content-two-col'] [class='content-two-col__last'] p"))
-    public WebElementFacade contentBlockPromoParagraphs;
+    public List<WebElementFacade> contentBlockPromoParagraphs;
 }

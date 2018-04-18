@@ -78,7 +78,7 @@ public class DepartmentTemplateStepDefs {
         if(arg0.contains("home"))
             templateName = PageTemplates.HOME_PAGE_TEMPLATE;
 
-        String pageName = "test_ozlshva";
+        String pageName = "test_fsdfcka";
         Serenity.setSessionVariable("Page Name").to(pageName);
         allPages.openPage(pageName);
 
@@ -114,7 +114,6 @@ public class DepartmentTemplateStepDefs {
             System.out.print(";"+"\n\n");
         }
     }
-
 
     @And("^I send the page for approval$")
     public void iSendThePageForApproval() throws Throwable {
