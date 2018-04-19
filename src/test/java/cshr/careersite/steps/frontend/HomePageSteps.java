@@ -2,6 +2,7 @@ package cshr.careersite.steps.frontend;
 
 import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.pages.frontend.HomePageTemplate;
+import cshr.careersite.steps.ReusableSteps;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;

@@ -4,6 +4,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
 
@@ -18,10 +19,10 @@ public class DepartmentTemplatePage extends PageObject{
     @FindBy(css = "[data-name ='billboard'] [data-name ='logo'] [data-name = 'add']")
     public WebElementFacade billboardLogo;
 
-    @FindBy(id = "[data-name ='billboard'] [data-name ='heading'] input:not([type='hidden'])")
+    @FindBy(css = "[data-name ='billboard'] [data-name ='heading'] input:not([type='hidden'])")
     public WebElementFacade billboardHeading;
 
-    @FindBy(id = "[data-name ='billboard'] [data-name ='intro_text'] textarea")
+    @FindBy(css = "[data-name ='billboard'] [data-name ='intro_text'] textarea")
     public WebElementFacade billboardIntroText;
 
     @FindBy(css = "[data-name ='billboard'] [data-name ='image'] [data-name = 'add']")
@@ -64,7 +65,7 @@ public class DepartmentTemplatePage extends PageObject{
 
     // Fact
     @FindBys(@FindBy( css = "[data-name ='factoid'] [data-name ='fact'] input:not([type='hidden'])"))
-    public WebElementFacade factoidFact;
+    public List<WebElementFacade> factoidFact;
 
     // Content Block Horizontal
     @FindBy(css = "[data-name ='content_block_horizontal'] [data-name ='image'] [data-name = 'add']")
@@ -86,23 +87,30 @@ public class DepartmentTemplatePage extends PageObject{
     public WebElementFacade contentBlockHorizontalExtraText;
 
     // Sub content
-    @FindBy(css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='intro'] input:not([type='hidden'])")
+    @FindBy(css = "[data-name ='sub_content'] [data-name ='intro'] textarea")
     public WebElementFacade subContentIntro;
 
-    @FindBy(css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='heading'] input:not([type='hidden'])")
+    @FindBy(css = "[data-name ='sub_content'] [data-name ='heading'] input:not([type='hidden'])")
     public WebElementFacade subContentHeading;
 
-    @FindBys(@FindBy( css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='image'] [data-name = 'add']"))
-    public List<WebElementFacade> subContentImage;
 
-    @FindBys(@FindBy( css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='headline'] input:not([type='hidden'])"))
-    public List<WebElementFacade> subContentHeadline;
+    // FindBys not working in the below cases
+    public List<WebElementFacade> subContentImage() {
+        return findAll(By.cssSelector("[data-name ='sub_content'] [data-name ='driver'] [data-name ='image'] [data-name = 'add']"));
+    }
 
-    @FindBys(@FindBy( css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='link']"))
-    public List<WebElementFacade> subContentLink;
+    public List<WebElementFacade> subContentHeadline()
+    {
+        return findAll("[data-name ='sub_content'] [data-name ='driver'] [data-name ='headline'] input:not([type='hidden'])");
+    }
 
-    @FindBys(@FindBy( css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='text'] textarea"))
-    public List<WebElementFacade> subContentText;
+    public List<WebElementFacade> subContentLink() {
+        return findAll("[data-name ='sub_content'] [data-name ='driver'] [data-name ='link'] input:not([type='hidden'])");
+    }
+
+    public List<WebElementFacade> subContentText() {
+        return findAll("[data-name ='sub_content'] [data-name ='driver'] [data-name ='text'] textarea");
+    }
 
     public void selectTab(String tabName)
     {

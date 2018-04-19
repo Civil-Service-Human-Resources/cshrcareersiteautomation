@@ -4,6 +4,7 @@ import cshr.careersite.model.PublishActionType;
 import cshr.careersite.model.UserType;
 import cshr.careersite.model.Workflows;
 import cshr.careersite.pages.backend.page.AllPages;
+import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.workflows.InboxPage;
 import cshr.careersite.steps.backend.LoginSteps;
@@ -82,58 +83,12 @@ public class WorkFlowsStepDefs {
         workflowSteps.acceptRejectWorkflow(Workflows.UNABLE_TO_COMPLETE, UserType.CONTENT_PUBLISHER);
     }
 
-    @When("^I edit the page and save$")
-    public void iEditThePageAndSave() throws Throwable {
-        pageSteps.editContent("Author edited content");
-    }
-
-    @Then("^the content approver should see my changes$")
-    public void theContentApproverShouldSeeMyChanges() throws Throwable {
-        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
-        Assert.assertTrue("Page does not contain updated text",
-                pageSteps.checkIfEditedContentContainsAsUser("Author edited content"));
-    }
-
-
-    @Then("^I should be able to edit the page and save$")
-    public void iShouldBeAbleToEditThePageAndSave() throws Throwable {
-        pageSteps.editContent("Approver edited content");
-        Assert.assertTrue("Page does not contain updated text",
-                pageSteps.checkIfEditedContentContainsAsUser( "Approver edited content"));
-    }
-
-    @And("^I should be able to edit the page and publish$")
-    public void iShouldBeAbleToEditThePageAndPublish() throws Throwable {
-        pageSteps.editContent("Publisher edited content");
-        workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
-    }
 
     @Then("^the edited page is published$")
     public void theEditedPageIsPublished() throws Throwable {
         Assert.assertTrue("Page does not contain updated text",
                 pageSteps.checkIfEditedContentContainsAsUser( "Publisher edited content"));
         Assert.assertTrue("Page was not published" ,workflowSteps.isPagePublished());
-    }
-
-    @And("^I should see the (.*) changes in the revision history$")
-    public void iShouldSeeTheContentAuthorChangesInTheRevisionHistory(String userType) throws Throwable {
-        String changedContentContains = "";
-
-        if(userType.contains("author"))
-        {
-            changedContentContains = "author";
-        }
-        else if(userType.contains("approver"))
-        {
-            changedContentContains = "approver";
-        }
-        else if(userType.contains("publisher"))
-        {
-            changedContentContains = "publisher";
-        }
-
-        Assert.assertTrue("Revision history does not contain changed author or added line details",
-                pageSteps.checkRevisionHistory(userType, changedContentContains));
     }
 
     @And("^get a page published$")

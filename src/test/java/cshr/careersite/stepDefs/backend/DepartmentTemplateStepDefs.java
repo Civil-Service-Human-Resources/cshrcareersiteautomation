@@ -5,6 +5,7 @@ import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
+import cshr.careersite.steps.backend.DepartmentTemplateSteps;
 import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.frontend.DepartmentPageSteps;
 import cucumber.api.PendingException;
@@ -33,6 +34,9 @@ public class DepartmentTemplateStepDefs {
 
     @Steps
     DepartmentPageSteps departmentPageSteps;
+
+    @Steps
+    DepartmentTemplateSteps departmentTemplateSteps;
 
     @And("^I navigate to pages menu$")
     public void iNavigateToPagesMenu() throws Throwable {
@@ -78,7 +82,7 @@ public class DepartmentTemplateStepDefs {
         if(arg0.contains("home"))
             templateName = PageTemplates.HOME_PAGE_TEMPLATE;
 
-        String pageName = "test_fsdfcka";
+        String pageName = "test_nrzrrrb";
         Serenity.setSessionVariable("Page Name").to(pageName);
         allPages.openPage(pageName);
 
@@ -102,6 +106,7 @@ public class DepartmentTemplateStepDefs {
             String[] temp = sectionName.concat(pageTemplateObject.field_name).split(" ");
 
             System.out.print("public WebElementFacade " + temp[0].replaceAll("[^a-zA-Z0-9]+","").toLowerCase());
+
             for(int i=1; i< temp.length; i++)
             {
                 StringBuilder myName = new StringBuilder(temp[i]);
@@ -127,4 +132,8 @@ public class DepartmentTemplateStepDefs {
         teamPageStepDefs.iPublishThePage();
     }
 
+    @And("^I fill department template$")
+    public void iFillDepartmentTemplate() throws Throwable {
+        departmentTemplateSteps.fillDepartmentPageTemplate();
+    }
 }

@@ -5,20 +5,18 @@ import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
 import cshr.careersite.pages.backend.page.AllPages;
-import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.page.RevisionHistoryPage;
 import cshr.careersite.pages.backend.workflows.SubmitWorkFlowPage;
+import cshr.careersite.steps.ReusableSteps;
 import cshr.careersite.utils.RandomTestData;
-import de.svenjacobs.loremipsum.LoremIpsum;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -30,17 +28,22 @@ public class PageSteps {
     private ReusableComponentsPage reusableComponentsPage;
     private LoginSteps loginSteps;
     private RevisionHistoryPage revisionHistoryPage;
-    private DepartmentTemplatePage departmentTemplatePage;
 
+    @Steps
+    private ReusableSteps reusableSteps;
+
+    @Steps
+    private DepartmentTemplateSteps departmentTemplateSteps;
 
     @Step
     public boolean addRandomPage(String[] teamNames, PublishActionType publishActionType)
     {
         String pageName = addPageWithFewFieldsPopulated(teamNames, publishActionType);
+        departmentTemplateSteps.fillDepartmentPageTemplate();
         //newPage.editHTMLBody(pageName);
         newPage.submitWorkflowButton.click();
         reusableComponentsPage.selectActor("Content Approver 1");
-        submitWorkFlowPage.submit.click();
+        submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
 
         String pageStatus = "Publish";
 
@@ -48,6 +51,8 @@ public class PageSteps {
         {
             pageStatus = "Deletion";
         }
+
+
         return allPages.pageWithGivenStatusExists(pageName,pageStatus);
     }
 
@@ -62,6 +67,8 @@ public class PageSteps {
         }
 
         newPage.typeInto(newPage.pageName,  pageName);
+        newPage.selectPageAction(PublishActionType.SAVE);
+        newPage.save.click();
         newPage.selectPageAction(publishActionType);
 
         return pageName;
@@ -79,21 +86,6 @@ public class PageSteps {
         }
 
         return newPage.getHTMLBody().contains(editContent);
-    }
-
-    @Step
-    public void editContent(String editContent)
-    {
-        allPages.openPagesMenu();
-        String pageName = Serenity.sessionVariableCalled("Page Name");
-        allPages.openPage(pageName);
-
-        if(newPage.takeOver.isCurrentlyVisible()) {
-            newPage.takeOver.click();
-        }
-
-        newPage.editHTMLBody(editContent);
-        newPage.save.click();
     }
 
     @Step
@@ -157,37 +149,7 @@ public class PageSteps {
 
     }
 
-    private void createAndEnterRandomData(WebElementFacade elementOnPage, String fieldType)
-    {
-        LoremIpsum randomTestData = new LoremIpsum();
-        String testData = "";
 
-        if(!fieldType.equalsIgnoreCase("image"))
-        {
-            String maxLength = elementOnPage.getAttribute("maxLength");
-
-            if(elementOnPage.getAttribute("type").equals("url"))
-            {
-                testData ="http://sample/test";
-            }
-            else
-            {
-                testData = randomTestData.getWords(100).substring(0,Integer.parseInt(maxLength));
-            }
-            elementOnPage.type(testData);
-        }
-        else if(fieldType.equalsIgnoreCase("image"))
-        {
-            if(elementOnPage.isCurrentlyVisible()) {
-                elementOnPage.click();
-                WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 10);
-                wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class='attachments-browser'] li")));
-                newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
-                newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
-            }
-        }
-
-    }
 
     @Step
     public void fillFormFields(List<PageTemplateObject> pageTemplateObject)
@@ -239,17 +201,17 @@ public class PageSteps {
                     List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
 
                     for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater); x++) {
-                        createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
+                        reusableSteps.createAndEnterRandomData(elementsOnPage.get(x), strFieldType);
                     }
                 }
                 else
                 {
-                    createAndEnterRandomData(elementOnPage, strFieldType);
+                    reusableSteps.createAndEnterRandomData(elementOnPage, strFieldType);
                 }
             }
             else
             {
-                    createAndEnterRandomData(elementOnPage, strFieldType);
+                reusableSteps.createAndEnterRandomData(elementOnPage, strFieldType);
             }
 
         }
