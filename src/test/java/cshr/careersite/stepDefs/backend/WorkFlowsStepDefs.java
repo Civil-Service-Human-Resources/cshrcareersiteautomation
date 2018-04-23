@@ -130,4 +130,9 @@ public class WorkFlowsStepDefs {
         String pageName = Serenity.sessionVariableCalled("Page Name");
         Assert.assertFalse("Page was not deleted - " +  pageName ,allPages.pageExists(pageName));
     }
+
+    @When("^I delete the page by name (.*)$")
+    public void iDeleteThePageByNamePage_name(String arg0) throws Throwable {
+        pageSteps.deletePageWithName(arg0);
+    }
 }

@@ -2,9 +2,12 @@ package cshr.careersite.pages.backend;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ReusableComponentsPage extends PageObject {
 
@@ -25,8 +28,8 @@ public class ReusableComponentsPage extends PageObject {
 
     public void selectActor(String actorName)
     {
-        waitABit(3000);
-
+        WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+        wait.until(ExpectedConditions.elementToBeClickable(assignedActors));
         if(!assignedActors.getText().contains(actorName)) {
             selectTheDropDownList(assignActors, actorName);
             assignActor.click();

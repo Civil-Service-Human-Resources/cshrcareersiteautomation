@@ -3,6 +3,7 @@ package cshr.careersite.model;
 public enum PageTemplates {
     DEPARTMENT_PAGE_TEMPLATE("default"),
     HOME_PAGE_TEMPLATE("page-home.php"),
+    AOW_PAGE_TEMPLATE("page-layout-b.php"),
     DEFAULT_TEMPLATE("page-hub.php");
 
 

@@ -67,8 +67,8 @@ public class PageSteps {
         }
 
         newPage.typeInto(newPage.pageName,  pageName);
-        newPage.selectPageAction(PublishActionType.SAVE);
-        newPage.save.click();
+       // newPage.selectPageAction(PublishActionType.SAVE);
+        //newPage.save.click();
         newPage.selectPageAction(publishActionType);
 
         return pageName;
@@ -148,8 +148,6 @@ public class PageSteps {
         return fieldType;
 
     }
-
-
 
     @Step
     public void fillFormFields(List<PageTemplateObject> pageTemplateObject)
@@ -233,6 +231,20 @@ public class PageSteps {
         newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
         reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
+    }
+
+    @Step
+    public void deletePageWithName(String pageName)
+    {
+        allPages.openPagesMenu();
+        Serenity.setSessionVariable("Page Name").to(pageName);
+        allPages.openPage(pageName);
+        newPage.selectPageAction(PublishActionType.DELETE);
+        newPage.submitWorkflowButton.click();
+        reusableComponentsPage.selectActor("Content Approver 1");
+        submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
+        allPages.pageWithGivenStatusExists(pageName, "Deletion");
+
     }
 
 }

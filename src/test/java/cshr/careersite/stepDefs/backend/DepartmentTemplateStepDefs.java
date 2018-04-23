@@ -47,9 +47,13 @@ public class DepartmentTemplateStepDefs {
     public void iAddAPageWithTheDepartmentPageTemplateAndAssignedToTeam(String arg0, String arg1) throws Throwable {
         PageTemplates templateName = PageTemplates.DEPARTMENT_PAGE_TEMPLATE;
 
-        if(arg0.contains("home"))
+        if(arg0.toLowerCase().contains("home"))
         {
             templateName = PageTemplates.HOME_PAGE_TEMPLATE;
+        }
+        else if(arg0.toLowerCase().contains("aow"))
+        {
+            templateName = PageTemplates.AOW_PAGE_TEMPLATE;
         }
 
         pageSteps.draftNewPageWithTemplateTeam(templateName, new String[]{arg1});
@@ -63,7 +67,7 @@ public class DepartmentTemplateStepDefs {
     @And("^I fill in the form template$")
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
         Serenity.setSessionVariable("Department Page table").to(pageTemplateObject);
-        pageSteps.fillFormFields(pageTemplateObject);
+        //pageSteps.fillFormFields(pageTemplateObject);
 
     }
 
@@ -79,10 +83,17 @@ public class DepartmentTemplateStepDefs {
     public void  iEditThePage(String arg0) throws Throwable {
 
         PageTemplates templateName = PageTemplates.DEPARTMENT_PAGE_TEMPLATE;
-        if(arg0.contains("home"))
-            templateName = PageTemplates.HOME_PAGE_TEMPLATE;
 
-        String pageName = "test_nrzrrrb";
+        if(arg0.contains("home")) {
+            templateName = PageTemplates.HOME_PAGE_TEMPLATE;
+        }
+        else if(arg0.toLowerCase().contains("aow"))
+        {
+            templateName = PageTemplates.AOW_PAGE_TEMPLATE;
+        }
+
+
+        String pageName = "testPageLayoutB";
         Serenity.setSessionVariable("Page Name").to(pageName);
         allPages.openPage(pageName);
 

@@ -48,3 +48,14 @@ Feature: Workflows
 
   Scenario: E2E user, group, role test
 
+  Scenario Outline: Delete Pages1
+    Given I am logged in as a contentauthor
+    When I delete the page by name <page_name>
+    And the content approver approves my request
+    And the content publisher approves my request
+    Then the page is deleted
+    Examples:
+    |page_name|
+    |test_ktlehrq |
+    |test_tvtqaml  |
+

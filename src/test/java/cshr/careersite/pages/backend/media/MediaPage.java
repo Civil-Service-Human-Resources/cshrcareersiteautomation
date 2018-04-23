@@ -2,7 +2,6 @@ package cshr.careersite.pages.backend.media;
 
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -45,7 +44,7 @@ public class MediaPage extends PageObject {
     private WebElementFacade update;
 
     @FindBy(css = "[class='button-link delete-attachment']")
-    public WebElementFacade deletePermanently;
+    private WebElementFacade deletePermanently;
 
     @FindBy(className = "upload-error-message")
     public WebElementFacade uploadErrorMessage;
