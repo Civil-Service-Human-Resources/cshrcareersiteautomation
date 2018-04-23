@@ -33,9 +33,6 @@ public class DepartmentTemplateStepDefs {
     PageSteps pageSteps;
 
     @Steps
-    DepartmentPageSteps departmentPageSteps;
-
-    @Steps
     DepartmentTemplateSteps departmentTemplateSteps;
 
     @And("^I navigate to pages menu$")
@@ -67,15 +64,7 @@ public class DepartmentTemplateStepDefs {
     @And("^I fill in the form template$")
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
         Serenity.setSessionVariable("Department Page table").to(pageTemplateObject);
-        //pageSteps.fillFormFields(pageTemplateObject);
-
-    }
-
-    @Then("^the departments preview page has all the elements as defined in the table above$")
-    public void theDepartmentsPreviewPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
-        String pageLink = newPage.previewLink.getAttribute("href");
-        newPage.getDriver().navigate().to(pageLink);
-        departmentPageSteps.checkDepartmentPageFrontEnd();
+        pageSteps.fillFormFields(pageTemplateObject);
     }
 
     //Temp

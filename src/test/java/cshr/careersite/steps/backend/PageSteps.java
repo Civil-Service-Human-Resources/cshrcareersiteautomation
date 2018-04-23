@@ -5,6 +5,7 @@ import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
 import cshr.careersite.pages.backend.page.AllPages;
+import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.page.RevisionHistoryPage;
 import cshr.careersite.pages.backend.workflows.SubmitWorkFlowPage;
@@ -28,6 +29,7 @@ public class PageSteps {
     private ReusableComponentsPage reusableComponentsPage;
     private LoginSteps loginSteps;
     private RevisionHistoryPage revisionHistoryPage;
+    private DepartmentTemplatePage departmentTemplatePage;
 
     @Steps
     private ReusableSteps reusableSteps;
@@ -152,15 +154,11 @@ public class PageSteps {
     @Step
     public void fillFormFields(List<PageTemplateObject> pageTemplateObject)
     {
+        String oldSectionName = "";
+
         for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
             String[] sectionNames = aPageTemplateObject.sections_sub_sections.split(",");
-            WebElementFacade sectionTab = newPage.element(By.xpath("//a[@class='acf-tab-button'][contains(.,'" + sectionNames[0] + "')]"));
-
-            // If heading tabs available, click on tab
-            sectionTab.waitUntilEnabled();
-            if (sectionTab.isCurrentlyEnabled() && !sectionTab.findElement(By.xpath("..")).getAttribute("class").equals("active")){
-                sectionTab.sendKeys(Keys.ENTER);
-            }
+            departmentTemplatePage.selectTab(sectionNames[0]);
 
             // Get CSS string for given filed type
             String strFieldType = aPageTemplateObject.field_type;
@@ -196,6 +194,26 @@ public class PageSteps {
             {
                 if (!aPageTemplateObject.repeater.equals(""))
                 {
+                    // Click add button
+                    if(!oldSectionName.equals(sectionNames[0]))
+                    {
+                        String addButtonCSSSelector = String.format("[data-name='%s'] ", sectionNames[0].toLowerCase().replaceAll(" ", "_"));
+
+                        addButtonCSSSelector = addButtonCSSSelector.concat("[class='acf-button button button-primary'][data-event='add-row']");
+                        WebElementFacade addButton = newPage.find(By.cssSelector(addButtonCSSSelector));
+
+                        if(addButton.isCurrentlyVisible()) {
+                            for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater) - 1; x++) {
+
+                                if (addButton.isCurrentlyVisible())
+                                    addButton.click();
+                            }
+                        }
+
+                        oldSectionName = sectionNames[0];
+
+                    }
+
                     List<WebElementFacade> elementsOnPage = newPage.findAll(By.cssSelector(createCssSelector));
 
                     for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater); x++) {

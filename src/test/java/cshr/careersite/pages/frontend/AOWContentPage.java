@@ -30,7 +30,7 @@ public class AOWContentPage extends PageObject {
     @FindBys(@FindBy(css = "[class='content-two-col content-two-col--stacked-left'] [class='content-two-col__last'] p"))
     public List<WebElementFacade> mainContentParagraphs34;
 
-    @FindBy(css = "[class='content-two-col content-two-col--stacked-left'] [class='content-two-col__first'] img")
+    @FindBy(css = "[class='content-two-col content-two-col--stacked-left'] [class='content-two-col__first no-padding'] img")
     public WebElementFacade mainContentImage2;
 
     @FindBys(@FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] [class='aside__img'] img"))
