@@ -198,15 +198,18 @@ public class PageSteps {
                     if(!oldSectionName.equals(sectionNames[0]))
                     {
                         String addButtonCSSSelector = String.format("[data-name='%s'] ", sectionNames[0].toLowerCase().replaceAll(" ", "_"));
-
+                        String copySectionName = addButtonCSSSelector;
                         addButtonCSSSelector = addButtonCSSSelector.concat("[class='acf-button button button-primary'][data-event='add-row']");
-                        WebElementFacade addButton = newPage.find(By.cssSelector(addButtonCSSSelector));
+                        List<WebElementFacade> addButtons = newPage.findAll(By.cssSelector(addButtonCSSSelector));
 
-                        if(addButton.isCurrentlyVisible()) {
-                            for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater) - 1; x++) {
+                        if(addButtons.size() > 0) {
 
-                                if (addButton.isCurrentlyVisible())
-                                    addButton.click();
+                            List <WebElementFacade> existingRowCount = newPage.findAll(By.cssSelector(copySectionName.concat("[class='acf-repeater -row'] [class='acf-row']")));
+
+                            for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater) - existingRowCount.size(); x++) {
+
+                                if (addButtons.get(0).isCurrentlyVisible())
+                                    addButtons.get(0).click();
                             }
                         }
 

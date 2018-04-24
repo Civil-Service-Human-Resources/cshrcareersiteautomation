@@ -4,7 +4,7 @@ Feature: AOW page template
     Given I am logged in as a contentauthor
     And I navigate to pages menu
     #When I add a page with the AOW page template and assigned to team1
-    When I edit the aow page
+    When I edit the AOW page
     And I fill in the form template
     |sections_sub_sections      |field_name       |field_type    |max_characters|mandatory |   repeater |
     |Billboard                  |Heading          |input         |70            |true      |            |

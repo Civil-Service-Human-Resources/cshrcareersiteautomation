@@ -33,34 +33,40 @@ public class AOWContentPage extends PageObject {
     @FindBy(css = "[class='content-two-col content-two-col--stacked-left'] [class='content-two-col__first no-padding'] img")
     public WebElementFacade mainContentImage2;
 
-    @FindBys(@FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] [class='aside__img'] img"))
+    @FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] [class='aside__img'] img")
     public WebElementFacade contentBlockVerticalImage;
 
-    @FindBys(@FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] [class='aside__content'] p"))
+    @FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] [class='aside__content'] p")
     public WebElementFacade contentBlockVerticalQuote;
 
-    @FindBys(@FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] footer"))
+    @FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] footer")
     public WebElementFacade contentBlockVerticalFooter;
 
     @FindBys(@FindBy(css = "[class='content-three-col'] h3"))
-    public WebElementFacade subRepeaterHeading;
+    public List<WebElementFacade> subRepeaterHeading;
 
     @FindBys(@FindBy(css = "[class='content-three-col'] h3 a"))
-    public WebElementFacade subRepeaterHeadingTarget;
+    public List<WebElementFacade> subRepeaterHeadingTarget;
 
     @FindBys(@FindBy(css = "[class='content-three-col'] p"))
-    public WebElementFacade subRepeaterBody;
+    public List<WebElementFacade> subRepeaterBody;
 
     @FindBys(@FindBy(css = "[class='content-three-col'] img"))
-    public WebElementFacade subRepeaterImage;
+    public List<WebElementFacade> subRepeaterImage;
 
-    @FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__first'] h1")
-    public WebElementFacade subContentMultipleHeading;
+    @FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__first'] h2")
+    public WebElementFacade subContentMultipleHeading1;
 
     @FindBys(@FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__first'] p"))
-    public List<WebElementFacade> subContentMultipleParagraphs;
+    public List<WebElementFacade> subContentMultipleParagraphsSet1;
 
-    @FindBy(css = "[class='content-two-col__last']")
+    @FindBy(css = "[class='content-two-col content-two-col--two-thirds-left'] [class='content-two-col__first'] h2")
+    public WebElementFacade subContentMultipleHeading2;
+
+    @FindBy(css ="[class='content-two-col content-two-col--two-thirds-left'] [class=content-two-col__first] p")
+    public List<WebElementFacade> subContentMultipleParagraphsSet2;
+
+    @FindBy(css = "[class='content-two-col content-two-col--two-thirds-left'] [class='content-two-col__last'] h3")
     public WebElementFacade listingHeading;
 
     @FindBys(@FindBy(css = "[class='content-two-col__last'] [class='item-list__item']"))

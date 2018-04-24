@@ -73,14 +73,13 @@ public class DepartmentTemplateStepDefs {
 
         PageTemplates templateName = PageTemplates.DEPARTMENT_PAGE_TEMPLATE;
 
-        if(arg0.contains("home")) {
+        if(arg0.toLowerCase().equals("home")) {
             templateName = PageTemplates.HOME_PAGE_TEMPLATE;
         }
-        else if(arg0.toLowerCase().contains("aow"))
+        else if(arg0.toLowerCase().equals("aow"))
         {
             templateName = PageTemplates.AOW_PAGE_TEMPLATE;
         }
-
 
         String pageName = "testPageLayoutB";
         Serenity.setSessionVariable("Page Name").to(pageName);
