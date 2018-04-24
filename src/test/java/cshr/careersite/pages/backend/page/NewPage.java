@@ -81,7 +81,10 @@ public class NewPage extends PageObject {
 
     public void selectTeam(String teamName)
     {
-        element(By.id(String.format(strTeamCheckbox, teamName.toLowerCase()))).click();
+        WebElementFacade teamCheckbox = element(By.id(String.format(strTeamCheckbox, teamName.toLowerCase())));
+        if( teamCheckbox.getAttribute("checked") == null) {
+            teamCheckbox.click();
+        }
     }
 
     public void selectPageAction(PublishActionType actionName)

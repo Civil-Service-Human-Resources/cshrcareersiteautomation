@@ -3,8 +3,8 @@ Feature: AOW page template
   Scenario: Content Author can create page using AOW page template
     Given I am logged in as a contentauthor
     And I navigate to pages menu
-    #When I add a page with the AOW page template and assigned to team1
-    When I edit the AOW page
+    When I add a page with the AOW page template and assigned to team1
+    #When I edit the AOW page
     And I fill in the form template
     |sections_sub_sections      |field_name       |field_type    |max_characters|mandatory |   repeater |
     |Billboard                  |Heading          |input         |70            |true      |            |
@@ -34,6 +34,6 @@ Feature: AOW page template
     |Listing,Items              |Item               |input      |50           |true      | 8           |
     And I save the page
     And the AOW preview page has all the elements as defined in the table above
-    #And I send the page for approval
-    #When the publisher publishes the page
-    #Then the page is published
+    And I send the page for approval
+    When the publisher publishes the page
+    Then the page is published
