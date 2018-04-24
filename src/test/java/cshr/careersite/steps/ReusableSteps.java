@@ -7,6 +7,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -50,7 +51,7 @@ public class ReusableSteps {
         else if(fieldType.equalsIgnoreCase("image"))
         {
             if(elementOnPage.isCurrentlyVisible()) {
-                elementOnPage.click();
+                elementOnPage.sendKeys(Keys.ENTER);
                 WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 10);
                 wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class='attachments-browser'] li")));
                 newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
