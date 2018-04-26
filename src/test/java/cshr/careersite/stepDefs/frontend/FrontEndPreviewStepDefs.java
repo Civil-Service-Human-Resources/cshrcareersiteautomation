@@ -1,10 +1,7 @@
 package cshr.careersite.stepDefs.frontend;
 
 import cshr.careersite.pages.backend.page.NewPage;
-import cshr.careersite.steps.frontend.AOWLandingPageSteps;
-import cshr.careersite.steps.frontend.AOWPageSteps;
-import cshr.careersite.steps.frontend.DepartmentPageSteps;
-import cshr.careersite.steps.frontend.HomePageSteps;
+import cshr.careersite.steps.frontend.*;
 import cucumber.api.java.en.Then;
 import net.thucydides.core.annotations.Steps;
 
@@ -23,6 +20,9 @@ public class FrontEndPreviewStepDefs {
 
     @Steps
     AOWLandingPageSteps aowLandingPageSteps;
+
+    @Steps
+    private DepartmentLandingPageSteps departmentLandingPageSteps;
 
 
     @Then("^the departments preview page has all the elements as defined in the table above$")
@@ -51,5 +51,12 @@ public class FrontEndPreviewStepDefs {
         String pageLink = newPage.previewLink.getAttribute("href");
         newPage.getDriver().navigate().to(pageLink);
         aowLandingPageSteps.checkAOWLandingPageFrontEnd();
+    }
+
+    @Then("^the Department landing preview page has all the elements as defined in the table above$")
+    public void theDepartmentLandingPreviewPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
+        String pageLink = newPage.previewLink.getAttribute("href");
+        newPage.getDriver().navigate().to(pageLink);
+        departmentLandingPageSteps.checkDepartmentLandingPageFrontEnd();
     }
 }

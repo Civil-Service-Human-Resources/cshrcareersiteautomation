@@ -56,6 +56,10 @@ public class DepartmentTemplateStepDefs {
         {
             templateName = PageTemplates.AOW_LANDING_PAGE_TEMPLATE;
         }
+        else if(arg0.toLowerCase().equals("department landing"))
+        {
+            templateName = PageTemplates.DEPARTMENT_LANDING_PAGE_TEMPLATE;
+        }
 
         pageSteps.draftNewPageWithTemplateTeam(templateName, new String[]{arg1});
     }
@@ -88,8 +92,12 @@ public class DepartmentTemplateStepDefs {
         {
             templateName = PageTemplates.AOW_LANDING_PAGE_TEMPLATE;
         }
+        else if(arg0.toLowerCase().equals("department landing"))
+        {
+            templateName = PageTemplates.DEPARTMENT_LANDING_PAGE_TEMPLATE;
+        }
 
-        String pageName = "test_opybmxn";
+        String pageName = "testDepartmentLandingPageTemplate";
         Serenity.setSessionVariable("Page Name").to(pageName);
         allPages.openPage(pageName);
 
