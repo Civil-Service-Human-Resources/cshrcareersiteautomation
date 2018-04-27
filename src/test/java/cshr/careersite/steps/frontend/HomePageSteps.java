@@ -21,7 +21,7 @@ public class HomePageSteps {
     @Step
     public void checkHomePageFrontEnd()
     {
-        List<PageTemplateObject> pageTemplateObjects = Serenity.sessionVariableCalled("Department Page table");
+        List<PageTemplateObject> pageTemplateObjects = Serenity.sessionVariableCalled("Page template table");
 
         // Billboard
         String temp = reusableSteps.getStringToCompare("Billboard", "Heading", pageTemplateObjects).trim();

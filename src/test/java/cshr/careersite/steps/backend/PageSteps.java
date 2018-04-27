@@ -130,7 +130,7 @@ public class PageSteps {
         newPage.selectTemplate(templateName);
     }
 
-    private String getCSSSelectorForGivenFieldType(String strFieldType)
+    public String getCSSSelectorForGivenFieldType(String strFieldType)
     {
         String fieldType = "";
 

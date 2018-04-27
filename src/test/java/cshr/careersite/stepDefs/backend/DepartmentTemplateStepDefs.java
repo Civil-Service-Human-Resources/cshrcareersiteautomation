@@ -71,7 +71,7 @@ public class DepartmentTemplateStepDefs {
 
     @And("^I fill in the form template$")
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
-        Serenity.setSessionVariable("Department Page table").to(pageTemplateObject);
+        Serenity.setSessionVariable("Page template table").to(pageTemplateObject);
         pageSteps.fillFormFields(pageTemplateObject);
     }
 
@@ -97,7 +97,7 @@ public class DepartmentTemplateStepDefs {
             templateName = PageTemplates.DEPARTMENT_LANDING_PAGE_TEMPLATE;
         }
 
-        String pageName = "testDepartmentLandingPageTemplate";
+        String pageName = "testAOWLanding";
         Serenity.setSessionVariable("Page Name").to(pageName);
         allPages.openPage(pageName);
 
