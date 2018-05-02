@@ -15,7 +15,7 @@ import java.util.List;
 
 public class AllPages extends PageObject {
 
-    PaginationPage paginationPage;
+    private PaginationPage paginationPage;
 
     public void openPagesMenu()
     {
@@ -30,41 +30,51 @@ public class AllPages extends PageObject {
     @FindBy(id = "search-submit")
     private WebElementFacade searchButton;
 
-    private String strPublished = "//td[@class='title column-title has-row-actions column-primary page-title'][contains(.,'%s')]/following-sibling::td[contains(.,'Published')]";
-
-    private String strPageNameStatus = "//td[@class='title column-title has-row-actions column-primary page-title'][contains(.,'%s')]";
-
     private String strPage = "//td[@class='title column-title has-row-actions column-primary page-title']//a[contains(@class,'row-title')][text()='%s']";
-
-
-    @FindBys({@FindBy(css="td[data-colname='Title']"),})
-    public List<WebElement> pageTitle;
-
 
     public boolean isPagePublished(String pageName)
     {
-        List<PageTableColumns> temp = getRowDetails();
+        //List<PageTableColumns> temp = getRowDetails();
+        //return temp.stream().filter(o -> o.getPageTitle().contains(pageName) && o.getDateStatus().toLowerCase().contains("published")).findFirst().isPresent();
+        Boolean pagePublished = false;
 
-        return temp.stream().filter(o -> o.getPageTitle().contains(pageName) && o.getDateStatus().toLowerCase().contains("published")).findFirst().isPresent();
+        PageTableColumns temp = searchPage(pageName);
+
+        if(temp != null) {
+            pagePublished = temp.getPageTitle().contains(pageName) && temp.getDateStatus().toLowerCase().contains("published");
+        }
+
+        return pagePublished;
     }
 
     public boolean pageWithGivenStatusExists(String pageName, String pageStatus)
     {
-        List<String> temp = getPageTitles("1");
+        //List<String> temp = getPageTitles("1");
+        //return temp.contains(pageName + " — " + pageStatus);
+        Boolean pageWithGivenStatusExists = false;
+        PageTableColumns temp = searchPage(pageName);
 
+        if(temp != null) {
+            pageWithGivenStatusExists = temp.getPageTitle().contains(pageName) && temp.getPageStatus().toLowerCase().contains(pageStatus.toLowerCase());
+        }
 
-        return temp.contains(pageName + " — " + pageStatus);
+        return pageWithGivenStatusExists;
     }
 
     public boolean pageExists(String pageName)
     {
-        List<String> temp = getPageTitles("all");
+        //List<String> temp = getPageTitles("all");
+        Boolean pageExists = false;
+        PageTableColumns temp = searchPage(pageName);
 
+        if(temp != null) {
+            pageExists = temp.getPageTitle().contains(pageName);
+        }
 
-        return temp.contains(pageName);
+        return pageExists;
     }
 
-    private List<String> getPageTitles(String pageNumber) {
+   /* private List<String> getPageTitles(String pageNumber) {
         List<String> temp = new ArrayList<String>();
 
         Integer totalPages = 2;
@@ -92,12 +102,12 @@ public class AllPages extends PageObject {
 
         return temp;
     }
-
+*/
     public void openPage(String pageName)
     {
         openPagesMenu();
 
-        Integer totalPages = 2;
+       /* Integer totalPages = 2;
 
         if(paginationPage.totalPages.isCurrentlyVisible())
         {
@@ -116,6 +126,12 @@ public class AllPages extends PageObject {
             {
                 paginationPage.goToNextPage();
             }
+        }*/
+
+        searchPage(pageName);
+        if(element(String.format(strPage, pageName)).isCurrentlyVisible())
+        {
+            element(String.format(strPage, pageName)).click();
         }
     }
 
@@ -165,4 +181,19 @@ public class AllPages extends PageObject {
 
         return pageTableColumnsArray;
     }
+
+    private PageTableColumns searchPage(String pageName)
+    {
+        postSearchInput.sendKeys(pageName);
+        searchButton.click();
+
+        List<PageTableColumns> rows = getRowDetails();
+        if(rows.size() > 0)
+        {
+            return rows.get(0);
+        }
+        else
+            return null;
+    }
+
 }
