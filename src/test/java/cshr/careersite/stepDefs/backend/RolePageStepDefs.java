@@ -16,13 +16,13 @@ import java.util.Map;
 public class RolePageStepDefs {
 
     @Steps
-    RoleSteps roleSteps;
+    private RoleSteps roleSteps;
 
-    AddNewRolePage addNewRolePage;
+    private AddNewRolePage addNewRolePage;
 
-    AllRolesPage allRolesPage;
+    private AllRolesPage allRolesPage;
 
-    EditRolesPage editRolesPage;
+    private EditRolesPage editRolesPage;
 
     @And("^I am on create new role page$")
     public void iAmOnCreateNewRolePage() throws Throwable {

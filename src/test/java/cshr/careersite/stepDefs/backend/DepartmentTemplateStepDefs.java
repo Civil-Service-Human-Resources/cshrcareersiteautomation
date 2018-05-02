@@ -7,11 +7,8 @@ import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.steps.backend.DepartmentTemplateSteps;
 import cshr.careersite.steps.backend.PageSteps;
-import cshr.careersite.steps.frontend.DepartmentPageSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
@@ -22,18 +19,18 @@ import java.util.List;
 
 public class DepartmentTemplateStepDefs {
 
-    AllPages allPages;
+    private AllPages allPages;
 
-    NewPage newPage;
-
-    @Steps
-    TeamPageStepDefs teamPageStepDefs;
+    private NewPage newPage;
 
     @Steps
-    PageSteps pageSteps;
+    private TeamPageStepDefs teamPageStepDefs;
 
     @Steps
-    DepartmentTemplateSteps departmentTemplateSteps;
+    private PageSteps pageSteps;
+
+    @Steps
+    private DepartmentTemplateSteps departmentTemplateSteps;
 
     @And("^I navigate to pages menu$")
     public void iNavigateToPagesMenu() throws Throwable {

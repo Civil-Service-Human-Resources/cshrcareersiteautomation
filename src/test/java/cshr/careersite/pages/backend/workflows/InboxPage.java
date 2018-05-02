@@ -12,7 +12,7 @@ import java.util.List;
 
 public class InboxPage extends PageObject{
 
-    PaginationPage paginationPage;
+    private PaginationPage paginationPage;
 
     public void openInbox()
     {

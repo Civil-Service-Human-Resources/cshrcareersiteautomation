@@ -6,19 +6,19 @@ import cshr.careersite.steps.backend.LoginSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.core.pages.PageObject;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
-import org.openqa.selenium.WebDriver;
 import org.junit.Assert;
+import org.openqa.selenium.WebDriver;
 
 public class LoginStepdefs {
 
-    CareerSiteLoginPage careerSiteLoginPage;
+    private CareerSiteLoginPage careerSiteLoginPage;
 
-    SideNavBarPage sideNavBarPage;
+    private SideNavBarPage sideNavBarPage;
 
     @Steps
+    private
     LoginSteps loginSteps;
 
     @Managed

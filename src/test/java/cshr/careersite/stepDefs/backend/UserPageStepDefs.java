@@ -4,7 +4,6 @@ import cshr.careersite.pages.backend.users.AllUsersPage;
 import cshr.careersite.pages.backend.users.EditUsersPage;
 import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.backend.UserSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -15,15 +14,17 @@ import org.junit.Assert;
 public class UserPageStepDefs {
 
     @Steps
+    private
     LoginSteps loginSteps;
 
     @Steps
+    private
 
     UserSteps userSteps;
 
-    AllUsersPage allUsersPage;
+    private AllUsersPage allUsersPage;
 
-    EditUsersPage editUsersPage;
+    private EditUsersPage editUsersPage;
 
 
     @And("^I am on the create new user page$")

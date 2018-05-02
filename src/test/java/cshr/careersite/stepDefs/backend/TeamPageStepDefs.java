@@ -7,7 +7,6 @@ import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.teams.EditTeamPage;
 import cshr.careersite.pages.backend.teams.TeamPage;
 import cshr.careersite.steps.backend.*;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

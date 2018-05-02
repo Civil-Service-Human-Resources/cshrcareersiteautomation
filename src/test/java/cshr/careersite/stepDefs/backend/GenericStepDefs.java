@@ -2,20 +2,17 @@ package cshr.careersite.stepDefs.backend;
 
 import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.model.PublishActionType;
+import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.pagesection.RepeaterSectionPage;
 import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.backend.PageSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import jnr.ffi.annotations.In;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.annotations.ManagedPages;
 import net.thucydides.core.annotations.Steps;
-import net.thucydides.core.pages.Pages;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -24,14 +21,16 @@ import java.util.List;
 
 public class GenericStepDefs {
     @Steps
-    LoginSteps loginSteps;
+    private LoginSteps loginSteps;
 
     @Steps
-    PageSteps pageSteps;
+    private PageSteps pageSteps;
 
-    RepeaterSectionPage repeaterSectionPage;
+    private RepeaterSectionPage repeaterSectionPage;
 
-    NewPage newPage;
+    private NewPage newPage;
+
+    private DepartmentTemplatePage departmentTemplatePage;
 
     @Given("^I am logged in as a (techadmin|contentadmin|contentauthor|contentapprover|contentpublisher|contentsnippets)")
     public void iAmLoggedInAsATechadmin(String admin) throws Throwable {
@@ -73,8 +72,8 @@ public class GenericStepDefs {
 
         elementOnPage.get(1).sendKeys(Keys.ENTER);
 
+        departmentTemplatePage.selectTab("Main repeater");
         repeaterSectionPage.removeRow();
-
         newPage.selectPageAction(PublishActionType.SAVE);
 
         newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
@@ -84,6 +83,7 @@ public class GenericStepDefs {
     public void theSecondRepeaterSectionIsRemoved() throws Throwable {
         Integer size = Serenity.sessionVariableCalled("Repeater size before");
         String createCssSelector = Serenity.sessionVariableCalled("CSS selector");
+        departmentTemplatePage.selectTab("Main repeater");
 
         Integer size1 = repeaterSectionPage.findAll(By.cssSelector(createCssSelector)).size();
         Assert.assertTrue(size - 1 == size1);
