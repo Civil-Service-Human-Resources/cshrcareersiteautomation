@@ -42,8 +42,11 @@ public class PageSteps {
     {
         String pageName = addPageWithFewFieldsPopulated(teamNames, publishActionType);
         departmentTemplateSteps.fillDepartmentPageTemplate();
+        newPage.selectPageAction(PublishActionType.SAVE);
+        newPage.save.click();
+
         //newPage.editHTMLBody(pageName);
-        newPage.submitWorkflowButton.click();
+        newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
         reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
 
@@ -69,8 +72,6 @@ public class PageSteps {
         }
 
         newPage.typeInto(newPage.pageName,  pageName);
-       // newPage.selectPageAction(PublishActionType.SAVE);
-        //newPage.save.click();
         newPage.selectPageAction(publishActionType);
 
         return pageName;
@@ -128,6 +129,7 @@ public class PageSteps {
     {
         addPageWithFewFieldsPopulated(team, PublishActionType.SAVE);
         newPage.selectTemplate(templateName);
+
     }
 
     public String getCSSSelectorForGivenFieldType(String strFieldType)
@@ -258,8 +260,9 @@ public class PageSteps {
     public void deletePageWithName(String pageName)
     {
         allPages.openPagesMenu();
-        Serenity.setSessionVariable("Page Name").to(pageName);
+
         allPages.openPage(pageName);
+        newPage.selectTeam("team1");
         newPage.selectPageAction(PublishActionType.DELETE);
         newPage.submitWorkflowButton.click();
         reusableComponentsPage.selectActor("Content Approver 1");

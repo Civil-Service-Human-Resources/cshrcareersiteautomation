@@ -1,5 +1,6 @@
 Feature: WP admin - create/amend users
 
+  @users
   Scenario: Create new user
     Given I am logged in as a techadmin
     And I am on the create new user page

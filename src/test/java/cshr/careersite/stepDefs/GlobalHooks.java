@@ -1,6 +1,7 @@
 package cshr.careersite.stepDefs;
 
 import cshr.careersite.model.UserType;
+import cshr.careersite.model.Workflows;
 import cshr.careersite.pages.backend.media.MediaPage;
 import cshr.careersite.pages.backend.roles.AllRolesPage;
 import cshr.careersite.pages.backend.teams.TeamPage;
@@ -46,6 +47,11 @@ public class GlobalHooks{
 
     private MediaPage mediaPage;
 
+    @Steps
+    private PageSteps pageSteps;
+
+    @Steps
+    private WorkflowSteps workflowSteps;
 
     /*@Before
     public void BeforeAll(Scenario scenario) {
@@ -131,5 +137,18 @@ public class GlobalHooks{
         System.out.println("before @media");
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
         mediaSteps.addMediaRequiredForTests();
+    }
+
+    @After("@deletepage")
+    public void afterCreatePages(Scenario scenario)
+    {
+        System.out.println("after @deletepage");
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
+        String teamName = Serenity.sessionVariableCalled("Page Name");
+        pageSteps.deletePageWithName(teamName);
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.ACCEPT, UserType.CONTENT_APPROVER);
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
     }
 }

@@ -26,7 +26,7 @@ public class DepartmentPageSteps {
         String temp = reusableSteps.getStringToCompare("Billboard", "Logo text", pageTemplateObjects).trim();
         Assert.assertEquals(temp, departmentPage.billboardLogoText.getText());
 
-        Assert.assertTrue(departmentPage.billboardLogo.getAttribute("style").contains(".png"));
+        Assert.assertTrue(departmentPage.billboardLogo.getAttribute("style").contains("/wp-content/uploads"));
 
         temp = reusableSteps.getStringToCompare("Billboard", "Heading", pageTemplateObjects).trim();
         Assert.assertEquals(temp, departmentPage.billboardHeading.getText());

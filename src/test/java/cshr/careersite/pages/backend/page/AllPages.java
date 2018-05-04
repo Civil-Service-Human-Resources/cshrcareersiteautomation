@@ -166,9 +166,9 @@ public class AllPages extends PageObject {
                         pageStatus = temp.get(0).getText().split(" — ")[1];
                     }
 
-                    String pageAuthor = temp.get(2).getText();
-                    String teamList = temp.get(4).getText();
-                    String dateStatus = temp.get(3).getText().split("\n")[0];
+                    String pageAuthor = temp.get(1).getText();
+                    String teamList = temp.get(3).getText();
+                    String dateStatus = temp.get(2).getText().split("\n")[0];
 
                     PageTableColumns pageTableColumns = new PageTableColumns(pageTitle, pageStatus, pageAuthor, dateStatus, teamList);
                     pageTableColumnsArray.add(pageTableColumns);

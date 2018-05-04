@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -113,7 +115,11 @@ public class DepartmentTemplatePage extends PageObject{
 
     public void selectTab(String tabName)
     {
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+
         WebElementFacade sectionTab = element(By.xpath("//a[@class='acf-tab-button'][contains(.,'"+tabName +"')]"));
+        wait.until(ExpectedConditions.elementToBeClickable(sectionTab));
+
         if (sectionTab.isCurrentlyEnabled() && !sectionTab.findElement(By.xpath("..")).getAttribute("class").equals("active")){
             sectionTab.sendKeys(Keys.ENTER);
         }

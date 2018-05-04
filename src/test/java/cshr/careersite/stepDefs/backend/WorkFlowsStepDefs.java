@@ -131,6 +131,7 @@ public class WorkFlowsStepDefs {
 
     @When("^I delete the page by name (.*)$")
     public void iDeleteThePageByNamePage_name(String arg0) throws Throwable {
+        Serenity.setSessionVariable("Page Name").to(arg0);
         pageSteps.deletePageWithName(arg0);
     }
 }
