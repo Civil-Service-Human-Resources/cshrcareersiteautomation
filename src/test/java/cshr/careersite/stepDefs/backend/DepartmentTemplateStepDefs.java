@@ -41,11 +41,11 @@ public class DepartmentTemplateStepDefs {
     public void iAddAPageWithTheDepartmentPageTemplateAndAssignedToTeam(String arg0, String arg1) throws Throwable {
         PageTemplates templateName = PageTemplates.DEPARTMENT_PAGE_TEMPLATE;
 
-        if(arg0.toLowerCase().contains("home"))
+        if(arg0.toLowerCase().equals("home"))
         {
             templateName = PageTemplates.HOME_PAGE_TEMPLATE;
         }
-        else if(arg0.toLowerCase().contains("aow"))
+        else if(arg0.toLowerCase().equals("aow"))
         {
             templateName = PageTemplates.AOW_PAGE_TEMPLATE;
         }
@@ -58,7 +58,7 @@ public class DepartmentTemplateStepDefs {
             templateName = PageTemplates.DEPARTMENT_LANDING_PAGE_TEMPLATE;
         }
 
-        pageSteps.draftNewPageWithTemplateTeam(templateName, new String[]{arg1});
+        pageSteps.addBasePageBasedOnTemplate(new String[]{arg1}, PublishActionType.SAVE, templateName);
     }
 
     @And("^I save the page$")
@@ -94,7 +94,7 @@ public class DepartmentTemplateStepDefs {
             templateName = PageTemplates.DEPARTMENT_LANDING_PAGE_TEMPLATE;
         }
 
-        String pageName = "testAOWLanding";
+        String pageName = "test_sbhkmqe";
         Serenity.setSessionVariable("Page Name").to(pageName);
         allPages.openPage(pageName);
 

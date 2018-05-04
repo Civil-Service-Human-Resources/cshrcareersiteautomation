@@ -5,6 +5,7 @@ import cshr.careersite.model.PublishActionType;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
@@ -97,6 +98,7 @@ public class NewPage extends PageObject {
     public void selectTemplate(PageTemplates strPageTemplate)
     {
         pageTemplate.selectByValue(strPageTemplate.getValue());
+        Assert.assertTrue(pageTemplate.getValue().contains(strPageTemplate.getValue()));
     }
 
 }

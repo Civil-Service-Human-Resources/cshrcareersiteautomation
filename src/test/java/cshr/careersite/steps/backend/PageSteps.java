@@ -40,7 +40,7 @@ public class PageSteps {
     @Step
     public boolean addRandomPage(String[] teamNames, PublishActionType publishActionType)
     {
-        String pageName = addPageWithFewFieldsPopulated(teamNames, publishActionType);
+        String pageName = addBasePageBasedOnTemplate(teamNames, publishActionType, PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
         departmentTemplateSteps.fillDepartmentPageTemplate();
         newPage.selectPageAction(PublishActionType.SAVE);
         newPage.save.click();
@@ -61,9 +61,11 @@ public class PageSteps {
         return allPages.pageWithGivenStatusExists(pageName,pageStatus);
     }
 
-    private String addPageWithFewFieldsPopulated(String[] teamNames, PublishActionType publishActionType) {
+    @Step
+    public String addBasePageBasedOnTemplate(String[] teamNames, PublishActionType publishActionType, PageTemplates pageTemplates) {
         RandomTestData testData = new RandomTestData();
-        String pageName = "test_" + testData.getRandomString(7);
+
+        String pageName = "test_" + testData.getRandomString(7) + "_" + pageTemplates.toString().toLowerCase();
         Serenity.setSessionVariable("Page Name").to(pageName);
         newPage.openNewPage();
 
@@ -73,6 +75,7 @@ public class PageSteps {
 
         newPage.typeInto(newPage.pageName,  pageName);
         newPage.selectPageAction(publishActionType);
+        newPage.selectTemplate(pageTemplates);
 
         return pageName;
     }
@@ -121,14 +124,6 @@ public class PageSteps {
 
         newPage.selectPageAction(actionType);
         newPage.submitWorkflowButton.click();
-
-    }
-
-    @Step
-    public void draftNewPageWithTemplateTeam(PageTemplates templateName, String[] team)
-    {
-        addPageWithFewFieldsPopulated(team, PublishActionType.SAVE);
-        newPage.selectTemplate(templateName);
 
     }
 

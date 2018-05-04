@@ -34,6 +34,9 @@ public class WorkflowSteps {
 
         signOffPage.selectFromDropdown(signOffPage.ddAction, acceptReject.getValue());
 
+        if (userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE)
+            signOffPage.waitFor(signOffPage.signOffComplete);
+
         if(signOffPage.priority.isCurrentlyVisible())
         {
             signOffPage.selectFromDropdown(signOffPage.priority, "High");
