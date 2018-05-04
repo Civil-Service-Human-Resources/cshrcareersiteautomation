@@ -89,16 +89,16 @@ public class MediaPage extends PageObject {
 
     public void selectTeam(boolean Team1, boolean Team2)
     {
-        String team = "[class='compat-field-team-%s'] td label";
+        String team = "//table[@class='compat-attachment-fields']//td//label[contains(.,'%s')]";
 
         if(Team1)
         {
-            element(By.cssSelector(String.format(team, "2"))).click();
+            element(By.xpath(String.format(team, "Team1"))).click();
         }
 
         if(Team2)
         {
-            element(By.cssSelector(String.format(team, "3"))).click();
+            element(By.xpath(String.format(team, "Team2"))).click();
         }
         update.waitUntilVisible();
         update.sendKeys(Keys.ENTER);

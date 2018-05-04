@@ -45,14 +45,18 @@ public class ReusableSteps {
                 String maxLength = elementOnPage.getAttribute("maxLength");
                 testData = randomTestData.getWords(100).substring(0,Integer.parseInt(maxLength));
             }
-
-            elementOnPage.type(testData);
+            elementOnPage.waitUntilEnabled();
+            elementOnPage.clear();
+            elementOnPage.sendKeys(testData);
         }
         else if(fieldType.equalsIgnoreCase("image"))
         {
             if(elementOnPage.isCurrentlyVisible()) {
                 elementOnPage.sendKeys(Keys.ENTER);
+
                 WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 10);
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")));
+                newPage.element(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")).click();
                 wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class='attachments-browser'] li")));
                 newPage.element(By.cssSelector("[class='attachments-browser'] li")).click();
                 newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
