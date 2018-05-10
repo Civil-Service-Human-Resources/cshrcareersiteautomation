@@ -1,5 +1,6 @@
 Feature: Home page template
 
+  @deletepage
   Scenario: Content Author can create page using home page template
     Given I am logged in as a contentauthor
     And I navigate to pages menu
@@ -37,6 +38,7 @@ Feature: Home page template
     |Content Block Promo,CTA        	|Target text      |input      	 |150           |true      |
     |Content Block Promo,CTA        	|Target link      |input         |	            |true      |
     |Content Block Promo,CTA        	|Text after       |input      	 |150           |true      |
+    |Content Block Promo             	|Image            |image         |              |true      |
     And I save the page
     Then the home preview page has all the elements as defined in the table above
     And I send the page for approval

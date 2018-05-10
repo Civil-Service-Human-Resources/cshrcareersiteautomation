@@ -1,5 +1,6 @@
 Feature: Department landing page template
 
+  @deletepage
   Scenario: Content Author can create page using Department landing page template
     Given I am logged in as a contentauthor
     And I navigate to pages menu
