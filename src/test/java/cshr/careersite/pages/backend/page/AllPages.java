@@ -135,7 +135,7 @@ public class AllPages extends PageObject {
         }
     }
 
-    private List<PageTableColumns> getRowDetails()
+    public List<PageTableColumns> getRowDetails()
     {
         // Get row columns as PageTableArray objects
 

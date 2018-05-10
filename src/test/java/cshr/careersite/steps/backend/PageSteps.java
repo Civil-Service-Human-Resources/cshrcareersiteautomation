@@ -1,14 +1,14 @@
 package cshr.careersite.steps.backend;
 
-import cshr.careersite.model.PageTemplateObject;
-import cshr.careersite.model.PageTemplates;
-import cshr.careersite.model.PublishActionType;
+import cshr.careersite.model.*;
 import cshr.careersite.pages.backend.ReusableComponentsPage;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.page.RevisionHistoryPage;
+import cshr.careersite.pages.backend.workflows.InboxPage;
 import cshr.careersite.pages.backend.workflows.SubmitWorkFlowPage;
+import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.ReusableSteps;
 import cshr.careersite.utils.RandomTestData;
 import net.serenitybdd.core.Serenity;
@@ -17,8 +17,15 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import sun.rmi.runtime.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PageSteps {
@@ -27,15 +34,21 @@ public class PageSteps {
     private SubmitWorkFlowPage submitWorkFlowPage;
     private AllPages allPages;
     private ReusableComponentsPage reusableComponentsPage;
-    private LoginSteps loginSteps;
     private RevisionHistoryPage revisionHistoryPage;
     private DepartmentTemplatePage departmentTemplatePage;
+    private InboxPage inboxPage;
+
+    @Steps
+    private WorkflowSteps workflowSteps;
 
     @Steps
     private ReusableSteps reusableSteps;
 
     @Steps
     private DepartmentTemplateSteps departmentTemplateSteps;
+
+    @Steps
+    private LoginSteps loginSteps;
 
     @Step
     public boolean addRandomPage(String[] teamNames, PublishActionType publishActionType)
@@ -76,6 +89,9 @@ public class PageSteps {
         newPage.typeInto(newPage.pageName,  pageName);
         newPage.selectPageAction(publishActionType);
         newPage.selectTemplate(pageTemplates);
+        waitForPageLoaded();
+        newPage.save.click();
+        waitForPageLoaded();
 
         return pageName;
     }
@@ -133,11 +149,11 @@ public class PageSteps {
 
         if(strFieldType.equalsIgnoreCase("input"))
         {
-            fieldType = "input:not([type='hidden'])";
+            fieldType = "input:not([type='hidden']):not([class='acf-hidden-by-postbox'])";
         }
         else if(strFieldType.equalsIgnoreCase("textarea"))
         {
-            fieldType = "textarea";
+            fieldType = "textarea:not([class='acf-hidden-by-postbox'])";
         }
         else if(strFieldType.equalsIgnoreCase("image"))
         {
@@ -208,6 +224,9 @@ public class PageSteps {
                                 if (addButtons.get(0).isCurrentlyVisible())
                                     addButtons.get(0).click();
                             }
+
+                            WebDriverWait wait = new WebDriverWait(allPages.getDriver(), 10);
+                            wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
                         }
 
                         oldSectionName = sectionNames[0];
@@ -257,6 +276,9 @@ public class PageSteps {
         allPages.openPagesMenu();
 
         allPages.openPage(pageName);
+        if(newPage.takeOver.isCurrentlyVisible()) {
+            newPage.takeOver.click();
+        }
         newPage.selectTeam("team1");
         newPage.selectPageAction(PublishActionType.DELETE);
         newPage.submitWorkflowButton.click();
@@ -264,6 +286,74 @@ public class PageSteps {
         submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
         allPages.pageWithGivenStatusExists(pageName, "Deletion");
 
+    }
+
+    @Step
+    public void deletePagesWithTeamNameAssociated()
+    {
+        allPages.openPagesMenu();
+
+        List<PageTableColumns> listPages = allPages.getRowDetails();
+        List<String> pageNames = new ArrayList<>();;
+
+        for (PageTableColumns listPage : listPages) {
+            if (!listPage.getTeamList().equals("—") && listPage.getPageTitle().contains("test"))
+            {
+                if (!listPage.getPageStatus().contains("Deletion")) {
+                    String pageName = listPage.getPageTitle();
+                    allPages.openPage(pageName);
+                    newPage.selectTeam("team1");
+                    newPage.selectPageAction(PublishActionType.DELETE);
+                    newPage.submitWorkflowButton.click();
+                    reusableComponentsPage.selectActor("Content Approver 1");
+                    submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
+                    allPages.pageWithGivenStatusExists(pageName, "Deletion");
+                }
+            }
+
+            if(listPage.getPageStatus().contains("Deletion"))
+            {
+                pageNames.add(listPage.getPageTitle());
+            }
+        }
+
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+
+        for (String pageName : pageNames) {
+            Serenity.setSessionVariable("Page Name").to(pageName);
+            workflowSteps.acceptRejectWorkflow(Workflows.ACCEPT, UserType.CONTENT_APPROVER);
+
+        }
+
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
+
+        for (String pageName : pageNames) {
+            Serenity.setSessionVariable("Page Name").to(pageName);
+            workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
+        }
+
+    }
+
+    public void waitForPageLoaded() {
+        WebDriverWait wait = new WebDriverWait(allPages.getDriver(), 60);
+
+        ExpectedCondition<Boolean> jsLoad = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+                    }
+                };
+
+        wait.until(jsLoad);
+
+        /*ExpectedCondition<Boolean> jQueryLoad = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor) driver).executeScript("return jQuery.active").toString().equals("0");
+                    }
+                };
+
+        wait.until(jQueryLoad);*/
     }
 
 }

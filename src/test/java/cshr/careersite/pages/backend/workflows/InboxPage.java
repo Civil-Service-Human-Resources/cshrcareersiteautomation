@@ -54,12 +54,12 @@ public class InboxPage extends PageObject{
         return element(String.format(pageName, strPageName) + "//following-sibling::td[2]").getText();
     }
 
-    public void findPageWithMessage(String strPageName) {
+    public boolean findPageWithMessage(String strPageName) {
         boolean breakwhile = false;
 
         while(!paginationPage.previousPageNumbers.isCurrentlyVisible())
         {
-            List<WebElementFacade> tableRows = findAll(By.cssSelector(("[class='wp-list-table widefat fixed posts'] tr")));
+            List<WebElementFacade> tableRows = findAll(By.cssSelector(("[class='wp-list-table widefat fixed posts'] tr td:first-child")));
 
             for(WebElement w: tableRows)
             {
@@ -77,5 +77,9 @@ public class InboxPage extends PageObject{
 
             paginationPage.goToNextPageType2();
         }
+
+        return breakwhile;
     }
+
+
 }

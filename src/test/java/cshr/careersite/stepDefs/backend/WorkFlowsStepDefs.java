@@ -134,4 +134,10 @@ public class WorkFlowsStepDefs {
         Serenity.setSessionVariable("Page Name").to(arg0);
         pageSteps.deletePageWithName(arg0);
     }
+
+    @And("^I delete all pages with team assigned$")
+    public void iDeleteAllPagesWithTeamAssigned() throws Throwable {
+        pageSteps.deletePagesWithTeamNameAssociated();
+
+    }
 }

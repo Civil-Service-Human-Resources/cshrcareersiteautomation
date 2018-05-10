@@ -45,7 +45,9 @@ public class ReusableSteps {
                 String maxLength = elementOnPage.getAttribute("maxLength");
                 testData = randomTestData.getWords(100).substring(0,Integer.parseInt(maxLength));
             }
-            elementOnPage.waitUntilEnabled();
+            WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 30);
+            wait.until(ExpectedConditions.elementToBeClickable(elementOnPage));
+            elementOnPage.sendKeys(Keys.ENTER);
             elementOnPage.clear();
             elementOnPage.sendKeys(testData);
         }

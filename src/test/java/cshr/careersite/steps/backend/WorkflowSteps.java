@@ -26,62 +26,55 @@ public class WorkflowSteps {
         String pageName = Serenity.sessionVariableCalled("Page Name");
 
         inboxPage.openInbox();
-        inboxPage.findPageWithMessage(pageName);
-        inboxPage.clickSignOff(pageName);
+        boolean messageExists = inboxPage.findPageWithMessage(pageName);
+        if(messageExists) {
+            inboxPage.clickSignOff(pageName);
 
-        // If content publisher is the author then the assigned actor text is different(Used in assignActors below)
-        String strAuthor = inboxPage.getAuthorName(pageName);
+            // If content publisher is the author then the assigned actor text is different(Used in assignActors below)
+            String strAuthor = inboxPage.getAuthorName(pageName);
 
-        signOffPage.selectFromDropdown(signOffPage.ddAction, acceptReject.getValue());
+            signOffPage.selectFromDropdown(signOffPage.ddAction, acceptReject.getValue());
 
-        if (userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE)
-            signOffPage.waitFor(signOffPage.signOffComplete);
+            if (userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE)
+                signOffPage.waitFor(signOffPage.signOffComplete);
 
-        if(signOffPage.priority.isCurrentlyVisible())
-        {
-            signOffPage.selectFromDropdown(signOffPage.priority, "High");
-        }
+            if (signOffPage.priority.isCurrentlyVisible()) {
+                signOffPage.selectFromDropdown(signOffPage.priority, "High");
+            }
 
-        if(reusableComponentsPage.assignActors.isCurrentlyVisible())
-        {
-            String value = "";
+            if (reusableComponentsPage.assignActors.isCurrentlyVisible()) {
+                String value = "";
 
-            if(userType == UserType.CONTENT_APPROVER && acceptReject == Workflows.ACCEPT)
-            {
-                if(strAuthor.equals("Content Publisher 1"))
-                {
-                    value = "Content Publisher 1 (Post Author)";
+                if (userType == UserType.CONTENT_APPROVER && acceptReject == Workflows.ACCEPT) {
+                    if (strAuthor.equals("Content Publisher 1")) {
+                        value = "Content Publisher 1 (Post Author)";
+                    } else
+                        value = "Content Publisher 1";
                 }
-                else
-                    value = "Content Publisher 1";
+
+                if (acceptReject == Workflows.REJECT || acceptReject == Workflows.UNABLE_TO_COMPLETE) {
+                    value = "Content Author 1 (Post Author)";
+                }
+
+                if (!(userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE)) {
+                    reusableComponentsPage.selectActor(value);
+                }
             }
 
-            if(acceptReject == Workflows.REJECT || acceptReject == Workflows.UNABLE_TO_COMPLETE)
-            {
-                value = "Content Author 1 (Post Author)";
+            if (signOffPage.workflowComments.isCurrentlyVisible()) {
+                signOffPage.typeInto(signOffPage.workflowComments, acceptReject.toString());
+
             }
 
-            if(!(userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE))
-            {
-                reusableComponentsPage.selectActor(value);
+            if (signOffPage.chkBoxPublishImmediately.isCurrentlyVisible()) {
+                signOffPage.chkBoxPublishImmediately.click();
             }
+
+            if (userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE)
+                signOffPage.signOffComplete.click();
+            else
+                signOffPage.signOff.click();
         }
-
-        if(signOffPage.workflowComments.isCurrentlyVisible())
-        {
-            signOffPage.typeInto(signOffPage.workflowComments, acceptReject.toString());
-
-        }
-
-        if(signOffPage.chkBoxPublishImmediately.isCurrentlyVisible())
-        {
-            signOffPage.chkBoxPublishImmediately.click();
-        }
-
-        if (userType == UserType.CONTENT_PUBLISHER && acceptReject == Workflows.COMPLETE)
-            signOffPage.signOffComplete.click();
-        else
-            signOffPage.signOff.click();
 
     }
 

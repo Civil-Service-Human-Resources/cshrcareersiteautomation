@@ -116,12 +116,14 @@ public class DepartmentTemplatePage extends PageObject{
     public void selectTab(String tabName)
     {
         WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+        waitABit(500);
 
         WebElementFacade sectionTab = element(By.xpath("//a[@class='acf-tab-button'][contains(.,'"+tabName +"')]"));
         wait.until(ExpectedConditions.elementToBeClickable(sectionTab));
 
         if (sectionTab.isCurrentlyEnabled() && !sectionTab.findElement(By.xpath("..")).getAttribute("class").equals("active")){
             sectionTab.sendKeys(Keys.ENTER);
+            wait.until(ExpectedConditions.attributeContains(sectionTab.findElement(By.xpath("..")),"class", "active"));
         }
     }
 }
