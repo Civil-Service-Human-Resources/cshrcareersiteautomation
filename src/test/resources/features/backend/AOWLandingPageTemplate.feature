@@ -1,5 +1,6 @@
 Feature: AOW Landing page template
 
+  @deletepage
   Scenario: Content Author can create page using AOW landing page template
     Given I am logged in as a contentauthor
     And I navigate to pages menu
@@ -28,3 +29,15 @@ Feature: AOW Landing page template
     And I send the page for approval
     When the publisher publishes the page
     Then the page is published
+
+
+  Scenario: Remove from repeater section
+    Given I am logged in as a contentauthor
+    And I navigate to pages menu
+    When I add a page with the AOW Landing page template and assigned to team1
+    #And I edit the AOW landing page
+    And I fill in the form template
+      |sections_sub_sections      |field_name       |field_type    |max_characters|mandatory |   repeater |
+      |Main repeater,Items        |Heading          |input         |150           |true      |    2      |
+    When  I remove the second repeater section
+    Then the second repeater section is removed
