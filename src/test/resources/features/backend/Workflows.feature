@@ -25,12 +25,12 @@ Feature: Workflows
 
   Scenario: Workflows history
 
-  #Blocked - Defect 866
-  #Scenario: Unpublish
-    #Given I am logged in as a contentauthor
-    #And get a page published
-    #When I request to unpublish as content approver
-    #Then the page is unpublished
+
+  Scenario: Unpublish
+    Given I am logged in as a contentauthor
+    And get a page published
+    When I request to unpublish as content approver
+    Then the page is unpublished
 
 
   Scenario: Revise

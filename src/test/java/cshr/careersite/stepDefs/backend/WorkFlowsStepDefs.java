@@ -108,11 +108,15 @@ public class WorkFlowsStepDefs {
 
     @Then("^the page is unpublished$")
     public void thePageIsUnpublished() throws Throwable {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
+        workflowSteps.acceptRejectWorkflow(Workflows.ACCEPT, UserType.CONTENT_PUBLISHER);
+
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
         workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
 
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_AUTHOR.getValue());
         String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.openPagesMenu();
         Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Draft"));
 
     }

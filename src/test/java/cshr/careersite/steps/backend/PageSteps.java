@@ -137,6 +137,9 @@ public class PageSteps {
 
         newPage.selectPageAction(actionType);
         newPage.submitWorkflowButton.click();
+        reusableComponentsPage.selectActor("techadmin");
+        submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
+        allPages.pageWithGivenStatusExists(pageName,"Unpublish");
 
     }
 
