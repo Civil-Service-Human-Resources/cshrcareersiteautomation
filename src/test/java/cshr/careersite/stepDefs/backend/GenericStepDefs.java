@@ -7,6 +7,8 @@ import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.pagesection.RepeaterSectionPage;
 import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.backend.PageSteps;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -76,7 +78,7 @@ public class GenericStepDefs {
         repeaterSectionPage.removeRow();
         newPage.selectPageAction(PublishActionType.SAVE);
 
-        newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
+        newPage.save.click();
     }
 
     @Then("^the second repeater section is removed$")
@@ -87,5 +89,10 @@ public class GenericStepDefs {
 
         Integer size1 = repeaterSectionPage.findAll(By.cssSelector(createCssSelector)).size();
         Assert.assertTrue(size - 1 == size1);
+    }
+
+    @And("^I setup data for remove repeater section$")
+    public void iSetupDataForRemoveRepeaterSection() throws Throwable {
+        Serenity.setSessionVariable("Ignore disable add item").to("true");
     }
 }

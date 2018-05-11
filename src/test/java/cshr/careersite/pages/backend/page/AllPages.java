@@ -160,6 +160,9 @@ public class AllPages extends PageObject {
                 String pageStatus = "";
 
                 if(!temp.get(0).getText().contains("Select All")) {
+                    if(temp.get(0).getText().contains("No pages found."))
+                        return null;
+
                     String pageTitle = temp.get(0).getText().split(" — ")[0];
 
                     if (temp.get(0).getText().split(" — ").length > 1) {
@@ -188,7 +191,11 @@ public class AllPages extends PageObject {
         searchButton.click();
 
         List<PageTableColumns> rows = getRowDetails();
-        if(rows.size() > 0)
+        if(rows == null)
+        {
+            return null;
+        }
+        else if(rows.size() > 0)
         {
             return rows.get(0);
         }

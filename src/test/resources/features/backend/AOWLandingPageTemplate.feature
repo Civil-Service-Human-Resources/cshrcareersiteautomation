@@ -33,9 +33,9 @@ Feature: AOW Landing page template
 
   Scenario: Remove from repeater section
     Given I am logged in as a contentauthor
+    And I setup data for remove repeater section
     And I navigate to pages menu
     When I add a page with the AOW Landing page template and assigned to team1
-    #And I edit the AOW landing page
     And I fill in the form template
       |sections_sub_sections      |field_name       |field_type    |max_characters|mandatory |   repeater |
       |Main repeater,Items        |Heading          |input         |150           |true      |    2      |

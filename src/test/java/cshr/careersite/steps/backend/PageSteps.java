@@ -223,7 +223,11 @@ public class PageSteps {
                             }
 
                             WebDriverWait wait = new WebDriverWait(allPages.getDriver(), 10);
-                            wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
+                            String checkAddItemDisabled = Serenity.sessionVariableCalled("Ignore disable add item");
+                            if(checkAddItemDisabled == null)
+                            {
+                                wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
+                            }
                         }
 
                         oldSectionName = sectionNames[0];
@@ -296,8 +300,9 @@ public class PageSteps {
         for (PageTableColumns listPage : listPages) {
             if (!listPage.getTeamList().equals("—") && listPage.getPageTitle().contains("test"))
             {
-                if (!listPage.getPageStatus().contains("Deletion")) {
+                if (!listPage.getPageStatus().contains("Deletion") && !listPage.getPageStatus().contains("REVISION")) {
                     String pageName = listPage.getPageTitle();
+                    System.out.println(pageName);
                     allPages.openPage(pageName);
                     newPage.selectTeam("team1");
                     newPage.selectPageAction(PublishActionType.DELETE);
@@ -308,7 +313,7 @@ public class PageSteps {
                 }
             }
 
-            if(listPage.getPageStatus().contains("Deletion"))
+            if(listPage.getPageStatus().contains("Deletion") && !listPage.getPageStatus().contains("REVISION"))
             {
                 pageNames.add(listPage.getPageTitle());
             }
