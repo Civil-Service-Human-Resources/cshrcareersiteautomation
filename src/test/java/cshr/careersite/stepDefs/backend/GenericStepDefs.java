@@ -75,6 +75,7 @@ public class GenericStepDefs {
         elementOnPage.get(1).sendKeys(Keys.ENTER);
 
         departmentTemplatePage.selectTab("Main repeater");
+        elementOnPage.get(0).click();
         repeaterSectionPage.removeRow();
         newPage.selectPageAction(PublishActionType.SAVE);
 

@@ -74,61 +74,13 @@ public class AllPages extends PageObject {
         return pageExists;
     }
 
-   /* private List<String> getPageTitles(String pageNumber) {
-        List<String> temp = new ArrayList<String>();
 
-        Integer totalPages = 2;
-
-        if(paginationPage.totalPages.isCurrentlyVisible())
-        {
-            totalPages = Integer.parseInt(paginationPage.totalPages.getText());
-        }
-
-        for(int i=1; i< totalPages; i++)
-        {
-            for (WebElement G : pageTitle ) {
-                temp.add(G.getText().split(" - ")[0]);
-
-            }
-
-            if(pageNumber.equals("1"))
-            {
-                break;
-            }
-
-            paginationPage.goToNextPage();
-
-        }
-
-        return temp;
-    }
-*/
     public void openPage(String pageName)
     {
         openPagesMenu();
 
-       /* Integer totalPages = 2;
-
-        if(paginationPage.totalPages.isCurrentlyVisible())
-        {
-            totalPages = Integer.parseInt(paginationPage.totalPages.getText());
-        }
-
-
-        for(int i=1; i < totalPages; i++) {
-
-            if(element(String.format(strPage, pageName)).isCurrentlyVisible())
-            {
-                element(String.format(strPage, pageName)).click();
-                break;
-            }
-            else
-            {
-                paginationPage.goToNextPage();
-            }
-        }*/
-
         searchPage(pageName);
+
         if(element(String.format(strPage, pageName)).isCurrentlyVisible())
         {
             element(String.format(strPage, pageName)).click();
@@ -203,4 +155,17 @@ public class AllPages extends PageObject {
             return null;
     }
 
+    public void viewPage(String pageName)
+    {
+        openPagesMenu();
+
+        searchPage(pageName);
+
+        if(element(String.format(strPage, pageName)).isCurrentlyVisible())
+        {
+            withAction().
+                    moveToElement(element(String.format(strPage, pageName))).
+                    moveToElement(element(By.linkText("View"))).click();
+        }
+    }
 }

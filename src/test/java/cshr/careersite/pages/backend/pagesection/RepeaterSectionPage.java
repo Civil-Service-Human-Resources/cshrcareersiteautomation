@@ -9,8 +9,12 @@ public class RepeaterSectionPage extends PageObject{
     @FindBy(css = "[class='acf-repeater -row'] [class='acf-table'] [data-event='remove-row']")
     WebElementFacade removeRow;
 
+    @FindBy(css = "[class='acf-confirm-y -red']")
+    WebElementFacade removeConfirmation;
+
     public void removeRow()
     {
-        withAction().doubleClick(removeRow);
+        removeRow.click();
+        removeConfirmation.click();
     }
 }
