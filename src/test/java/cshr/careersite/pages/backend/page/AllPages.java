@@ -34,8 +34,6 @@ public class AllPages extends PageObject {
 
     public boolean isPagePublished(String pageName)
     {
-        //List<PageTableColumns> temp = getRowDetails();
-        //return temp.stream().filter(o -> o.getPageTitle().contains(pageName) && o.getDateStatus().toLowerCase().contains("published")).findFirst().isPresent();
         Boolean pagePublished = false;
 
         PageTableColumns temp = searchPage(pageName);
@@ -49,8 +47,6 @@ public class AllPages extends PageObject {
 
     public boolean pageWithGivenStatusExists(String pageName, String pageStatus)
     {
-        //List<String> temp = getPageTitles("1");
-        //return temp.contains(pageName + " — " + pageStatus);
         Boolean pageWithGivenStatusExists = false;
         PageTableColumns temp = searchPage(pageName);
 
@@ -63,7 +59,6 @@ public class AllPages extends PageObject {
 
     public boolean pageExists(String pageName)
     {
-        //List<String> temp = getPageTitles("all");
         Boolean pageExists = false;
         PageTableColumns temp = searchPage(pageName);
 

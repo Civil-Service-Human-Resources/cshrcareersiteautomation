@@ -34,7 +34,7 @@ public class LoginStepdefs {
         careerSiteLoginPage.openLoginPage();
     }
 
-    @When("^I login as (.*) with username (.*) and password (.*)$")
+    @When("^I login as role (.*) with username (.*) and password (.*)$")
     public void iLoginAsRoleWithUsernameUsernameAndPasswordPassword(String role, String username, String password) throws Throwable {
         careerSiteLoginPage.login(username, password);
     }

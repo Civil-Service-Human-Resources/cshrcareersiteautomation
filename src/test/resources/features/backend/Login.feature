@@ -2,7 +2,7 @@ Feature: Login
 
     Scenario Outline: Successful login
         Given I am on the career site login page
-        When I login as <role> with username <username> and password <password>
+        When I login as role <role> with username <username> and password <password>
         Then I am successfully logged in as <username>
         Then I should see navitems <navmainheading>
         Examples:

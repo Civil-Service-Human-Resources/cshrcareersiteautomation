@@ -104,7 +104,7 @@ public class MediaPage extends PageObject {
         update.sendKeys(Keys.ENTER);
     }
 
-    public void openAddNew()
+    public void addNewMedia()
     {
         addMedia.click();
         withTimeoutOf(15, SECONDS).elementIsCurrentlyVisible(By.cssSelector("button[id='__wp-uploader-id-1']"));

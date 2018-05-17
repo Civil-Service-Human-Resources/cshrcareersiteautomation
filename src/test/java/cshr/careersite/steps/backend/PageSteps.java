@@ -257,11 +257,19 @@ public class PageSteps {
 
     }
 
+    @Step
     public void openPage()
     {
         allPages.openPagesMenu();
         String pageName = Serenity.sessionVariableCalled("Page Name");
         allPages.openPage(pageName);
+    }
+
+    @Step
+    public void viewPage()
+    {
+        String pageName = Serenity.sessionVariableCalled("Page Name");
+        allPages.viewPage(pageName);
     }
 
     @Step
