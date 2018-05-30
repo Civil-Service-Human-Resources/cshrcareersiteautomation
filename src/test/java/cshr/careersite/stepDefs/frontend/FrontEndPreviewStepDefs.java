@@ -1,8 +1,12 @@
 package cshr.careersite.stepDefs.frontend;
 
 import cshr.careersite.pages.backend.page.NewPage;
+import cshr.careersite.steps.backend.PageSteps;
 import cshr.careersite.steps.frontend.*;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 
 public class FrontEndPreviewStepDefs {
@@ -24,11 +28,13 @@ public class FrontEndPreviewStepDefs {
     @Steps
     private DepartmentLandingPageSteps departmentLandingPageSteps;
 
+    @Steps
+    private PageSteps pageSteps;
 
-    @Then("^the departments preview page has all the elements as defined in the table above$")
-    public void theDepartmentsPreviewPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
-        String pageLink = newPage.previewLink.getAttribute("href");
-        newPage.getDriver().navigate().to(pageLink);
+
+    @Then("^the published departments page has all the elements as defined in the table above$")
+    public void thePublishedDepartmentsPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
+        pageSteps.viewPage();
         departmentPageSteps.checkDepartmentPageFrontEnd();
     }
 

@@ -8,7 +8,6 @@ import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +15,7 @@ import java.util.List;
 public class AllPages extends PageObject {
 
     private PaginationPage paginationPage;
+    private NewPage newPage;
 
     public void openPagesMenu()
     {
@@ -158,9 +158,14 @@ public class AllPages extends PageObject {
 
         if(element(String.format(strPage, pageName)).isCurrentlyVisible())
         {
-            withAction().
-                    moveToElement(element(String.format(strPage, pageName))).
-                    moveToElement(element(By.linkText("View"))).click();
+            element(By.linkText(pageName)).click();
+
+            if(newPage.takeOver.isCurrentlyVisible()) {
+                newPage.takeOver.click();
+            }
+
+            newPage.previewLink.click();
+
         }
     }
 }
