@@ -7,6 +7,7 @@ import cshr.careersite.steps.ReusableSteps;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -104,7 +105,7 @@ public class TemplateSectionSteps {
                 List<WebElementFacade> element = (List<WebElementFacade>) field.get(factoid);
 
                 for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
-                reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
+                    reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
                 }
             }
 
@@ -123,9 +124,10 @@ public class TemplateSectionSteps {
             Field field = subContent.getClass().getField(fieldName);
             if(Collection.class.isAssignableFrom(field.getType()))
             {
-                List<WebElementFacade> element = (List<WebElementFacade>) field.get(subContent);
+                List<WebElement> element = (List<WebElement>) field.get(subContent);
 
                 for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
+                    field = subContent.getClass().getField(fieldName);
                     reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
                 }
             }
