@@ -17,15 +17,15 @@ public class SubContent extends PageObject {
     public WebElementFacade subContentHeading;
 
     @FindBys(@FindBy(css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='image'] [data-name = 'add']"))
-    public List<WebElement> subContentDriverImage;
+    public List<WebElementFacade> subContentDriverImage;
 
    @FindBys(@FindBy(css = "[data-name ='sub_content'] [data-name ='driver'] [data-name ='headline'] input:not([type='hidden'])"))
-    public List<WebElement> subContentDriverHeadline;
+    public List<WebElementFacade> subContentDriverHeadline;
 
     @FindBys(@FindBy(css ="[data-name ='sub_content'] [data-name ='driver'] [data-name ='link'] input:not([type='hidden'])"))
-    public List<WebElement> subContentDriverLink;
+    public List<WebElementFacade> subContentDriverLink;
 
     @FindBys(@FindBy(css ="[data-name ='sub_content'] [data-name ='driver'] [data-name ='text'] textarea"))
-    public List<WebElement> subContentDriverText;
+    public List<WebElementFacade> subContentDriverText;
 
 }

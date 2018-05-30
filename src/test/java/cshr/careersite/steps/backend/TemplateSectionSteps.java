@@ -124,7 +124,7 @@ public class TemplateSectionSteps {
             Field field = subContent.getClass().getField(fieldName);
             if(Collection.class.isAssignableFrom(field.getType()))
             {
-                List<WebElement> element = (List<WebElement>) field.get(subContent);
+                List<WebElementFacade> element = (List<WebElementFacade>) field.get(subContent);
 
                 for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
                     field = subContent.getClass().getField(fieldName);
