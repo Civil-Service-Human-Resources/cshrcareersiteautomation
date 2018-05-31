@@ -370,50 +370,25 @@ public class PageSteps {
         wait.until(jQueryLoad);*/
     }
 
-    public void fillFormFields1(List<PageTemplateObject> pageTemplateObject)
-    {
+    public void fillFormFields1(List<PageTemplateObject> pageTemplateObject) {
         String oldSectionName = "";
+        boolean newSection = false;
 
         for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
 
             String[] sectionNames = aPageTemplateObject.sections_sub_sections.split(",");
 
-            if (aPageTemplateObject.repeater != null) {
-                if (!aPageTemplateObject.repeater.equals("")) {
-                    // Click add button
-                    if (!oldSectionName.equals(sectionNames[0])) {
-                        String addButtonCSSSelector = String.format("[data-name='%s'] ", sectionNames[0].toLowerCase().replaceAll(" ", "_"));
-                        String copySectionName = addButtonCSSSelector;
-                        addButtonCSSSelector = addButtonCSSSelector.concat("[class='acf-button button button-primary'][data-event='add-row']");
-                        List<WebElementFacade> addButtons = newPage.findAll(By.cssSelector(addButtonCSSSelector));
+            if (!oldSectionName.equals(sectionNames[0])) {
+                oldSectionName = sectionNames[0];
+                newSection = true;
 
-                        if (addButtons.size() > 0) {
-
-                            List<WebElementFacade> existingRowCount = newPage.findAll(By.cssSelector(copySectionName.concat("[class='acf-repeater -row'] [class='acf-row']")));
-
-                            for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater) - existingRowCount.size(); x++) {
-
-                                if (addButtons.get(0).isCurrentlyVisible())
-                                    addButtons.get(0).click();
-                            }
-
-                            WebDriverWait wait = new WebDriverWait(allPages.getDriver(), 10);
-                            String checkAddItemDisabled = Serenity.sessionVariableCalled("Ignore disable add item");
-                            if (checkAddItemDisabled == null) {
-                                wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
-                            }
-                        }
-
-                        oldSectionName = sectionNames[0];
-
-                    }
-                }
-
+            } else {
+                newSection = false;
             }
-            templateSectionSteps.selectAndFillTemplateSection(aPageTemplateObject);
+
+            templateSectionSteps.selectAndFillTemplateSection(aPageTemplateObject, newSection);
 
         }
+
     }
-
-
 }

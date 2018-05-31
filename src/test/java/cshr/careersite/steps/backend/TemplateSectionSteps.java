@@ -4,9 +4,14 @@ import cshr.careersite.pages.backend.backendTemplateSections.*;
 import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
 import cshr.careersite.steps.ReusableSteps;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import sun.jvm.hotspot.debugger.Page;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -24,6 +29,7 @@ public class TemplateSectionSteps {
     ContentBlockImage contentBlockImage;
     ContentBlockPromo contentBlockPromo;
     ContentBlockWithCTAImage contentBlockWithCTAImage;
+    ListRepeater listRepeater;
 
     DepartmentTemplatePage departmentTemplatePage;
 
@@ -31,7 +37,7 @@ public class TemplateSectionSteps {
     ReusableSteps reusableSteps;
 
     @Step
-    public void fillBillboardSection(PageTemplateObject pageTemplateObject)
+    public void fillBillboardSection(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Billboard");
         try {
@@ -47,7 +53,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillMainContentSection(PageTemplateObject pageTemplateObject)
+    public void fillMainContentSection(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Main content");
         try {
@@ -63,7 +69,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillContentBlockVerticalSection(PageTemplateObject pageTemplateObject)
+    public void fillContentBlockVerticalSection(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Content Block Vertical");
         try {
@@ -80,7 +86,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillContentBlockHorizontalSection(PageTemplateObject pageTemplateObject)
+    public void fillContentBlockHorizontalSection(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Content Block Horizontal");
         try {
@@ -96,7 +102,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillFactoidSection(PageTemplateObject pageTemplateObject)
+    public void fillFactoidSection(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Factoid");
         try {
@@ -118,7 +124,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillSubContentSection(PageTemplateObject pageTemplateObject)
+    public void fillSubContentSection(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Sub content");
         try {
@@ -145,7 +151,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillContentBlockWithCTA(PageTemplateObject pageTemplateObject)
+    public void fillContentBlockWithCTA(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Content Block with CTA");
         try {
@@ -161,7 +167,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillContentBlockWithCTAImage(PageTemplateObject pageTemplateObject)
+    public void fillContentBlockWithCTAImage(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Content Block with CTA + Image");
         try {
@@ -177,7 +183,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillContentBlockImage(PageTemplateObject pageTemplateObject)
+    public void fillContentBlockImage(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Content Block Image");
         try {
@@ -193,7 +199,7 @@ public class TemplateSectionSteps {
     }
 
     @Step
-    public void fillContentBlockPromo(PageTemplateObject pageTemplateObject)
+    public void fillContentBlockPromo(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         departmentTemplatePage.selectTab("Content Block Promo");
         try {
@@ -208,51 +214,84 @@ public class TemplateSectionSteps {
         }
     }
 
+    @Step
+    public void fillListRepeater(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        String sectionName = "List repeater";
+        departmentTemplatePage.selectTab(sectionName);
+        clickAddButtons(sectionName, pageTemplateObject , newSection);
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = listRepeater.getClass().getField(fieldName);
+
+            if(Collection.class.isAssignableFrom(field.getType()))
+            {
+                List<WebElementFacade> element = (List<WebElementFacade>) field.get(listRepeater);
+
+                for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
+                    field = listRepeater.getClass().getField(fieldName);
+                    reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
+                }
+            }
+            else {
+                WebElementFacade element = (WebElementFacade) field.get(listRepeater);
+                reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+            }
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Step
-    public void selectAndFillTemplateSection(PageTemplateObject pageTemplateObject)
+    public void selectAndFillTemplateSection(PageTemplateObject pageTemplateObject, boolean newSection)
     {
         if(pageTemplateObject.sections_sub_sections.contains("Billboard"))
         {
-            fillBillboardSection(pageTemplateObject);
+            fillBillboardSection(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.contains("Content Block Vertical"))
         {
-            fillContentBlockVerticalSection(pageTemplateObject);
+            fillContentBlockVerticalSection(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.contains("Content Block Horizontal"))
         {
-            fillContentBlockHorizontalSection(pageTemplateObject);
+            fillContentBlockHorizontalSection(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.contains("Factoid"))
         {
-            fillFactoidSection(pageTemplateObject);
+            fillFactoidSection(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.contains("Main content"))
         {
-            fillMainContentSection(pageTemplateObject);
+            fillMainContentSection(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.contains("Sub content"))
         {
-            fillSubContentSection(pageTemplateObject);
+            fillSubContentSection(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.equals("Content Block with CTA"))
         {
-            fillContentBlockWithCTA(pageTemplateObject);
+            fillContentBlockWithCTA(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.equals("Content Block with CTA + Image"))
         {
-            fillContentBlockWithCTAImage(pageTemplateObject);
+            fillContentBlockWithCTAImage(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.contains("Content Block Image"))
         {
-            fillContentBlockImage(pageTemplateObject);
+            fillContentBlockImage(pageTemplateObject, newSection);
         }
         else if(pageTemplateObject.sections_sub_sections.contains("Content Block Promo"))
         {
-            fillContentBlockPromo(pageTemplateObject);
+            fillContentBlockPromo(pageTemplateObject, newSection);
         }
-
+        else if(pageTemplateObject.sections_sub_sections.contains("List repeater"))
+        {
+            fillListRepeater(pageTemplateObject, newSection);
+        }
     }
 
     private String getFieldName(PageTemplateObject pageTemplateObject)
@@ -278,6 +317,38 @@ public class TemplateSectionSteps {
         }
 
         return fieldName.replaceAll(" ","").replaceAll("\\+", "");
+    }
+
+    private void clickAddButtons(String sectionName, PageTemplateObject aPageTemplateObject, boolean newSection)
+    {
+        if(newSection) {
+            if (aPageTemplateObject.repeater != null) {
+                if (!aPageTemplateObject.repeater.equals("")) {
+                    // Click add button
+                    String addButtonCSSSelector = String.format("[data-name='%s'] ", sectionName.toLowerCase().replaceAll(" ", "_"));
+                    String copySectionName = addButtonCSSSelector;
+                    addButtonCSSSelector = addButtonCSSSelector.concat("[class='acf-button button button-primary'][data-event='add-row']");
+                    List<WebElementFacade> addButtons = departmentTemplatePage.findAll(By.cssSelector(addButtonCSSSelector));
+
+                    if (addButtons.size() > 0 && addButtons.get(0).isCurrentlyEnabled()) {
+
+                        List<WebElementFacade> existingRowCount = departmentTemplatePage.findAll(By.cssSelector(copySectionName.concat("[class='acf-repeater -row'] [class='acf-row']")));
+
+                        for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater) - existingRowCount.size(); x++) {
+
+                            if (addButtons.get(0).isCurrentlyVisible())
+                                addButtons.get(0).click();
+                        }
+
+                        WebDriverWait wait = new WebDriverWait(departmentTemplatePage.getDriver(), 10);
+                        String checkAddItemDisabled = Serenity.sessionVariableCalled("Ignore disable add item");
+                        if (checkAddItemDisabled == null) {
+                            wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
