@@ -51,10 +51,9 @@ public class FrontEndPreviewStepDefs {
         aowPageSteps.checkAOWPageFrontEnd();
     }
 
-    @Then("^the AOW landing preview page has all the elements as defined in the table above$")
-    public void theAOWLandingPreviewPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
-        String pageLink = newPage.previewLink.getAttribute("href");
-        newPage.getDriver().navigate().to(pageLink);
+    @Then("^the published AOW landing page has all the elements as defined in the table above$")
+    public void thePublishedAOWLandingPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
+        pageSteps.viewPage();
         aowLandingPageSteps.checkAOWLandingPageFrontEnd();
     }
 

@@ -30,7 +30,8 @@ public class TemplateSectionSteps {
     ContentBlockPromo contentBlockPromo;
     ContentBlockWithCTAImage contentBlockWithCTAImage;
     ListRepeater listRepeater;
-
+    MainRepeater mainRepeater;
+    SubRepeater subRepeater;
     DepartmentTemplatePage departmentTemplatePage;
 
     @Steps
@@ -244,6 +245,66 @@ public class TemplateSectionSteps {
         }
     }
 
+    @Step
+    public void fillMainRepeater(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        String sectionName = "Main repeater";
+        departmentTemplatePage.selectTab(sectionName);
+        clickAddButtons(sectionName, pageTemplateObject , newSection);
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = mainRepeater.getClass().getField(fieldName);
+
+            if(Collection.class.isAssignableFrom(field.getType()))
+            {
+                List<WebElementFacade> element = (List<WebElementFacade>) field.get(mainRepeater);
+
+                for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
+                    field = mainRepeater.getClass().getField(fieldName);
+                    reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
+                }
+            }
+            else {
+                WebElementFacade element = (WebElementFacade) field.get(mainRepeater);
+                reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+            }
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void fillSubRepeater(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        String sectionName = "Sub repeater";
+        departmentTemplatePage.selectTab(sectionName);
+        clickAddButtons(sectionName, pageTemplateObject , newSection);
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = subRepeater.getClass().getField(fieldName);
+
+            if(Collection.class.isAssignableFrom(field.getType()))
+            {
+                List<WebElementFacade> element = (List<WebElementFacade>) field.get(subRepeater);
+
+                for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
+                    field = subRepeater.getClass().getField(fieldName);
+                    reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
+                }
+            }
+            else {
+                WebElementFacade element = (WebElementFacade) field.get(subRepeater);
+                reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+            }
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Step
     public void selectAndFillTemplateSection(PageTemplateObject pageTemplateObject, boolean newSection)
@@ -291,6 +352,14 @@ public class TemplateSectionSteps {
         else if(pageTemplateObject.sections_sub_sections.contains("List repeater"))
         {
             fillListRepeater(pageTemplateObject, newSection);
+        }
+        else if(pageTemplateObject.sections_sub_sections.contains("Main repeater"))
+        {
+            fillMainRepeater(pageTemplateObject, newSection);
+        }
+        else if(pageTemplateObject.sections_sub_sections.contains("Sub repeater"))
+        {
+            fillSubRepeater(pageTemplateObject, newSection);
         }
     }
 
