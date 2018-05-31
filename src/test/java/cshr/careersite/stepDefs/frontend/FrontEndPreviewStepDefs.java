@@ -38,10 +38,9 @@ public class FrontEndPreviewStepDefs {
         departmentPageSteps.checkDepartmentPageFrontEnd();
     }
 
-    @Then("^the home preview page has all the elements as defined in the table above$")
+    @Then("^the published home page has all the elements as defined in the table above$")
     public void theHomePreviewPageHasAllTheElementsAsDefinedInTheTableAbove() throws Throwable {
-        String pageLink = newPage.previewLink.getAttribute("href");
-        newPage.getDriver().navigate().to(pageLink);
+        pageSteps.viewPage();
         homePageSteps.checkHomePageFrontEnd();
     }
 

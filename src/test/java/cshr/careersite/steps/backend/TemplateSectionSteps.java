@@ -7,7 +7,6 @@ import cshr.careersite.steps.ReusableSteps;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
-import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -21,6 +20,10 @@ public class TemplateSectionSteps {
     ContentBlockHorizontal contentBlockHorizontal;
     SubContent subContent;
     Factoid factoid;
+    ContentBlockWithCTA contentBlockWithCTA;
+    ContentBlockImage contentBlockImage;
+    ContentBlockPromo contentBlockPromo;
+    ContentBlockWithCTAImage contentBlockWithCTAImage;
 
     DepartmentTemplatePage departmentTemplatePage;
 
@@ -142,6 +145,71 @@ public class TemplateSectionSteps {
     }
 
     @Step
+    public void fillContentBlockWithCTA(PageTemplateObject pageTemplateObject)
+    {
+        departmentTemplatePage.selectTab("Content Block with CTA");
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = contentBlockWithCTA.getClass().getField(fieldName);
+            WebElementFacade element = (WebElementFacade)  field.get(contentBlockWithCTA);
+            reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void fillContentBlockWithCTAImage(PageTemplateObject pageTemplateObject)
+    {
+        departmentTemplatePage.selectTab("Content Block with CTA + Image");
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = contentBlockWithCTAImage.getClass().getField(fieldName);
+            WebElementFacade element = (WebElementFacade)  field.get(contentBlockWithCTAImage);
+            reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void fillContentBlockImage(PageTemplateObject pageTemplateObject)
+    {
+        departmentTemplatePage.selectTab("Content Block Image");
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = contentBlockImage.getClass().getField(fieldName);
+            WebElementFacade element = (WebElementFacade)  field.get(contentBlockImage);
+            reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void fillContentBlockPromo(PageTemplateObject pageTemplateObject)
+    {
+        departmentTemplatePage.selectTab("Content Block Promo");
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = contentBlockPromo.getClass().getField(fieldName);
+            WebElementFacade element = (WebElementFacade)  field.get(contentBlockPromo);
+            reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Step
     public void selectAndFillTemplateSection(PageTemplateObject pageTemplateObject)
     {
         if(pageTemplateObject.sections_sub_sections.contains("Billboard"))
@@ -168,6 +236,22 @@ public class TemplateSectionSteps {
         {
             fillSubContentSection(pageTemplateObject);
         }
+        else if(pageTemplateObject.sections_sub_sections.equals("Content Block with CTA"))
+        {
+            fillContentBlockWithCTA(pageTemplateObject);
+        }
+        else if(pageTemplateObject.sections_sub_sections.equals("Content Block with CTA + Image"))
+        {
+            fillContentBlockWithCTAImage(pageTemplateObject);
+        }
+        else if(pageTemplateObject.sections_sub_sections.contains("Content Block Image"))
+        {
+            fillContentBlockImage(pageTemplateObject);
+        }
+        else if(pageTemplateObject.sections_sub_sections.contains("Content Block Promo"))
+        {
+            fillContentBlockPromo(pageTemplateObject);
+        }
 
     }
 
@@ -193,7 +277,7 @@ public class TemplateSectionSteps {
             fieldName = fieldName.concat(cap);
         }
 
-        return fieldName.replaceAll(" ","");
+        return fieldName.replaceAll(" ","").replaceAll("\\+", "");
     }
 
 }

@@ -407,11 +407,11 @@ public class PageSteps {
                         oldSectionName = sectionNames[0];
 
                     }
-            }
+                }
 
+            }
             templateSectionSteps.selectAndFillTemplateSection(aPageTemplateObject);
 
-            }
         }
     }
 
