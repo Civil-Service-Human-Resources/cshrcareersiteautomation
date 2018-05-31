@@ -43,6 +43,12 @@ public class ReusableSteps {
             else
             {
                 String maxLength = elementOnPage.getAttribute("maxLength");
+
+                if(maxLength.equals("-1"))
+                {
+                    maxLength = "150";
+                }
+
                 testData = randomTestData.getWords(100).substring(0,Integer.parseInt(maxLength));
             }
             WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 30);

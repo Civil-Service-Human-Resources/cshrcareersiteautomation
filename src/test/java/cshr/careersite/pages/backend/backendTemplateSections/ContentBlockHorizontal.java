@@ -21,7 +21,7 @@ public class ContentBlockHorizontal extends PageObject{
     @FindBy(css = "[data-name ='content_block_horizontal'] [data-name ='role'] input:not([type='hidden'])")
     public WebElementFacade contentBlockHorizontalRole;
 
-    @FindBy(css = "[data-name ='content_block_horizontal'] [data-name ='extra_text'] textarea")
+    @FindBy(css = "[data-name ='content_block_horizontal'] [data-name ='extra_text'] [class='acf-input'] [class='wp-editor-container'] textarea")
     public WebElementFacade contentBlockHorizontalExtraText;
 
 }
