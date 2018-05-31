@@ -33,6 +33,8 @@ public class TemplateSectionSteps {
     MainRepeater mainRepeater;
     SubRepeater subRepeater;
     DepartmentTemplatePage departmentTemplatePage;
+    SubContentMultiple subContentMultiple;
+    Listing listing;
 
     @Steps
     ReusableSteps reusableSteps;
@@ -305,6 +307,66 @@ public class TemplateSectionSteps {
         }
     }
 
+    @Step
+    public void fillSubContentMultiple(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        String sectionName = "Sub Content Multiple";
+        departmentTemplatePage.selectTab(sectionName);
+        clickAddButtons(sectionName, pageTemplateObject , newSection);
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = subContentMultiple.getClass().getField(fieldName);
+
+            if(Collection.class.isAssignableFrom(field.getType()))
+            {
+                List<WebElementFacade> element = (List<WebElementFacade>) field.get(subContentMultiple);
+
+                for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
+                    field = subContentMultiple.getClass().getField(fieldName);
+                    reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
+                }
+            }
+            else {
+                WebElementFacade element = (WebElementFacade) field.get(subContentMultiple);
+                reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+            }
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void fillListing(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        String sectionName = "Listing";
+        departmentTemplatePage.selectTab(sectionName);
+        clickAddButtons(sectionName, pageTemplateObject , newSection);
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = listing.getClass().getField(fieldName);
+
+            if(Collection.class.isAssignableFrom(field.getType()))
+            {
+                List<WebElementFacade> element = (List<WebElementFacade>) field.get(listing);
+
+                for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
+                    field = listing.getClass().getField(fieldName);
+                    reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
+                }
+            }
+            else {
+                WebElementFacade element = (WebElementFacade) field.get(listing);
+                reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+            }
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Step
     public void selectAndFillTemplateSection(PageTemplateObject pageTemplateObject, boolean newSection)
@@ -361,6 +423,14 @@ public class TemplateSectionSteps {
         {
             fillSubRepeater(pageTemplateObject, newSection);
         }
+        else if(pageTemplateObject.sections_sub_sections.contains("Sub Content Multiple"))
+        {
+            fillSubContentMultiple(pageTemplateObject, newSection);
+        }
+        else if(pageTemplateObject.sections_sub_sections.contains("Listing"))
+        {
+            fillListing(pageTemplateObject, newSection);
+        }
     }
 
     private String getFieldName(PageTemplateObject pageTemplateObject)
@@ -409,7 +479,7 @@ public class TemplateSectionSteps {
                                 addButtons.get(0).click();
                         }
 
-                        WebDriverWait wait = new WebDriverWait(departmentTemplatePage.getDriver(), 10);
+                        WebDriverWait wait = new WebDriverWait(departmentTemplatePage.getDriver(), 13);
                         String checkAddItemDisabled = Serenity.sessionVariableCalled("Ignore disable add item");
                         if (checkAddItemDisabled == null) {
                             wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));

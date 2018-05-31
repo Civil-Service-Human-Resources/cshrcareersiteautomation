@@ -165,7 +165,7 @@ public class PageSteps {
 
     }
 
-    @Step
+  /*  @Step
     public void fillFormFields(List<PageTemplateObject> pageTemplateObject)
     {
         String oldSectionName = "";
@@ -256,7 +256,7 @@ public class PageSteps {
 
         }
 
-    }
+    }*/
 
     @Step
     public void openPage()
@@ -370,16 +370,16 @@ public class PageSteps {
         wait.until(jQueryLoad);*/
     }
 
-    public void fillFormFields1(List<PageTemplateObject> pageTemplateObject) {
+    public void fillFormFields(List<PageTemplateObject> pageTemplateObject) {
         String oldSectionName = "";
         boolean newSection = false;
 
         for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
 
-            String[] sectionNames = aPageTemplateObject.sections_sub_sections.split(",");
+            String sectionNames = aPageTemplateObject.sections_sub_sections.replaceAll("," , "").replaceAll(" ","");
 
-            if (!oldSectionName.equals(sectionNames[0])) {
-                oldSectionName = sectionNames[0];
+            if (!oldSectionName.equals(sectionNames)) {
+                oldSectionName = sectionNames;
                 newSection = true;
 
             } else {

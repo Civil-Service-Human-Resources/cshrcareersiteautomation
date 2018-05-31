@@ -63,13 +63,14 @@ public class DepartmentTemplateStepDefs {
 
     @And("^I save the page$")
     public void iSaveThePage() throws Throwable {
+        newPage.selectPageAction(PublishActionType.SAVE);
         newPage.save.sendKeys(Keys.ENTER);
     }
 
     @And("^I fill in the form template$")
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
         Serenity.setSessionVariable("Page template table").to(pageTemplateObject);
-        pageSteps.fillFormFields(pageTemplateObject);
+        pageSteps.fillFormFields1(pageTemplateObject);
     }
 
     //Temp

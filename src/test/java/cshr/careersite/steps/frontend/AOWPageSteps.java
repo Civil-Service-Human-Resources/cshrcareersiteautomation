@@ -33,7 +33,7 @@ public class AOWPageSteps {
 
         // Main content
         temp = reusableSteps.getStringToCompare("Main content", "Heading", pageTemplateObjects);
-        //Assert.assertEquals(temp.trim(), aowContentPage.mainContentHeading.getText());
+        Assert.assertEquals(temp.trim(), aowContentPage.mainContentHeading.getText());
 
         temp = reusableSteps.getStringToCompare("Main content", "Paragraph 1", pageTemplateObjects);
         Assert.assertEquals(temp, aowContentPage.mainContentParagraphs12.get(0).getText());
@@ -88,12 +88,14 @@ public class AOWPageSteps {
 
         temp = reusableSteps.getStringToCompare("Sub Content Multiple,Content Area Content Block With 3 Paras", "Paragraph 1", pageTemplateObjects);
         for(int i=0 ;i<3; i++) {
-            Assert.assertEquals(temp.trim(), aowContentPage.subContentMultipleParagraphsSet1.get(i).getText());
-            Assert.assertEquals(temp.trim(), aowContentPage.subContentMultipleParagraphsSet2.get(i).getText());
+            if(i != 1) {
+                Assert.assertEquals(temp.trim(), aowContentPage.subContentMultipleParagraphsSet1.get(i).getText());
+                Assert.assertEquals(temp.trim(), aowContentPage.subContentMultipleParagraphsSet2.get(i).getText());
+            }
         }
 
         temp = reusableSteps.getStringToCompare("Listing", "Heading", pageTemplateObjects);
-        //Assert.assertEquals(temp.trim(), aowContentPage.listingHeading.getText());
+        Assert.assertEquals(temp.trim(), aowContentPage.listingHeading.getText());
 
         temp = reusableSteps.getStringToCompare("Listing,Items", "Item", pageTemplateObjects);
         for(int i=0 ;i<8; i++) {
