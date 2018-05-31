@@ -11,16 +11,12 @@ import cshr.careersite.pages.backend.workflows.SubmitWorkFlowPage;
 import cshr.careersite.steps.ReusableSteps;
 import cshr.careersite.utils.RandomTestData;
 import net.serenitybdd.core.Serenity;
-import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
-import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -43,7 +39,7 @@ public class PageSteps {
     private ReusableSteps reusableSteps;
 
     @Steps
-    private DepartmentTemplateSteps departmentTemplateSteps;
+    private TemplateSteps templateSteps;
 
     @Steps
     private LoginSteps loginSteps;
@@ -56,7 +52,7 @@ public class PageSteps {
     {
         String pageName = addBasePageBasedOnTemplate(teamNames, PublishActionType.SAVE, PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
         newPage.selectPageAction(publishActionType);
-        departmentTemplateSteps.fillDepartmentPageTemplate();
+        templateSteps.fillDepartmentPageTemplate();
         newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
         reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.sendKeys(Keys.ENTER);

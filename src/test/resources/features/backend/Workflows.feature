@@ -23,7 +23,7 @@ Feature: Workflows
     Then the content is sent back to the author for review
 
 
-  Scenario: Workflows history
+  #Scenario: Workflows history
 
 
   Scenario: Unpublish
@@ -33,7 +33,7 @@ Feature: Workflows
     Then the page is unpublished
 
 
-  Scenario: Revise
+  #Scenario: Revise
 
   Scenario: Delete Pages
     Given I am logged in as a contentauthor
@@ -42,11 +42,11 @@ Feature: Workflows
     And the content publisher approves my request
     Then the page is deleted
 
-  Scenario: Abort workflow
+  #Scenario: Abort workflow
 
-  Scenario: What should happen when two approvers are selected?
+  #Scenario: What should happen when two approvers are selected?
 
-  Scenario: E2E user, group, role test
+  #Scenario: E2E user, group, role test
 
   #Scenario: Delete Pages1
     #Given I am logged in as a contentauthor

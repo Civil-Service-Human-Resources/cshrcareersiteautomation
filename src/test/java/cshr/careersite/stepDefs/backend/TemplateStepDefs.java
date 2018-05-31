@@ -5,8 +5,9 @@ import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.pages.backend.page.AllPages;
 import cshr.careersite.pages.backend.page.NewPage;
-import cshr.careersite.steps.backend.DepartmentTemplateSteps;
+import cshr.careersite.steps.backend.TemplateSteps;
 import cshr.careersite.steps.backend.PageSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -17,7 +18,7 @@ import org.openqa.selenium.Keys;
 
 import java.util.List;
 
-public class DepartmentTemplateStepDefs {
+public class TemplateStepDefs {
 
     private AllPages allPages;
 
@@ -30,7 +31,7 @@ public class DepartmentTemplateStepDefs {
     private PageSteps pageSteps;
 
     @Steps
-    private DepartmentTemplateSteps departmentTemplateSteps;
+    private TemplateSteps templateSteps;
 
     @And("^I navigate to pages menu$")
     public void iNavigateToPagesMenu() throws Throwable {
@@ -57,6 +58,10 @@ public class DepartmentTemplateStepDefs {
         {
             templateName = PageTemplates.DEPARTMENT_LANDING_PAGE_TEMPLATE;
         }
+        else if(arg0.toLowerCase().equals("generic"))
+        {
+            templateName = PageTemplates.GENERIC_PAGE_TEMPLATE;
+        }
 
         pageSteps.addBasePageBasedOnTemplate(new String[]{arg1}, PublishActionType.SAVE, templateName);
     }
@@ -71,39 +76,6 @@ public class DepartmentTemplateStepDefs {
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
         Serenity.setSessionVariable("Page template table").to(pageTemplateObject);
         pageSteps.fillFormFields(pageTemplateObject);
-    }
-
-    //Temp
-    @When("^I edit the (.*) page$")
-    public void  iEditThePage(String arg0) throws Throwable {
-
-        PageTemplates templateName = PageTemplates.DEPARTMENT_PAGE_TEMPLATE;
-
-        if(arg0.toLowerCase().equals("home")) {
-            templateName = PageTemplates.HOME_PAGE_TEMPLATE;
-        }
-        else if(arg0.toLowerCase().equals("aow"))
-        {
-            templateName = PageTemplates.AOW_PAGE_TEMPLATE;
-        }
-        else if(arg0.toLowerCase().equals("aow landing"))
-        {
-            templateName = PageTemplates.AOW_LANDING_PAGE_TEMPLATE;
-        }
-        else if(arg0.toLowerCase().equals("department landing"))
-        {
-            templateName = PageTemplates.DEPARTMENT_LANDING_PAGE_TEMPLATE;
-        }
-
-        String pageName = "test_sbhkmqe";
-        Serenity.setSessionVariable("Page Name").to(pageName);
-        allPages.openPage(pageName);
-
-        //newPage.selectTeam("team1");
-
-        newPage.selectPageAction(PublishActionType.SAVE);
-
-        newPage.selectTemplate(templateName);
     }
 
     @Given("^I have the below data table$")
@@ -147,6 +119,11 @@ public class DepartmentTemplateStepDefs {
 
     @And("^I fill department template$")
     public void iFillDepartmentTemplate() throws Throwable {
-        departmentTemplateSteps.fillDepartmentPageTemplate();
+        templateSteps.fillDepartmentPageTemplate();
+    }
+
+    @And("^I add content to generic page$")
+    public void iAddContentToGenericPage() throws Throwable {
+        templateSteps.fillGenericPageTemplate();
     }
 }

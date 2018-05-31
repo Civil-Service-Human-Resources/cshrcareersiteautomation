@@ -1,18 +1,23 @@
 package cshr.careersite.steps.backend;
 
+import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.pages.backend.page.DepartmentTemplatePage;
+import cshr.careersite.pages.backend.page.GenericPageTemplate;
 import cshr.careersite.steps.ReusableSteps;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class DepartmentTemplateSteps {
+public class TemplateSteps {
 
     DepartmentTemplatePage departmentTemplatePage;
+    GenericPageTemplate genericPageTemplate;
 
     @Steps
     ReusableSteps reusableSteps;
@@ -72,5 +77,13 @@ public class DepartmentTemplateSteps {
 
         reusableSteps.createAndEnterRandomData(departmentTemplatePage.subContentText().get(0), "textarea");
         reusableSteps.createAndEnterRandomData(departmentTemplatePage.subContentText().get(1), "textarea");
+    }
+
+    @Step
+    public void fillGenericPageTemplate() {
+        genericPageTemplate.waitFor(genericPageTemplate.content);
+        reusableSteps.createAndEnterRandomData(genericPageTemplate.heading, "input");
+        reusableSteps.createAndEnterRandomData(genericPageTemplate.content, "input");
+
     }
 }

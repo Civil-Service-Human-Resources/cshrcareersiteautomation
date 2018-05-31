@@ -31,6 +31,9 @@ public class FrontEndPreviewStepDefs {
     @Steps
     private PageSteps pageSteps;
 
+    @Steps
+    private GenericPageSteps genericPageSteps;
+
 
     @Then("^the published departments page has all the elements as defined in the table above$")
     public void thePublishedDepartmentsPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
@@ -60,5 +63,11 @@ public class FrontEndPreviewStepDefs {
     public void theDepartmentLandingPreviewPageHasTheAllTheElementsOfTheDepartmentPage() throws Throwable {
         pageSteps.viewPage();
         departmentLandingPageSteps.checkDepartmentLandingPageFrontEnd();
+    }
+
+    @And("^the published Generic page has all the elements as defined in the table above$")
+    public void thePublishedGenericPageHasAllTheElementsAsDefinedInTheTableAbove() throws Throwable {
+        pageSteps.viewPage();
+        genericPageSteps.checkGenericPageFrontEnd();
     }
 }
