@@ -70,7 +70,7 @@ public class DepartmentTemplateStepDefs {
     @And("^I fill in the form template$")
     public void iFillInTheFormTemplate(List<PageTemplateObject> pageTemplateObject) throws Throwable {
         Serenity.setSessionVariable("Page template table").to(pageTemplateObject);
-        pageSteps.fillFormFields1(pageTemplateObject);
+        pageSteps.fillFormFields(pageTemplateObject);
     }
 
     //Temp
