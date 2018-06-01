@@ -50,9 +50,9 @@ public class PageSteps {
     @Step
     public boolean addRandomPage(String[] teamNames, PublishActionType publishActionType)
     {
-        String pageName = addBasePageBasedOnTemplate(teamNames, PublishActionType.SAVE, PageTemplates.DEPARTMENT_PAGE_TEMPLATE);
+        String pageName = addBasePageBasedOnTemplate(teamNames, PublishActionType.SAVE, PageTemplates.GENERIC_PAGE_TEMPLATE);
         newPage.selectPageAction(publishActionType);
-        templateSteps.fillDepartmentPageTemplate();
+        templateSteps.fillGenericPageTemplate();
         newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
         reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.sendKeys(Keys.ENTER);

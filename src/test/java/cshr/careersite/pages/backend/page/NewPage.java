@@ -7,6 +7,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.FindBy;
 
 public class NewPage extends PageObject {
@@ -92,7 +93,7 @@ public class NewPage extends PageObject {
     {
         waitABit(1000);
         WebElementFacade pageAction = element(By.cssSelector(String.format(pageActions, actionName.getValue())));
-        pageAction.click();
+        withAction().moveToElement(pageAction).click().build().perform();
     }
 
     public void selectTemplate(PageTemplates strPageTemplate)
