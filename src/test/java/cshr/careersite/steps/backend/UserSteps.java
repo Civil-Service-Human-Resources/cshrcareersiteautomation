@@ -1,5 +1,6 @@
 package cshr.careersite.steps.backend;
 
+import cshr.careersite.pages.backend.users.EditUsersPage;
 import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.users.AddNewUserPage;
 import cshr.careersite.pages.backend.users.AllUsersPage;
@@ -14,6 +15,8 @@ public class UserSteps {
     private AllUsersPage allUsersPage;
 
     private DeleteConfirmationPage deleteUsersPage;
+
+    private EditUsersPage editUsersPage;
 
     @Step
     public void openNewUserPage()
@@ -73,5 +76,26 @@ public class UserSteps {
             deleteUsersPage.deleteAllContent.click();
         }
         deleteUsersPage.confirmDelete.click();
+    }
+
+    @Step
+    public void updateUser(String userName, String team)
+    {
+        allUsersPage.clickUserNameLink(userName);
+
+        if(team.contains("team1")) {
+            editUsersPage.selectTeam("team1");
+        }
+
+        if(team.contains("team2")) {
+            editUsersPage.selectTeam("team2");
+        }
+
+        if(team.contains("team1And2")) {
+            editUsersPage.selectTeam("team1");
+            editUsersPage.selectTeam("team2");
+        }
+
+        editUsersPage.updateUser.click();
     }
 }

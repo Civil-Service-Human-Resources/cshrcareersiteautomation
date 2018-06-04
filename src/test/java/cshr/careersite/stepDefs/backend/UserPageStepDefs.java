@@ -142,9 +142,8 @@ public class UserPageStepDefs {
     @When("^I try to remove the default team associated with the user$")
     public void iTryToRemoveTheDefaultTeamAssociatedWithTheUser() throws Throwable {
         String currentUserName = Serenity.sessionVariableCalled("User Name");
-        allUsersPage.clickUserNameLink(currentUserName);
-        editUsersPage.defaultTeam1.click();
-        editUsersPage.updateUser.click();
+        String team = "team1";
+        userSteps.updateUser(currentUserName, team);
     }
 
     @Then("^the user is not updated$")

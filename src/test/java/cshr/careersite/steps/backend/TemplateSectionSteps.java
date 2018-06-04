@@ -11,7 +11,6 @@ import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import sun.jvm.hotspot.debugger.Page;
 
 import java.lang.reflect.Field;
 import java.util.Collection;

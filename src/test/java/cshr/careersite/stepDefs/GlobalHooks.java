@@ -20,6 +20,9 @@ import org.junit.Assert;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 
+import java.io.File;
+import java.io.IOException;
+
 import static net.thucydides.core.webdriver.ThucydidesWebDriverSupport.getDriver;
 
 public class GlobalHooks{
@@ -53,28 +56,8 @@ public class GlobalHooks{
     @Steps
     private WorkflowSteps workflowSteps;
 
-    /*@Before
-    public void BeforeAll(Scenario scenario) {
-
-
-        if(!dunit) {
-            *//*Runtime.getRuntime().addShutdownHook(new Thread() {
-                public void run() {
-                    System.out.println("snake!");
-                }
-            });*//*
-            System.out.println("badger");
-
-            careerSiteLoginPage.open();
-            loginSteps.logoutAndLoginWithDifferentCredentials("techadmin");
-            roleSteps.openAllRolesPage();
-            allRolesPage.cleanUpRolesTestData();
-            careerSiteHomePage.logout();
-
-
-            dunit = true;
-        }
-    }*/
+    @Steps
+    private UserSteps userSteps;
 
     @After("@roles")
     public void afterCreateAmendRoles(Scenario scenario)
@@ -92,6 +75,7 @@ public class GlobalHooks{
     public void afterCreateAmendUsers(Scenario scenario)
     {
         System.out.println("after @users");
+
         if(!loginSteps.isLoggedinUserNameCorrect("admin"))
         {
             loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_ADMIN.getValue());
@@ -131,11 +115,64 @@ public class GlobalHooks{
 
     }
 
-    @Before("@media")
-    public void uploadRelevantImages()
+   @Before
+    public void BeforeAll(Scenario scenario) {
+
+       File lockFile = new File("./lock");
+       File file = new File("./BeforeAll.txt");
+
+       try {
+           if(lockFile.createNewFile()) {
+               if (file.createNewFile()) {
+                   System.out.println("File is created!");
+                   createTeam1And2();
+                   assignTeamsToDefaultRoles();
+                   uploadRelevantImages();
+               } else {
+                   System.out.println("File already exists.");
+               }
+           }
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
+
+    private void createTeam1And2()
+    {
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
+        teamPageSteps.openTeamListPage();
+        if (!teamPage.checkIfTeamNameExists("Team1")) {
+            teamPage.typeInto(teamPage.teamName, "Team1");
+            teamPage.typeInto(teamPage.teamDescription, "Team1");
+            teamPage.addNewTeamButton.click();
+        }
+
+        if (!teamPage.checkIfTeamNameExists("Team2")) {
+            teamPage.typeInto(teamPage.teamName, "Team2");
+            teamPage.typeInto(teamPage.teamDescription, "Team2");
+            teamPage.addNewTeamButton.click();
+        }
+    }
+
+    private void assignTeamsToDefaultRoles()
+    {
+        userSteps.openAllUsersPage();
+        usersSteps.updateUser("ContentAdmin1", "team1");
+        userSteps.openAllUsersPage();
+        usersSteps.updateUser("ContentApprover1", "team1");
+        userSteps.openAllUsersPage();
+        usersSteps.updateUser("ContentAuthor1", "team1");
+        userSteps.openAllUsersPage();
+        usersSteps.updateUser("ContentPublisher1", "team1And2");
+        userSteps.openAllUsersPage();
+        usersSteps.updateUser("ContentSnippets1", "team1");
+        userSteps.openAllUsersPage();
+        usersSteps.updateUser("techadmin", "team1And2");
+    }
+
+    private void uploadRelevantImages()
     {
         System.out.println("before @media");
-        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
         mediaSteps.addMediaRequiredForTests();
     }
 
