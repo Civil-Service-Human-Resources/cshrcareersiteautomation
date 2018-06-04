@@ -6,9 +6,9 @@ Feature: Department page template
     When I add a page with the department page template and assigned to team1
     And I fill in the form template
     |sections_sub_sections      |field_name       |field_type    |max_characters|mandatory |   repeater |
-    |Billboard                  |Logo text        |input         |50            |true      |            |
+    |Billboard                  |Logo text        |input         |60            |true      |            |
     |Billboard                  |Logo             |image         |              |true      |            |
-    |Billboard                  |Heading          |input         |70            |true      |            |
+    |Billboard                  |Heading          |input         |75            |true      |            |
     |Billboard                  |Intro text       |textarea      |350           |true      |            |
     |Billboard                  |Image            |image         |              |true      |            |
     |Main content               |Heading          |input         |50            |true      |            |
