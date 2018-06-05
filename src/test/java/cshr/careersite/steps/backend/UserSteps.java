@@ -6,7 +6,14 @@ import cshr.careersite.pages.backend.users.AddNewUserPage;
 import cshr.careersite.pages.backend.users.AllUsersPage;
 import cshr.careersite.pages.backend.users.DeleteConfirmationPage;
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
+import static org.codehaus.groovy.runtime.DefaultGroovyMethods.findAll;
 
 public class UserSteps {
 
@@ -97,5 +104,25 @@ public class UserSteps {
         }
 
         editUsersPage.updateUser.click();
+    }
+
+    @Step
+    public void deleteAllTestUsers()
+    {
+        allUsersPage.searchUserBox.typeAndEnter("test_");
+        allUsersPage.waitFor(500);
+
+        List<WebElementFacade> users = allUsersPage.findAll(By.cssSelector("#the-list [class='username column-username has-row-actions column-primary']"));
+
+        String[] usernames = new String[users.size()];
+        for(int i=0; i < users.size(); i++)
+        {
+            usernames[i] = users.get(i).getText();
+        }
+
+        for(String username: usernames) {
+            allUsersPage.deleteUser(username);
+        }
+
     }
 }

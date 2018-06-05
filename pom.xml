@@ -16,7 +16,7 @@
         <serenity.cucumber.version>1.9.4</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <webdriver.base.url>https://careers-site.test.cshr-gov.uk/</webdriver.base.url>
-        <parallel.tests>4</parallel.tests>
+        <parallel.tests>6</parallel.tests>
     </properties>
 
     <repositories>

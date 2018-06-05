@@ -476,10 +476,16 @@ public class TemplateSectionSteps {
 
                             if (addButtons.get(0).isCurrentlyVisible())
                                 addButtons.get(0).click();
+                            try {
+                                departmentTemplatePage.getDriver().wait(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         WebDriverWait wait = new WebDriverWait(departmentTemplatePage.getDriver(), 20);
                         String checkAddItemDisabled = Serenity.sessionVariableCalled("Ignore disable add item");
+
                         if (checkAddItemDisabled == null) {
                             wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
                         }

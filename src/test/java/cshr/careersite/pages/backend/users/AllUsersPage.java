@@ -25,7 +25,7 @@ public class AllUsersPage extends PageObject {
     WebElementFacade editButton;
 
     @FindBy(id="user-search-input")
-    WebElementFacade searchUserBox;
+    public WebElementFacade searchUserBox;
 
     private String userTableRow = "//table[@class='wp-list-table widefat fixed striped users']//tr[contains(.,'%s')]";
 
@@ -38,6 +38,13 @@ public class AllUsersPage extends PageObject {
     private String selectGroupsByUserName = userTableRow + "/td[@data-colname='Teams']";
 
     private String deleteByUserName = userTableRow + "//a[@class='submitdelete']";
+
+    @FindBy(id="delete_option0")
+    private WebElementFacade deleteAllContentRadioButton;
+
+    @FindBy(id="submit")
+    private WebElementFacade confirmDeletion;
+
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped users']//tr/td[@data-colname='Username']/strong/a")
     private List<WebElement> userNames;
@@ -56,6 +63,16 @@ public class AllUsersPage extends PageObject {
                 click().
                 build().
                 perform();
+
+        if(deleteAllContentRadioButton.isCurrentlyVisible())
+        {
+            deleteAllContentRadioButton.click();
+
+        }
+
+        if(confirmDeletion.isCurrentlyVisible()) {
+            confirmDeletion.click();
+        }
     }
 
     public void editUser(String username) {
@@ -89,7 +106,7 @@ public class AllUsersPage extends PageObject {
         return temp.contains(username);
     }
 
-    private void searchUser(String username)
+    public void searchUser(String username)
     {
         searchUserBox.typeAndEnter(username);
         element(By.linkText(username)).waitUntilPresent();

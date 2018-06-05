@@ -4,7 +4,11 @@ import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.roles.AddNewRolePage;
 import cshr.careersite.pages.backend.roles.AllRolesPage;
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import org.openqa.selenium.By;
+
+import java.util.List;
 
 public class RoleSteps {
     AddNewRolePage addNewRolePage;
@@ -38,6 +42,27 @@ public class RoleSteps {
         }
         else
             return false;
+
+    }
+
+
+    @Step
+    public void deleteAllTestRoles()
+    {
+
+        List<WebElementFacade> roles = allRolesPage.findAll(By.cssSelector("[class='wp-list-table widefat fixed striped roles'] [class='title column-title has-row-actions column-primary']"));
+
+        String[] rolesText = new String[roles.size()];
+        for(int i=0; i < roles.size(); i++)
+        {
+            rolesText[i] = roles.get(i).getText();
+        }
+
+        for(String role: rolesText) {
+            if(role.contains("test_")) {
+                allRolesPage.deleteRole(role);
+            }
+        }
 
     }
 }
