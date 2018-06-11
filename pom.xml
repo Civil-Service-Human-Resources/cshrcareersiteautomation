@@ -114,8 +114,27 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.20</version>
                 <configuration>
-                    <skip>true</skip>
                 </configuration>
+            <executions>
+                <execution>
+                    <id>pre-integration-test</id>
+                    <phase>test</phase>
+
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/Test*.java</include>
+                            <include>src/test/java/cshr.careersite.CucumberTestSuite</include>
+
+                            <include>**/When*.java</include>
+                            <include>**/*Story.java</include>
+                        </includes>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </configuration>
+                </execution>
+            </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -130,7 +149,10 @@
                     <forkCount>${parallel.tests}</forkCount>
                 </configuration>
                 <executions>
+
                     <execution>
+                        <id>integration-test</id>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
                             <goal>verify</goal>

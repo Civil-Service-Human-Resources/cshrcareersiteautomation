@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
         plugin = {"pretty"},
-        features = "src/test/resources/features",
+        features = "src/test/resources/beforefeatures",
         glue = {"cshr.careersite"}
 )
-public class CucumberTestSuite {
+public class BeforeAllCucumberRunnerTest {
 
 }

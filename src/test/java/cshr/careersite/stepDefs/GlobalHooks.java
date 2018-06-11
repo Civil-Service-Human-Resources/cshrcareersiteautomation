@@ -35,10 +35,7 @@ public class GlobalHooks{
 
     @Steps
     private RoleSteps roleSteps;
-
-    @Steps
-    private UserSteps usersSteps;
-
+    
     @Steps
     private TeamPageSteps teamPageSteps;
 
@@ -80,11 +77,11 @@ public class GlobalHooks{
         {
             loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_ADMIN.getValue());
         }
-        usersSteps.openAllUsersPage();
+        userSteps.openAllUsersPage();
         String userName = Serenity.sessionVariableCalled("User Name");
         System.out.println(userName);
-        usersSteps.deleteUser(userName);
-        usersSteps.openAllUsersPage();
+        userSteps.deleteUser(userName);
+        userSteps.openAllUsersPage();
         Assert.assertFalse(allUsersPage.checkIfUserNameExists(userName));
     }
 
@@ -113,67 +110,6 @@ public class GlobalHooks{
             getDriver().manage().window().maximize();
         }
 
-    }
-
-   @Before
-    public void BeforeAll(Scenario scenario) {
-
-       File lockFile = new File("./lock");
-       File file = new File("./BeforeAll.txt");
-
-       try {
-           if(lockFile.createNewFile()) {
-               if (file.createNewFile()) {
-                   System.out.println("File is created!");
-                   createTeam1And2();
-                   assignTeamsToDefaultRoles();
-                   uploadRelevantImages();
-               } else {
-                   System.out.println("File already exists.");
-               }
-           }
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-   }
-
-    private void createTeam1And2()
-    {
-        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
-        teamPageSteps.openTeamListPage();
-        if (!teamPage.checkIfTeamNameExists("Team1")) {
-            teamPage.typeInto(teamPage.teamName, "Team1");
-            teamPage.typeInto(teamPage.teamDescription, "Team1");
-            teamPage.addNewTeamButton.click();
-        }
-
-        if (!teamPage.checkIfTeamNameExists("Team2")) {
-            teamPage.typeInto(teamPage.teamName, "Team2");
-            teamPage.typeInto(teamPage.teamDescription, "Team2");
-            teamPage.addNewTeamButton.click();
-        }
-    }
-
-    private void assignTeamsToDefaultRoles()
-    {
-        userSteps.openAllUsersPage();
-        usersSteps.updateUser("ContentAdmin1", "team1");
-        userSteps.openAllUsersPage();
-        usersSteps.updateUser("ContentApprover1", "team1");
-        userSteps.openAllUsersPage();
-        usersSteps.updateUser("ContentAuthor1", "team1");
-        userSteps.openAllUsersPage();
-        usersSteps.updateUser("ContentPublisher1", "team1And2");
-        userSteps.openAllUsersPage();
-        usersSteps.updateUser("ContentSnippets1", "team1");
-        userSteps.openAllUsersPage();
-        usersSteps.updateUser("techadmin", "team1And2");
-    }
-
-    private void uploadRelevantImages()
-    {
-        System.out.println("before @media");
-        mediaSteps.addMediaRequiredForTests();
     }
 
     @After("@deletepage")
