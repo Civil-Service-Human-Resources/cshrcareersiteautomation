@@ -16,7 +16,7 @@
         <serenity.cucumber.version>1.9.4</serenity.cucumber.version>
         <encoding>UTF-8</encoding>
         <webdriver.base.url>https://careers-site.test.cshr-gov.uk/</webdriver.base.url>
-        <parallel.tests>6</parallel.tests>
+        <parallel.tests>5</parallel.tests>
     </properties>
 
     <repositories>
@@ -124,8 +124,6 @@
                         <includes>
                             <include>**/*Test.java</include>
                             <include>**/Test*.java</include>
-                            <include>src/test/java/cshr.careersite.CucumberTestSuite</include>
-
                             <include>**/When*.java</include>
                             <include>**/*Story.java</include>
                         </includes>
@@ -188,7 +186,7 @@
             <plugin>
                 <groupId>com.github.temyers</groupId>
                 <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-                <version>4.2.0</version>
+                <version>5.0.0</version>
                 <executions>
                     <execution>
                         <id>generateRunners</id>
