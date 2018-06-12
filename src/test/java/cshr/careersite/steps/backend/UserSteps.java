@@ -78,11 +78,15 @@ public class UserSteps {
     public void deleteUser(String userName)
     {
         allUsersPage.deleteUser(userName);
+
         if(deleteUsersPage.deleteAllContent.isCurrentlyVisible())
         {
             deleteUsersPage.deleteAllContent.click();
         }
-        deleteUsersPage.confirmDelete.click();
+
+        if(deleteUsersPage.confirmDelete.isCurrentlyVisible()) {
+            deleteUsersPage.confirmDelete.click();
+        }
     }
 
     @Step
