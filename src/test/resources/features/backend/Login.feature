@@ -21,4 +21,4 @@ Feature: Login
         Examples:
         |credential    |username   |password      |errormessage          |
         |username       |test       |xyz          |Invalid username      |
-        |password       |techadmin  |xyz          |Lost your password?   |
+        #|password       |techadmin  |xyz          |Lost your password?   |
