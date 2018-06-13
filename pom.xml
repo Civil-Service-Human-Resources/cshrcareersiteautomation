@@ -15,8 +15,25 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.maven.version}</version>
+                <configuration>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
     <packaging>jar</packaging>
 
     <name>Sample Serenity BDD project using Cucumber</name>
@@ -175,22 +192,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>net.serenity-bdd.maven.plugins</groupId>
-                        <artifactId>serenity-maven-plugin</artifactId>
-                        <version>${serenity.maven.version}</version>
-                        <configuration>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>serenity-reports</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>aggregate</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+
                 </plugins>
             </build>
         </profile>
