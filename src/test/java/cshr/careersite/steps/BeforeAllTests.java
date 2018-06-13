@@ -7,6 +7,9 @@ import cshr.careersite.steps.backend.MediaSteps;
 import cshr.careersite.steps.backend.TeamPageSteps;
 import cshr.careersite.steps.backend.UserSteps;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BeforeAllTests {
 
@@ -54,12 +57,19 @@ public class BeforeAllTests {
             teamPage.typeInto(teamPage.teamName, "Team1");
             teamPage.typeInto(teamPage.teamDescription, "Team1");
             teamPage.addNewTeamButton.click();
+            WebDriverWait wait = new WebDriverWait(teamPage.getDriver(), 10);
+            wait.until(ExpectedConditions.attributeToBe(teamPage.teamName, "value", ""));
+            Assert.assertTrue(teamPage.checkIfTeamNameExists("Team1"));
         }
 
         if (!teamPage.checkIfTeamNameExists("Team2")) {
+            teamPage.teamName.waitUntilEnabled();
             teamPage.typeInto(teamPage.teamName, "Team2");
             teamPage.typeInto(teamPage.teamDescription, "Team2");
             teamPage.addNewTeamButton.click();
+            WebDriverWait wait = new WebDriverWait(teamPage.getDriver(), 10);
+            wait.until(ExpectedConditions.attributeToBe(teamPage.teamName, "value", ""));
+            Assert.assertTrue(teamPage.checkIfTeamNameExists("Team2"));
         }
     }
 
