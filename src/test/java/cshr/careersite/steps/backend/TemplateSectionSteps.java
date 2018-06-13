@@ -475,12 +475,13 @@ public class TemplateSectionSteps {
                         for (int x = 0; x < Integer.parseInt(aPageTemplateObject.repeater) - existingRowCount.size(); x++) {
 
                             if (addButtons.get(0).isCurrentlyVisible())
+                            {
+                                addButtons.get(0).waitUntilEnabled();
                                 addButtons.get(0).click();
-                            try {
-                                departmentTemplatePage.getDriver().wait(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
                             }
+
+
+
                         }
 
                         WebDriverWait wait = new WebDriverWait(departmentTemplatePage.getDriver(), 20);

@@ -9,7 +9,7 @@ Feature: AOW page template
     |Billboard                  |Heading          |input         |70            |true      |            |
     |Billboard                  |Intro text       |textarea      |350           |true      |            |
     |Billboard                  |Image            |image         |              |true      |            |
-    |Main content               |Heading          |input         |50            |true      |            |
+    |Main content               |Heading          |input         |65            |true      |            |
     |Main content               |Paragraph 1      |textarea      |400           |true      |            |
     |Main content               |Paragraph 2      |textarea      |400           |true      |            |
     |Main content               |Image 1          |image         |              |false     |            |
