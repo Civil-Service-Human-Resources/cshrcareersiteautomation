@@ -11,6 +11,6 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/beforefeatures",
         glue = {"cshr.careersite"}
 )
-public class BeforeAllCucumberRunnerTest {
+public class BeforeAllCucumberRunnerIT {
 
 }

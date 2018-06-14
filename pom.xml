@@ -111,47 +111,85 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
+                <!--<plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.20</version>
-                </plugin>
+                </plugin>-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.20</version>
+                    <version>2.20.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <!--<plugin>-->
+                <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                <!--<version>2.20</version>-->
+                <!--<configuration>-->
+                    <!--<skipTests>false</skipTests>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
-                <configuration>
-                    <skipTests>false</skipTests>
-                    <reportsDirectory>target/pretests/logs/</reportsDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.20.1</version>
                 <configuration>
                     <systemPropertyVariables>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                     </systemPropertyVariables>
                     <forkCount>2</forkCount>
-
+                    <classesDirectory>target/test-classes</classesDirectory>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>before-tests</id>
+                        <configuration>
+
+                            <includes>
+                                <include>**/*BeforeAllCucumberRunnerIT.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*AllTestsCucumberRunnerIT.java</exclude>
+                                <exclude>**/*BeforeAllCucumberRunnerTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>all-tests</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <includes>
+                                <include>**/*AllTestsCucumberRunnerIT.java</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/*BeforeAllCucumberRunnerTest.java</exclude>
+                                <exclude>**/*BeforeAllCucumberRunnerIT.java</exclude>
+
+                            </excludes>
+                        </configuration>
+                        <goals>
+                            <goal>integration-test</goal>
+
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <phase>verify</phase>
+
+                        <goals>
                             <goal>verify</goal>
+
                         </goals>
                     </execution>
 
                 </executions>
             </plugin>
-            <plugin>
+           <!-- <plugin>
                 <groupId>com.github.temyers</groupId>
                 <artifactId>cucumber-jvm-parallel-plugin</artifactId>
                 <version>4.2.0</version>
@@ -163,8 +201,8 @@
                             <goal>generateRunners</goal>
                         </goals>
                         <configuration>
-                            <!-- Mandatory -->
-                            <!-- List of package names to scan for glue code. -->
+                            &lt;!&ndash; Mandatory &ndash;&gt;
+                            &lt;!&ndash; List of package names to scan for glue code. &ndash;&gt;
                             <glue>
                                 <package>cshr.careersite</package>
                             </glue>
@@ -175,7 +213,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -184,6 +222,14 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
@@ -202,5 +248,6 @@
                 </executions>
             </plugin>
         </plugins>
+
     </build>
 </project>
