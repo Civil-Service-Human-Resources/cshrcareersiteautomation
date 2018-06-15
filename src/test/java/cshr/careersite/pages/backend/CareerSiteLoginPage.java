@@ -2,8 +2,10 @@ package cshr.careersite.pages.backend;
 
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CareerSiteLoginPage extends PageObject{
 
@@ -29,6 +31,7 @@ public class CareerSiteLoginPage extends PageObject{
         typeInto(username,userName);
         typeInto(password,passWord);
         element(submit).click();
+        waitFor(ExpectedConditions.visibilityOfElementLocated(By.className("display-name")));
     }
 }
 

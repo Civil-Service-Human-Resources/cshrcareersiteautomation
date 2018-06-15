@@ -8,9 +8,10 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
         plugin = {"pretty"},
-        features = "src/test/resources/features/frontend",
+        features = {"src/test/resources/features/backend/DepartmentLandingPageTemplate.feature",
+                "src/test/resources/features/backend/DepartmentPageTemplate.feature"},
         glue = {"cshr.careersite"}
 )
-public class AllTestsCucumberRunnerIT {
+public class DepartmentCucumberRunnerIT {
 
 }

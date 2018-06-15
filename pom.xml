@@ -138,7 +138,6 @@
                     <systemPropertyVariables>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                     </systemPropertyVariables>
-                    <forkCount>2</forkCount>
                     <classesDirectory>target/test-classes</classesDirectory>
                 </configuration>
                 <executions>
@@ -163,14 +162,18 @@
                         <id>all-tests</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <includes>
-                                <include>**/*AllTestsCucumberRunnerIT.java</include>
-                            </includes>
+
                             <excludes>
                                 <exclude>**/*BeforeAllCucumberRunnerTest.java</exclude>
                                 <exclude>**/*BeforeAllCucumberRunnerIT.java</exclude>
-
                             </excludes>
+                            <parallel>classes</parallel>
+                            <useSystemClassLoader>false</useSystemClassLoader>
+                            <perCoreThreadCount>false</perCoreThreadCount>
+                            <forkCount>2.5C</forkCount>
+                            <reuseForks>true</reuseForks>
+                            <threadCount>8</threadCount>
+                            <threadCountSuites>3</threadCountSuites>
                         </configuration>
                         <goals>
                             <goal>integration-test</goal>

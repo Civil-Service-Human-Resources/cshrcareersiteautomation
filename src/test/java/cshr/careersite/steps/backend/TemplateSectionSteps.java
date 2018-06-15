@@ -477,11 +477,9 @@ public class TemplateSectionSteps {
                             if (addButtons.get(0).isCurrentlyVisible())
                             {
                                 addButtons.get(0).waitUntilEnabled();
+                                System.out.println("Add button click no.  " + x );
                                 addButtons.get(0).click();
                             }
-
-
-
                         }
 
                         WebDriverWait wait = new WebDriverWait(departmentTemplatePage.getDriver(), 20);

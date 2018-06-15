@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 
 @CucumberOptions(
         plugin = {"pretty"},
-        features = "src/test/resources/features/frontend",
+        features = "src/test/resources/features/backend/Workflows.feature",
         glue = {"cshr.careersite"}
 )
-public class AllTestsCucumberRunnerIT {
+public class WorkflowsCucumberRunnerIT {
 
 }
