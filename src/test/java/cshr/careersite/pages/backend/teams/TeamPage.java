@@ -32,10 +32,16 @@ public class TeamPage extends PageObject{
     public WebElementFacade teamDescription;
 
     @FindBy(xpath = "//table[@class='wp-list-table widefat fixed striped tags']//tr/td[@data-colname='Name']/strong/a")
-    public List<WebElement> teamNames;
+    public List<WebElementFacade> teamNames;
 
     @FindBy(className = "error")
     public WebElementFacade error;
+
+    @FindBy(id = "tag-search-input")
+    public WebElementFacade searchTeam;
+
+    @FindBy(id = "search-submit")
+    public WebElementFacade searchTeamSubmit;
 
     private String teamTableRow = "//table[@class='wp-list-table widefat fixed striped tags']//tr[contains(.,'%s')]";
 
@@ -76,5 +82,12 @@ public class TeamPage extends PageObject{
     public boolean isTeamCreated(String teamName)
     {
         return element(String.format(teamTableRow, teamName)).isCurrentlyVisible();
+    }
+
+    public void searchTeams(String teamName)
+    {
+        searchTeam.type(teamName);
+        searchTeamSubmit.click();
+
     }
 }

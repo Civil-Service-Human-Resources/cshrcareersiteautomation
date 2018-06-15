@@ -1,4 +1,3 @@
-@ignore
 Feature: Cleanup test data wherever possible
 
   Scenario: Cleanup users
@@ -10,3 +9,8 @@ Feature: Cleanup test data wherever possible
     Given I am logged in as a techadmin
     When I delete all test roles
     Then the all test roles are deleted
+
+  Scenario: Cleanup teams
+    Given I am logged in as a techadmin
+    When I delete all test teams
+    Then the all test teams are deleted

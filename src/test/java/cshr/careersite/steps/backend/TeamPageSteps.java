@@ -3,7 +3,13 @@ package cshr.careersite.steps.backend;
 import cshr.careersite.utils.RandomTestData;
 import cshr.careersite.pages.backend.teams.TeamPage;
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeamPageSteps {
 
@@ -34,5 +40,25 @@ public class TeamPageSteps {
         {
             Serenity.setSessionVariable("Team Name").to(tempTeamName);
         }
+    }
+
+    @Step
+    public void deleteAllTestTeams()
+    {
+        teamPage.searchTeams("test_");
+        teamPage.waitFor(500);
+
+        List<WebElementFacade> teamNames = teamPage.teamNames;
+
+        String[] teams = new String[teamNames.size()];
+        for(int i=0; i < teamNames.size(); i++)
+        {
+            teams[i] = teamNames.get(i).getText();
+        }
+
+        for(String team: teams) {
+            teamPage.deleteTeamByName(team);
+        }
+
     }
 }

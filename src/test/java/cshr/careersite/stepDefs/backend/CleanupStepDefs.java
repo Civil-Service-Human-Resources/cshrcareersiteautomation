@@ -1,6 +1,7 @@
 package cshr.careersite.stepDefs.backend;
 
 import cshr.careersite.steps.backend.RoleSteps;
+import cshr.careersite.steps.backend.TeamPageSteps;
 import cshr.careersite.steps.backend.UserSteps;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
@@ -14,6 +15,9 @@ public class CleanupStepDefs {
 
     @Steps
     RoleSteps roleSteps;
+
+    @Steps
+    TeamPageSteps teamPageSteps;
 
     @When("^I delete all test users$")
     public void iDeleteAllTestUsers() throws Throwable {
@@ -35,5 +39,16 @@ public class CleanupStepDefs {
     public void theAllTestRolesAreDeleted() throws Throwable {
         roleSteps.openAllRolesPage();
         roleSteps.deleteAllTestRoles();
+    }
+
+    @When("^I delete all test teams$")
+    public void iDeleteAllTestTeams() throws Throwable {
+        teamPageSteps.openTeamListPage();
+        teamPageSteps.deleteAllTestTeams();
+    }
+
+    @Then("^the all test teams are deleted$")
+    public void theAllTestTeamsAreDeleted() throws Throwable {
+
     }
 }
