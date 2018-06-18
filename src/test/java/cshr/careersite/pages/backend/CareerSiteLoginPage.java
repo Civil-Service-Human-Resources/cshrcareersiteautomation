@@ -33,5 +33,11 @@ public class CareerSiteLoginPage extends PageObject{
         element(submit).click();
         waitFor(ExpectedConditions.visibilityOfElementLocated(By.className("display-name")));
     }
+
+    public void waitForLoggedInUsernameToBeDisplayed()
+    {
+        waitFor(ExpectedConditions.visibilityOfElementLocated(By.className("display-name")));
+
+    }
 }
 

@@ -18,6 +18,7 @@ public class LoginSteps {
     {
         openLoginPage();
         careerSiteLoginPage.login(username, password);
+        careerSiteLoginPage.waitForLoggedInUsernameToBeDisplayed();
     }
 
     @Step
@@ -57,6 +58,7 @@ public class LoginSteps {
         }
         openLoginPage();
         careerSiteLoginPage.login(username, password);
+        careerSiteLoginPage.waitForLoggedInUsernameToBeDisplayed();
     }
 
     @Step
