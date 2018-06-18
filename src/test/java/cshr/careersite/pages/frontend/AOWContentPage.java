@@ -42,16 +42,16 @@ public class AOWContentPage extends PageObject {
     @FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__last'] footer")
     public WebElementFacade contentBlockVerticalFooter;
 
-    @FindBys(@FindBy(css = "[class='content-three-col'] h3"))
+    @FindBys(@FindBy(css = "[class='cta-boxes__item'] h3"))
     public List<WebElementFacade> subRepeaterHeading;
 
-    @FindBys(@FindBy(css = "[class='content-three-col'] h3 a"))
+    @FindBys(@FindBy(css = "[class='cta-boxes__item'] h3 a"))
     public List<WebElementFacade> subRepeaterHeadingTarget;
 
-    @FindBys(@FindBy(css = "[class='content-three-col'] p"))
+    @FindBys(@FindBy(css = "[class='cta-boxes__item'] p"))
     public List<WebElementFacade> subRepeaterBody;
 
-    @FindBys(@FindBy(css = "[class='content-three-col'] img"))
+    @FindBys(@FindBy(css = "[class='cta-boxes__item'] img"))
     public List<WebElementFacade> subRepeaterImage;
 
     @FindBy(css = "[class='content-two-col content-two-col--reversed'] [class='content-two-col__first'] h2")
