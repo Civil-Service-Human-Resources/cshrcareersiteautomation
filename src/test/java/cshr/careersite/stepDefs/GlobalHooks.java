@@ -18,6 +18,8 @@ import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.pages.Pages;
 import org.junit.Assert;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
@@ -105,7 +107,14 @@ public class GlobalHooks{
 
         loginSteps.setBaseURLFromSerenityProperties();
 
-        if(!pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("chrome"))
+        if(pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("chrome"))
+        {
+            getDriver().manage().window().setPosition(new Point(0,0));
+            java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+            Dimension dim = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
+            getDriver().manage().window().setSize(dim);
+        }
+        else if(!pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("chrome"))
         {
             getDriver().manage().window().maximize();
         }
