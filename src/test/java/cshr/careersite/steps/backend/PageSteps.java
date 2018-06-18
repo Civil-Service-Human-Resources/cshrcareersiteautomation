@@ -354,7 +354,9 @@ public class PageSteps {
                     }
                 };
 
-        wait.until(jsLoad);
+        synchronized (allPages.getDriver()) {
+            wait.until(jsLoad);
+        }
 
         /*ExpectedCondition<Boolean> jQueryLoad = new
                 ExpectedCondition<Boolean>() {
