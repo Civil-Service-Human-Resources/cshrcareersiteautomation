@@ -37,6 +37,7 @@ public class LoginStepdefs {
     @When("^I login as role (.*) with username (.*) and password (.*)$")
     public void iLoginAsRoleWithUsernameUsernameAndPasswordPassword(String role, String username, String password) throws Throwable {
         careerSiteLoginPage.login(username, password);
+        careerSiteLoginPage.waitForLoggedInUsernameToBeDisplayed();
     }
 
     @When("^I try to login with incorrect (.*) username as (.*) and password as (.*)$")
