@@ -106,25 +106,18 @@ public class DepartmentPageSteps {
 
 
         // Driver 2
-        Assert.assertTrue(departmentPage.subContentImage1.getAttribute("src").contains("/wp-content/uploads"));
 
-        temp = reusableSteps.getStringToCompare("Sub content,Driver", "Headline", pageTemplateObjects);
-        Assert.assertEquals(temp.trim(), departmentPage.subContentHeadline1.getText());
+        for(int i=0 ; i<2; i++)
+        {
+            Assert.assertTrue(departmentPage.subContentImage1.get(i).getAttribute("src").contains("/wp-content/uploads"));
 
-        Assert.assertEquals("http://sample/test", departmentPage.subContentLink1.getAttribute("href"));
+            temp = reusableSteps.getStringToCompare("Sub content,Driver", "Headline", pageTemplateObjects);
+            Assert.assertEquals(temp.trim(), departmentPage.subContentHeadline1.get(i).getText());
 
-        temp = reusableSteps.getStringToCompare("Sub content,Driver", "Text", pageTemplateObjects);
-        Assert.assertEquals(temp.trim(), departmentPage.subContentText1.getText());
+            Assert.assertEquals("http://sample/test", departmentPage.subContentLink1.get(i).getAttribute("href"));
 
-        // Driver 2
-        Assert.assertTrue(departmentPage.subContentImage2.getAttribute("src").contains("/wp-content/uploads"));
-
-        temp = reusableSteps.getStringToCompare("Sub content,Driver", "Headline", pageTemplateObjects);
-        Assert.assertEquals(temp.trim(), departmentPage.subContentHeadline2.getText());
-
-        Assert.assertEquals("http://sample/test", departmentPage.subContentLink2.getAttribute("href"));
-
-        temp = reusableSteps.getStringToCompare("Sub content,Driver", "Text", pageTemplateObjects);
-        Assert.assertEquals(temp.trim(), departmentPage.subContentText2.getText());
+            temp = reusableSteps.getStringToCompare("Sub content,Driver", "Text", pageTemplateObjects);
+            Assert.assertEquals(temp.trim(), departmentPage.subContentText1.get(i).getText());
+        }
     }
 }

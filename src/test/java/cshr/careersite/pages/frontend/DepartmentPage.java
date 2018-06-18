@@ -69,36 +69,23 @@ public class DepartmentPage extends PageObject {
     public WebElementFacade contentBlockHorizontalExtraText;
 
     // Sub content
-    @FindBy(css = "[class='content-two-col'] [class='section-intro'] p")
+    @FindBy(css = "[class='cta-boxes'] [class='section-intro'] p")
     public WebElementFacade subContentIntro;
 
-    @FindBy(css = "[class='content-two-col'] h2")
+    @FindBy(css = "[class='cta-boxes'] h2")
     public WebElementFacade subContentHeading;
 
-    // Repeater 1
-    @FindBy( css = "[class='content-two-col'] [class='content-two-col__first'] img")
-    public WebElementFacade subContentImage1;
+    // Repeater
+    @FindBys(@FindBy( css = "[class='cta-boxes__inner'] [class='cta-boxes__item'] img"))
+    public List<WebElementFacade> subContentImage1;
 
-    @FindBy(css ="[class='content-two-col'] [class='content-two-col__first'] h3")
-    public WebElementFacade subContentHeadline1;
+    @FindBys(@FindBy(css ="[class='cta-boxes__inner'] [class='cta-boxes__item'] h3"))
+    public  List<WebElementFacade> subContentHeadline1;
 
-    @FindBy(css ="[class='content-two-col'] [class='content-two-col__first'] a")
-    public WebElementFacade subContentLink1;
+    @FindBys(@FindBy(css ="[class='cta-boxes__inner'] [class='cta-boxes__item'] h3 a"))
+    public  List<WebElementFacade> subContentLink1;
 
-    @FindBy( css = "[class='content-two-col'] [class='content-two-col__first'] p")
-    public WebElementFacade subContentText1;
-
-    // Repeater 2
-    @FindBy( css = "[class='content-two-col'] [class='content-two-col__last'] img")
-    public WebElementFacade subContentImage2;
-
-    @FindBy(css ="[class='content-two-col'] [class='content-two-col__last'] h3")
-    public WebElementFacade subContentHeadline2;
-
-    @FindBy(css ="[class='content-two-col'] [class='content-two-col__last'] a")
-    public WebElementFacade subContentLink2;
-
-    @FindBy( css = "[class='content-two-col'] [class='content-two-col__last'] p")
-    public WebElementFacade subContentText2;
+    @FindBys(@FindBy( css = "[class='cta-boxes__inner'] [class='cta-boxes__item'] p"))
+    public  List<WebElementFacade> subContentText1;
 
 }
