@@ -28,8 +28,10 @@ public class ReusableComponentsPage extends PageObject {
 
     public void selectActor(String actorName)
     {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 20);
-        wait.until(ExpectedConditions.elementToBeClickable(assignedActors));
+        synchronized (getDriver()) {
+            WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+            wait.until(ExpectedConditions.elementToBeClickable(assignedActors));
+        }
         if(!assignedActors.getText().contains(actorName)) {
             selectTheDropDownList(assignActors, actorName);
             assignActor.click();

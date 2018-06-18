@@ -486,7 +486,9 @@ public class TemplateSectionSteps {
                         String checkAddItemDisabled = Serenity.sessionVariableCalled("Ignore disable add item");
 
                         if (checkAddItemDisabled == null) {
-                            wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
+                            synchronized (departmentTemplatePage.getDriver()) {
+                                wait.until(ExpectedConditions.attributeContains(addButtons.get(0), "class", "disabled"));
+                            }
                         }
                     }
                 }
