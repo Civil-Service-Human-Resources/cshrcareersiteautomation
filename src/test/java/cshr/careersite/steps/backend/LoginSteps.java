@@ -18,7 +18,6 @@ public class LoginSteps {
     {
         openLoginPage();
         careerSiteLoginPage.login(username, password);
-        careerSiteLoginPage.waitForLoggedInUsernameToBeDisplayed();
     }
 
     @Step
@@ -80,5 +79,11 @@ public class LoginSteps {
     {
         Serenity.setSessionVariable("BASE_URL").to(pages.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_BASE_URL.getPropertyName()));
         Serenity.setSessionVariable("BACKEND_BASE_URL").to(pages.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_BASE_URL.getPropertyName()) + "wp-admin/");
+    }
+
+    @Step
+    public boolean loginErrorMessageContains(String errorMessage)
+    {
+        return careerSiteLoginPage.loginError.getText().contains(errorMessage);
     }
 }
