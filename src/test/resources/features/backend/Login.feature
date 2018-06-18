@@ -22,3 +22,22 @@ Feature: Login
         |credential    |username   |password      |errormessage          |
         |username       |test       |xyz          |Invalid username      |
         #|password       |techadmin  |xyz          |Lost your password?   |
+
+    Scenario Outline: User can login with < 3 consecutive failed attempts
+        Given I am logged in as a contentadmin
+        And I create a new user
+        And I have failed to login <x> times
+        When I try logging in again
+        Then the login should be <status> and the status of the account is unlocked
+        Examples:
+        |x      |status         |
+        |1      |successful     |
+        |2      |successful     |
+
+      Scenario: User gets locked out after 3 failed attempts and the account is reset after the configured reset time has elapsed
+        Given I am logged in as a contentadmin
+        And I create a new user
+        And I have failed to login 3 times
+        When I try logging in again
+        Then the login should be unsuccessful and the status of the account is locked
+        And I should be able to login successfully after the configured reset time has elapsed if the account is locked
