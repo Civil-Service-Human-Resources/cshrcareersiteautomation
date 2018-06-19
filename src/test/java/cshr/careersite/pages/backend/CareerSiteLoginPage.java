@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CareerSiteLoginPage extends PageObject{
 
@@ -35,7 +36,10 @@ public class CareerSiteLoginPage extends PageObject{
 
     public void waitForLoggedInUsernameToBeDisplayed()
     {
-        waitFor(ExpectedConditions.visibilityOfElementLocated(By.className("display-name")));
+        synchronized (getDriver()) {
+            WebDriverWait wait = new WebDriverWait(getDriver(), 20);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("display-name")));
+        }
 
     }
 }

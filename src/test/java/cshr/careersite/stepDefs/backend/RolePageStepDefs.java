@@ -31,7 +31,7 @@ public class RolePageStepDefs {
 
     @When("^I try to add a role with the same name as an already existing role$")
     public void iTryToAddARoleWithTheSameNameAsAnAlreadyExistingRole() throws Throwable {
-        addNewRolePage.typeInto(addNewRolePage.roleName, "ContentAdmin1");
+        addNewRolePage.typeInto(addNewRolePage.roleName, "Content Admin");
         addNewRolePage.addRoleButton.click();
     }
 
