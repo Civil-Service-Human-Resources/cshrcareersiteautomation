@@ -1,5 +1,6 @@
 package cshr.careersite.stepDefs.backend;
 
+import cshr.careersite.pages.backend.CareerSiteHomePage;
 import cshr.careersite.pages.backend.CareerSiteLoginPage;
 import cshr.careersite.pages.backend.SideNavBarPage;
 import cshr.careersite.steps.backend.LoginSteps;
@@ -13,6 +14,7 @@ import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,6 +24,8 @@ public class LoginStepdefs {
     private CareerSiteLoginPage careerSiteLoginPage;
 
     private SideNavBarPage sideNavBarPage;
+
+    private CareerSiteHomePage careerSiteHomePage;
 
     @Steps
     private
@@ -106,5 +110,10 @@ public class LoginStepdefs {
             careerSiteLoginPage.login(username, "password123");
             Assert.assertTrue(loginSteps.isLoggedinUserNameCorrect(username));
         }
+    }
+
+    @And("^I logout$")
+    public void iLogout() throws Throwable {
+        careerSiteHomePage.logout();
     }
 }

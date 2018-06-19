@@ -64,7 +64,6 @@ public class PageSteps {
             pageStatus = "Deletion";
         }
 
-
         return allPages.pageWithGivenStatusExists(pageName,pageStatus);
     }
 
@@ -86,6 +85,7 @@ public class PageSteps {
         waitForPageLoaded();
         newPage.save.click();
         waitForPageLoaded();
+        Serenity.setSessionVariable("Preview link non authenticated").to(newPage.previewLinkNonAuthenticatedUsers.getAttribute("href"));
 
         return pageName;
     }

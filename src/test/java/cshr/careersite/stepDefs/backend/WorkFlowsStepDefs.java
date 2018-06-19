@@ -1,5 +1,6 @@
 package cshr.careersite.stepDefs.backend;
 
+import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
 import cshr.careersite.model.UserType;
 import cshr.careersite.model.Workflows;
@@ -8,7 +9,9 @@ import cshr.careersite.pages.backend.page.NewPage;
 import cshr.careersite.pages.backend.workflows.InboxPage;
 import cshr.careersite.steps.backend.LoginSteps;
 import cshr.careersite.steps.backend.PageSteps;
+import cshr.careersite.steps.backend.TemplateSteps;
 import cshr.careersite.steps.backend.WorkflowSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -32,6 +35,9 @@ public class WorkFlowsStepDefs {
     private NewPage newPage;
 
     private InboxPage inboxPage;
+
+    @Steps
+    private TemplateSteps templateSteps;
 
 
     @And("^I add a new page with the default template and submit for review$")
@@ -142,6 +148,15 @@ public class WorkFlowsStepDefs {
     @And("^I delete all pages with team assigned$")
     public void iDeleteAllPagesWithTeamAssigned() throws Throwable {
         pageSteps.deletePagesWithTeamNameAssociated();
+
+    }
+
+    @And("^I add a new page with the default template and save as draft$")
+    public void iAddANewPageWithTheDefaultTemplateAndSaveAsDraft() throws Throwable {
+        pageSteps.addBasePageBasedOnTemplate(new String[]{"team1"}, PublishActionType.SAVE, PageTemplates.GENERIC_PAGE_TEMPLATE);
+        templateSteps.fillGenericPageTemplate();
+        newPage.selectPageAction(PublishActionType.SAVE);
+        newPage.save.click();
 
     }
 }

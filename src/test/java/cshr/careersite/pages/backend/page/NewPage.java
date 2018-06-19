@@ -60,6 +60,9 @@ public class NewPage extends PageObject {
     @FindBy(css = "#sample-permalink a")
     public WebElementFacade previewLink;
 
+    @FindBy(css = "[id = 'preview-action'] a")
+    public WebElementFacade previewLinkNonAuthenticatedUsers;
+
     public void editHTMLBody(String body)
     {
         // The content area seems to be different for different logins.
