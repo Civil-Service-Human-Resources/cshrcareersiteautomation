@@ -1,6 +1,8 @@
 package cshr.careersite.pages.backend;
 
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -17,8 +19,15 @@ public class SideNavBarPage extends PageObject {
     @FindBy(css="[class='wp-submenu wp-submenu-wrap'] li :not([class='wp-submenu-head'])")
     public WebElement sideNavSubHeadings;
 
+    @FindBy(className = "ab-icon")
+    public WebElementFacade mobileHamburgerMenu;
+
     public boolean sideNavContainsHeadingsList(String[] strHeadingsList)
     {
+        if(mobileHamburgerMenu.isCurrentlyVisible())
+        {
+            mobileHamburgerMenu.click();
+        }
         List<String> temp = new ArrayList<String>();
 
         for (WebElement G : sideNavMainHeadings ) {

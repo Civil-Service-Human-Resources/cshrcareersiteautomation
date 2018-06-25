@@ -114,10 +114,12 @@ public class GlobalHooks{
             Dimension dim = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
             getDriver().manage().window().setSize(dim);
         }
-        else if(!pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("chrome"))
+        else if(!pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("chrome") &&
+                !pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("appium"))
         {
             getDriver().manage().window().maximize();
         }
+
 
     }
 

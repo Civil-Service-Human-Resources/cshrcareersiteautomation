@@ -38,7 +38,7 @@ public class CareerSiteLoginPage extends PageObject{
     {
         synchronized (getDriver()) {
             WebDriverWait wait = new WebDriverWait(getDriver(), 20);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("display-name")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("wp-admin-bar-my-account")));
         }
 
     }
