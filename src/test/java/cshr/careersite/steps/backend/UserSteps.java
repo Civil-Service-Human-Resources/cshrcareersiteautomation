@@ -57,7 +57,8 @@ public class UserSteps {
 
         addNewUserPage.addNewUserButton.click();
 
-        if(Serenity.sessionVariableCalled("User creation failed TC").equals("null")) {
+        String waitForNewUserMessage = Serenity.sessionVariableCalled("User creation failed TC");
+        if(waitForNewUserMessage == null) {
             addNewUserPage.waitFor(addNewUserPage.newUserCreated);
         }
 
