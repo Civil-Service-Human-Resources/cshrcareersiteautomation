@@ -57,6 +57,8 @@ public class UserSteps {
 
         addNewUserPage.addNewUserButton.click();
 
+        addNewUserPage.waitFor(addNewUserPage.newUserCreated);
+
         if(addNewUserPage.addNewUserButton.isCurrentlyVisible())
         {
             return false;

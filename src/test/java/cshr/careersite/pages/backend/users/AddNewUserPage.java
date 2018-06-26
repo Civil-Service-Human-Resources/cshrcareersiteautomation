@@ -11,7 +11,8 @@ public class AddNewUserPage extends PageObject{
     {
         String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
         getDriver().navigate().to(url + "/user-new.php");
-        getDriver().navigate().refresh();
+        //getDriver().navigate().refresh();
+        waitForWithRefresh();
     }
 
     @FindBy(id = "user_login")
@@ -46,5 +47,8 @@ public class AddNewUserPage extends PageObject{
 
     @FindBy( id = "content_team-team2")
     public WebElementFacade team2;
+
+    @FindBy(linkText = "Edit user")
+    public WebElementFacade newUserCreated;
 
 }
