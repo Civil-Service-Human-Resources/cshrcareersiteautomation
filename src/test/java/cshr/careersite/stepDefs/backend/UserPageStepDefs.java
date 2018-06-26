@@ -135,6 +135,7 @@ public class UserPageStepDefs {
 
     @Then("^the user is not created$")
     public void theUserIsNotCreated() throws Throwable {
+        Serenity.setSessionVariable("User creation failed TC").to("Y");
         Assert.assertFalse("User Creation was successful when it should be unsuccessful", userSteps.createNewUser(false, false));
 
     }
