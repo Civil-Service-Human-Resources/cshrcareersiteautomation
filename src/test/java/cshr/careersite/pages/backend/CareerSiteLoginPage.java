@@ -16,7 +16,7 @@ public class CareerSiteLoginPage extends PageObject{
         getDriver().navigate().to(url + '/');
     }
     @FindBy(id = "user_login")
-    private WebElement username;
+    public WebElement username;
 
     @FindBy(id = "user_pass")
     private WebElement password;

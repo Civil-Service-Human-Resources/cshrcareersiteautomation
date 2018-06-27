@@ -58,6 +58,11 @@ public class LoginStepdefs {
 
     @Then("^I am shown error message (.*)$")
     public void iAmShownErrorMessageErrormessage(String errorMessage) throws Throwable {
+        synchronized (careerSiteLoginPage.getDriver())
+        {
+            careerSiteLoginPage.getDriver().wait(1000);
+        }
+
         Assert.assertTrue(careerSiteLoginPage.loginError.getText().contains(errorMessage));
     }
 
@@ -80,6 +85,10 @@ public class LoginStepdefs {
     @When("^I try logging in again$")
     public void iTryLoggingInAgain() throws Throwable {
         String username = Serenity.sessionVariableCalled("User Name");
+        synchronized (careerSiteLoginPage.getDriver())
+        {
+            careerSiteLoginPage.getDriver().wait(1000);
+        }
         careerSiteLoginPage.login(username, "password123");
     }
 
@@ -94,6 +103,9 @@ public class LoginStepdefs {
 
         if(lockedOrUnlocked.equals("locked"))
         {
+            synchronized (careerSiteLoginPage.getDriver()){
+                careerSiteLoginPage.getDriver().wait(1000);
+            }
             Assert.assertTrue(loginSteps.loginErrorMessageContains("locked"));
         }
     }

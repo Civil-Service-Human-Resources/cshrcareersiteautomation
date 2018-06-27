@@ -11,14 +11,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CareerSiteHomePage extends PageObject{
 
+    CareerSiteLoginPage loginPage;
+
     @FindBy(className = "display-name")
     public WebElementFacade loggedInAs;
 
-    @FindBy(id="wp-admin-bar-logout")
+    @FindBy(css ="[id='wp-admin-bar-logout']")
     private WebElement logout;
 
-    @FindBy(id = "wp-admin-bar-my-account")
-    public WebElement adminBarMyAccount;
+    @FindBy(css = "[class='menupop with-avatar']")
+    public WebElementFacade adminBarMyAccount;
 
     @FindBy(className = "username")
     public WebElement username;
@@ -33,6 +35,20 @@ public class CareerSiteHomePage extends PageObject{
                     build().
                     perform();
         }
+
+        if(adminBarMyAccount.isCurrentlyVisible())
+        {
+            adminBarMyAccount.click();
+            WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+
+            synchronized (getDriver())
+            {
+                wait.until(ExpectedConditions.visibilityOf(element(By.linkText("Log Out"))));
+            }
+
+            element(By.linkText("Log Out")).click();
+        }
+        waitFor(loginPage.username);
     }
 
     public String getLoggedInUserName()
@@ -42,8 +58,13 @@ public class CareerSiteHomePage extends PageObject{
             return loggedInAs.getText();
         }
         else {
+            WebDriverWait wait = new WebDriverWait(getDriver(), 60);
+
+            synchronized (getDriver())
+            {
+                wait.until(ExpectedConditions.elementToBeClickable(adminBarMyAccount));
+            }
             adminBarMyAccount.click();
-            WebDriverWait wait = new WebDriverWait(getDriver(), 10);
 
             synchronized (getDriver())
             {
