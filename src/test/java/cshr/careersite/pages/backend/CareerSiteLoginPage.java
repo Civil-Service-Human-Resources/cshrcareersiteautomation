@@ -1,6 +1,7 @@
 package cshr.careersite.pages.backend;
 
 import net.serenitybdd.core.Serenity;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -32,6 +33,18 @@ public class CareerSiteLoginPage extends PageObject{
         typeInto(username,userName);
         typeInto(password,passWord);
         element(submit).click();
+
+       /* WebElementFacade authCode= element(By.id("authcode"));
+        // Temp
+        if(authCode.isPresent()) {
+            element(By.name("rpg-code-resend")).click();
+            String cssText = element(By.cssSelector("[class='login login-action-validate_2fa wp-core-ui  locale-en-us']")).getText();
+            String verificationCode = cssText.replaceAll("\\D+", "");
+            waitABit(1000);
+            authCode.type(verificationCode);
+            element(By.id("submit")).click();
+        }*/
+
     }
 
     public void waitForLoggedInUsernameToBeDisplayed()

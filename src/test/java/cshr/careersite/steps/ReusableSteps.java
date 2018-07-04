@@ -4,19 +4,30 @@ import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.pages.backend.page.NewPage;
 import de.svenjacobs.loremipsum.LoremIpsum;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.annotations.ManagedPages;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
+import net.thucydides.core.pages.Pages;
+import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class ReusableSteps {
 
     NewPage newPage;
+
+    @ManagedPages
+    private Pages pages1;
 
     @Step
     public String getStringToCompare(String section, String fieldName, List<PageTemplateObject> pageTemplateObjects)
@@ -52,19 +63,43 @@ public class ReusableSteps {
                 testData = randomTestData.getWords(100).substring(0,Integer.parseInt(maxLength));
             }
             synchronized (newPage.getDriver()) {
-                WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 30);
+               /* WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 20);
+                wait.until(ExpectedConditions.elementToBeClickable(elementOnPage));
+                */
+                Wait<WebDriver> wait = new FluentWait<WebDriver>(newPage.getDriver()).withTimeout(Duration.ofSeconds(30))
+                        .pollingEvery(Duration.ofSeconds(5))
+                        .ignoring(NoSuchElementException.class);
                 wait.until(ExpectedConditions.elementToBeClickable(elementOnPage));
             }
-            elementOnPage.sendKeys(Keys.ENTER);
-            elementOnPage.clear();
-            elementOnPage.sendKeys(testData);
+
+            // Mobile workaround for tinymce text areas
+            if(fieldType.equals("tinymce") &&
+                    pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("appium"))
+            {
+                elementOnPage.click();
+                //newPage.getDriver().switchTo().frame(0);
+                //WebElementFacade textArea = newPage.element(By.id("tinymce"));
+                //textArea.click();
+                JavascriptExecutorFacade js = new JavascriptExecutorFacade(newPage.getDriver());
+                String tmp = "document.querySelector('#mceu_75 iframe').contentWindow.document.body.innerHTML='"+ testData + "'";
+                js.executeScript(tmp);
+                //textArea.type(testData);
+                //newPage.getDriver().switchTo().defaultContent();
+            }
+            else {
+                elementOnPage.sendKeys(Keys.ENTER);
+                elementOnPage.clear();
+                elementOnPage.sendKeys(testData);
+            }
         }
         else if(fieldType.equalsIgnoreCase("image"))
         {
             if(elementOnPage.isCurrentlyVisible()) {
-                elementOnPage.sendKeys(Keys.ENTER);
+
                 synchronized (newPage.getDriver()) {
                     WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 10);
+                    wait.until(ExpectedConditions.elementToBeClickable(elementOnPage));
+                    elementOnPage.click();
                     wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")));
                     newPage.element(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")).click();
                     wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class='attachments-browser'] li")));

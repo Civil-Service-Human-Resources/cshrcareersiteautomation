@@ -83,7 +83,7 @@ public class TemplateSteps {
     public void fillGenericPageTemplate() {
         genericPageTemplate.waitFor(genericPageTemplate.content);
         reusableSteps.createAndEnterRandomData(genericPageTemplate.heading, "input");
-        reusableSteps.createAndEnterRandomData(genericPageTemplate.content, "input");
+        reusableSteps.createAndEnterRandomData(genericPageTemplate.content, "tinymce");
 
     }
 }

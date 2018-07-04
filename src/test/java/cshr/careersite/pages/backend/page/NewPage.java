@@ -2,15 +2,22 @@ package cshr.careersite.pages.backend.page;
 
 import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
+import cshr.careersite.pages.BasePage;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class NewPage extends PageObject {
+
+  /*  public NewPage(WebDriver driver) {
+        super(driver);
+    }
+*/
     public void openNewPage()
     {
         String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
@@ -96,7 +103,7 @@ public class NewPage extends PageObject {
     {
         waitABit(1000);
         WebElementFacade pageAction = element(By.cssSelector(String.format(pageActions, actionName.getValue())));
-        withAction().moveToElement(pageAction).click().build().perform();
+        pageAction.click();
     }
 
     public void selectTemplate(PageTemplates strPageTemplate)
@@ -104,5 +111,6 @@ public class NewPage extends PageObject {
         pageTemplate.selectByValue(strPageTemplate.getValue());
         Assert.assertTrue(pageTemplate.getValue().contains(strPageTemplate.getValue()));
     }
+
 
 }

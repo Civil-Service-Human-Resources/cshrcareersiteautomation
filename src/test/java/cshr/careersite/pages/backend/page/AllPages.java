@@ -134,7 +134,7 @@ public class AllPages extends PageObject {
 
     private PageTableColumns searchPage(String pageName)
     {
-        postSearchInput.sendKeys(pageName);
+        postSearchInput.typeAndEnter(pageName);
         searchButton.click();
 
         List<PageTableColumns> rows = getRowDetails();
