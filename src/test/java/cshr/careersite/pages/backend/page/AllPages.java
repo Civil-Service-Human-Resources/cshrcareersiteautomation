@@ -2,20 +2,28 @@ package cshr.careersite.pages.backend.page;
 
 import cshr.careersite.model.PageTableColumns;
 import cshr.careersite.pages.backend.PaginationPage;
+import cshr.careersite.utils.Utility;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class AllPages extends PageObject {
 
     private PaginationPage paginationPage;
     private NewPage newPage;
+    private Utility utility;
 
     public void openPagesMenu()
     {
@@ -89,15 +97,28 @@ public class AllPages extends PageObject {
         List<WebElement> pageRows;
         List<PageTableColumns> pageTableColumnsArray = new ArrayList<>();
 
-        Integer totalPages = 2;
+        int totalPages;
+
+        totalPages = 2;
 
         if(paginationPage.totalPages.isCurrentlyVisible())
         {
             totalPages = Integer.parseInt(paginationPage.totalPages.getText());
         }
 
-        for(int i=1; i< totalPages; i++)
+        for(int i=1; i < totalPages; i++)
         {
+            // Mobile only, expand row
+            utility = new Utility();
+            if(utility.getSerenityPropertiesValues("webdriver.driver").equals("appium"))
+            {
+                List<WebElement> rows = getDriver().findElements(By.className("toggle-row"));
+                for(WebElement row : rows)
+                {
+                    row.click();
+                }
+            }
+
             pageRows = getDriver().findElements(By.xpath("//table[@class='wp-list-table widefat fixed striped pages']//tr"));
 
             // Ignore first row in table
@@ -107,8 +128,9 @@ public class AllPages extends PageObject {
                 String pageStatus = "";
 
                 if(!temp.get(0).getText().contains("Select All")) {
-                    if(temp.get(0).getText().contains("No pages found."))
+                    if(temp.get(0).getText().contains("No pages found.")) {
                         return null;
+                    }
 
                     String pageTitle = temp.get(0).getText().split(" — ")[0];
 
@@ -134,8 +156,19 @@ public class AllPages extends PageObject {
 
     private PageTableColumns searchPage(String pageName)
     {
+        getDriver().navigate().refresh();
+        WebElement tableBeforeSearch = element(By.cssSelector("[class='wp-list-table widefat fixed striped pages']"));
+        postSearchInput.waitUntilEnabled();
         postSearchInput.typeAndEnter(pageName);
         searchButton.click();
+
+        synchronized (getDriver())
+        {
+            Wait<WebDriver> wait = new FluentWait<WebDriver>(newPage.getDriver()).withTimeout(Duration.ofSeconds(30))
+                    .pollingEvery(Duration.ofSeconds(5))
+                    .ignoring(NoSuchElementException.class);
+            wait.until(ExpectedConditions.stalenessOf(tableBeforeSearch));
+        }
 
         List<PageTableColumns> rows = getRowDetails();
         if(rows == null)
