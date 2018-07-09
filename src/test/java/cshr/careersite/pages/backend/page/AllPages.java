@@ -156,18 +156,24 @@ public class AllPages extends PageObject {
         getDriver().navigate().refresh();
         WebElement tableBeforeSearch = element(By.cssSelector("[class='wp-list-table widefat fixed striped pages']"));
         postSearchInput.sendKeys(Keys.ENTER);
-        postSearchInput.waitUntilEnabled();
-        postSearchInput.type(pageName);
-        searchButton.click();
 
         utility = new Utility();
         if(utility.getSerenityPropertiesValues("webdriver.driver").equals("appium")) {
+            postSearchInput.typeAndEnter(pageName);
+            searchButton.click();
+
             synchronized (getDriver()) {
-                FluentWait<WebDriver> wait = new FluentWait<WebDriver>(newPage.getDriver()).withTimeout(Duration.ofSeconds(30))
+                FluentWait<WebDriver> wait = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(30))
                         .pollingEvery(Duration.ofSeconds(5))
                         .ignoring(NoSuchElementException.class);
                 wait.until(ExpectedConditions.stalenessOf(tableBeforeSearch));
             }
+        }
+        else
+        {
+            postSearchInput.waitUntilEnabled();
+            postSearchInput.type(pageName);
+            searchButton.click();
         }
 
         List<PageTableColumns> rows = getRowDetails();
