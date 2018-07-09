@@ -2,7 +2,6 @@ package cshr.careersite.pages.backend.page;
 
 import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
-import cshr.careersite.pages.BasePage;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
@@ -14,10 +13,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class NewPage extends PageObject {
 
-  /*  public NewPage(WebDriver driver) {
-        super(driver);
-    }
-*/
     public void openNewPage()
     {
         String url = Serenity.sessionVariableCalled("BACKEND_BASE_URL");
@@ -48,7 +43,7 @@ public class NewPage extends PageObject {
     @FindBy(id = "save-post")
     public WebElementFacade save;
 
-    @FindBy(xpath = "//a[text()='Take over']")
+    @FindBy(xpath = "//div[@id='post-lock-dialog']//a[text()='Take over']")
     public WebElementFacade takeOver;
 
     @FindBy(id = "wp-content-editor-container")
@@ -69,6 +64,9 @@ public class NewPage extends PageObject {
 
     @FindBy(css = "[id = 'preview-action'] a")
     public WebElementFacade previewLinkNonAuthenticatedUsers;
+
+    @FindBy(id = "message")
+    public WebElementFacade message;
 
     public void editHTMLBody(String body)
     {
@@ -112,5 +110,10 @@ public class NewPage extends PageObject {
         Assert.assertTrue(pageTemplate.getValue().contains(strPageTemplate.getValue()));
     }
 
+    public boolean messageExists(String strMessage)
+    {
+        message.waitUntilVisible();
+        return message.getText().contains(strMessage);
+    }
 
 }

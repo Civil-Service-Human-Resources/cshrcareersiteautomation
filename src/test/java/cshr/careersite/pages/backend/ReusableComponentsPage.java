@@ -14,11 +14,17 @@ public class ReusableComponentsPage extends PageObject {
     @FindBy(id = "actors-list-select")
     public WebElementFacade assignActors;
 
-    @FindBy(id = "actors-set-select")
+    @FindBy(css = "[class='simplemodal-container'] [id='actors-list-select']")
     public WebElementFacade assignedActors;
 
     @FindBy(id = "assignee-set-point")
     private WebElementFacade assignActor;
+
+    @FindBy(id = "actors-set-select")
+    public WebElementFacade selectedActors;
+
+    @FindBy(id = "workflowComments")
+    public WebElementFacade workflowComments;
 
     private void selectTheDropDownList(WebElement dropDown, String text)
     {
@@ -29,12 +35,17 @@ public class ReusableComponentsPage extends PageObject {
     public void selectActor(String actorName)
     {
         synchronized (getDriver()) {
-            WebDriverWait wait = new WebDriverWait(getDriver(), 20);
-            wait.until(ExpectedConditions.elementToBeClickable(assignedActors));
+            WebDriverWait wait = new WebDriverWait(getDriver(), 30);
+            wait.until(ExpectedConditions.visibilityOf(element(By.cssSelector("[class='simplemodal-container']"))));
         }
-        if(!assignedActors.getText().contains(actorName)) {
-            selectTheDropDownList(assignActors, actorName);
+
+        assignedActors.selectByVisibleText(actorName);
+        //if(!assignedActors.getText().contains(actorName)) {
+            //selectTheDropDownList(assignActors, actorName);
             assignActor.click();
-        }
+            waitABit(1000);
+            System.out.println("*****"+assignedActors.getText());
+
+        //}
     }
 }

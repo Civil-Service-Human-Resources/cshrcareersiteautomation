@@ -2,11 +2,12 @@ package cshr.careersite.pages.backend.workflows;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 
 public class SignOffPage extends PageObject {
 
-    @FindBy(id = "decision-select")
+    @FindBy(css = "[id = 'simplemodal-container'] [id = 'decision-select']")
     public WebElementFacade ddAction;
 
     @FindBy(id = "priority-select")
@@ -23,4 +24,14 @@ public class SignOffPage extends PageObject {
 
     @FindBy(id = "completeSave")
     public WebElementFacade signOffComplete;
+
+    public void selectAcceptReject(String actionType)
+    {
+        element(By.id("simplemodal-container")).waitUntilVisible();
+        ddAction.waitUntilClickable();
+        selectFromDropdown(ddAction, actionType);
+
+    }
+
+
 }

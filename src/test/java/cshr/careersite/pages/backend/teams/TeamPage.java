@@ -43,6 +43,13 @@ public class TeamPage extends PageObject{
     @FindBy(id = "search-submit")
     public WebElementFacade searchTeamSubmit;
 
+    @FindBy(id = "tag-display-name")
+    public WebElementFacade tagDisplayName;
+
+    @FindBy(id = "tag-theme-colour")
+    public WebElementFacade tagThemeColor;
+
+
     private String teamTableRow = "//table[@class='wp-list-table widefat fixed striped tags']//tr[contains(.,'%s')]";
 
     private String teamTableTd = "//table[@class='wp-list-table widefat fixed striped tags']//td[contains(.,'%s')]//strong";

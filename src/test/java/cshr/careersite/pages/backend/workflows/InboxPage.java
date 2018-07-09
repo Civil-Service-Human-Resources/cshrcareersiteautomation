@@ -1,6 +1,7 @@
 package cshr.careersite.pages.backend.workflows;
 
 import cshr.careersite.pages.backend.PaginationPage;
+import cshr.careersite.utils.Utility;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
@@ -13,6 +14,7 @@ import java.util.List;
 public class InboxPage extends PageObject{
 
     private PaginationPage paginationPage;
+    private Utility utility;
 
     public void openInbox()
     {
@@ -31,12 +33,23 @@ public class InboxPage extends PageObject{
 
     public void clickSignOff(String strPageName)
     {
-        withAction().
-                moveToElement(element(String.format(pageName, strPageName))).
-                moveToElement(element(String.format(signOff, strPageName))).
-                click().
-                build().
-                perform();
+
+        utility = new Utility();
+
+        if(utility.getSerenityPropertiesValues("webdriver.driver").equals("appium"))
+        {
+            String signOffButton = "//td[contains(.,'%s')]//a[@class='quick_sign_off']";
+            element(By.xpath(String.format(signOffButton, strPageName))).click();
+        }
+        else {
+            withAction().
+                    moveToElement(element(String.format(pageName, strPageName))).
+                    moveToElement(element(String.format(signOff, strPageName))).
+                    click().
+                    build().
+                    perform();
+        }
+
     }
 
     public void clickReassign(String strPageName)

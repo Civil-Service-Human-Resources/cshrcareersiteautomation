@@ -2,15 +2,14 @@ package cshr.careersite.steps;
 
 import cshr.careersite.model.PageTemplateObject;
 import cshr.careersite.pages.backend.page.NewPage;
+import cshr.careersite.utils.Utility;
 import de.svenjacobs.loremipsum.LoremIpsum;
 import net.serenitybdd.core.pages.WebElementFacade;
-import net.thucydides.core.ThucydidesSystemProperty;
-import net.thucydides.core.annotations.ManagedPages;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -25,9 +24,7 @@ import java.util.Optional;
 public class ReusableSteps {
 
     NewPage newPage;
-
-    @ManagedPages
-    private Pages pages1;
+    Utility utility;
 
     @Step
     public String getStringToCompare(String section, String fieldName, List<PageTemplateObject> pageTemplateObjects)
@@ -68,23 +65,20 @@ public class ReusableSteps {
                 */
                 Wait<WebDriver> wait = new FluentWait<WebDriver>(newPage.getDriver()).withTimeout(Duration.ofSeconds(30))
                         .pollingEvery(Duration.ofSeconds(5))
-                        .ignoring(NoSuchElementException.class);
+                        .ignoring(NoSuchElementException.class)
+                        .ignoring(StaleElementReferenceException.class);
                 wait.until(ExpectedConditions.elementToBeClickable(elementOnPage));
             }
 
             // Mobile workaround for tinymce text areas
+            utility = new Utility();
             if(fieldType.equals("tinymce") &&
-                    pages1.getConfiguration().getEnvironmentVariables().getProperty(ThucydidesSystemProperty.WEBDRIVER_DRIVER).toLowerCase().equals("appium"))
+                    utility.getSerenityPropertiesValues("webdriver.driver").equals("appium"))
             {
                 elementOnPage.click();
-                //newPage.getDriver().switchTo().frame(0);
-                //WebElementFacade textArea = newPage.element(By.id("tinymce"));
-                //textArea.click();
                 JavascriptExecutorFacade js = new JavascriptExecutorFacade(newPage.getDriver());
                 String tmp = "document.querySelector('#mceu_75 iframe').contentWindow.document.body.innerHTML='"+ testData + "'";
                 js.executeScript(tmp);
-                //textArea.type(testData);
-                //newPage.getDriver().switchTo().defaultContent();
             }
             else {
                 elementOnPage.sendKeys(Keys.ENTER);
@@ -108,6 +102,5 @@ public class ReusableSteps {
                 }
             }
         }
-
     }
 }

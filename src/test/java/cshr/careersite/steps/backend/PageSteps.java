@@ -10,9 +10,11 @@ import cshr.careersite.pages.backend.workflows.InboxPage;
 import cshr.careersite.pages.backend.workflows.SubmitWorkFlowPage;
 import cshr.careersite.steps.ReusableSteps;
 import cshr.careersite.utils.RandomTestData;
+import cshr.careersite.utils.Utility;
 import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
+import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +33,7 @@ public class PageSteps {
     private RevisionHistoryPage revisionHistoryPage;
     private DepartmentTemplatePage departmentTemplatePage;
     private InboxPage inboxPage;
+    private Utility utility;
 
     @Steps
     private WorkflowSteps workflowSteps;
@@ -85,6 +88,12 @@ public class PageSteps {
         waitForPageLoaded();
         newPage.save.click();
         waitForPageLoaded();
+
+        utility = new Utility();
+
+        if(utility.getSerenityPropertiesValues("webdriver.driver").equals("appium")) {
+            Assert.assertTrue(newPage.messageExists("Page draft updated"));
+        }
         Serenity.setSessionVariable("Preview link non authenticated").to(newPage.previewLinkNonAuthenticatedUsers.getAttribute("href"));
 
         return pageName;
@@ -276,7 +285,9 @@ public class PageSteps {
         newPage.selectPageAction(PublishActionType.PUBLISH);
         newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
         reusableComponentsPage.selectActor("Content Approver 1");
+        reusableComponentsPage.workflowComments.sendKeys("Draft copy");
         submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
+        allPages.waitForAllPagesTable();
     }
 
     @Step

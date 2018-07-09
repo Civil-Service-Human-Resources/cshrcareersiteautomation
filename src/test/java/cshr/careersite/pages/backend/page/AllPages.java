@@ -6,13 +6,10 @@ import cshr.careersite.utils.Utility;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -33,7 +30,7 @@ public class AllPages extends PageObject {
     }
 
     @FindBy(id = "post-search-input")
-    private WebElementFacade postSearchInput;
+    public WebElementFacade postSearchInput;
 
     @FindBy(id = "search-submit")
     private WebElementFacade searchButton;
@@ -158,16 +155,19 @@ public class AllPages extends PageObject {
     {
         getDriver().navigate().refresh();
         WebElement tableBeforeSearch = element(By.cssSelector("[class='wp-list-table widefat fixed striped pages']"));
+        postSearchInput.sendKeys(Keys.ENTER);
         postSearchInput.waitUntilEnabled();
-        postSearchInput.typeAndEnter(pageName);
+        postSearchInput.type(pageName);
         searchButton.click();
 
-        synchronized (getDriver())
-        {
-            Wait<WebDriver> wait = new FluentWait<WebDriver>(newPage.getDriver()).withTimeout(Duration.ofSeconds(30))
-                    .pollingEvery(Duration.ofSeconds(5))
-                    .ignoring(NoSuchElementException.class);
-            wait.until(ExpectedConditions.stalenessOf(tableBeforeSearch));
+        utility = new Utility();
+        if(utility.getSerenityPropertiesValues("webdriver.driver").equals("appium")) {
+            synchronized (getDriver()) {
+                FluentWait<WebDriver> wait = new FluentWait<WebDriver>(newPage.getDriver()).withTimeout(Duration.ofSeconds(30))
+                        .pollingEvery(Duration.ofSeconds(5))
+                        .ignoring(NoSuchElementException.class);
+                wait.until(ExpectedConditions.stalenessOf(tableBeforeSearch));
+            }
         }
 
         List<PageTableColumns> rows = getRowDetails();
@@ -197,7 +197,22 @@ public class AllPages extends PageObject {
                 newPage.takeOver.click();
             }
 
-            newPage.previewLink.click();
+           String pageURL =  newPage.previewLink.getText();
+            getDriver().navigate().to(pageURL);
+
+        }
+    }
+
+    public void waitForAllPagesTable()
+    {
+        synchronized (getDriver())
+        {
+            FluentWait<WebDriver> wait1 = new FluentWait<WebDriver>(getDriver()).withTimeout(Duration.ofSeconds(1))
+                    .pollingEvery(Duration.ofSeconds(5))
+                    .ignoring(NoSuchElementException.class)
+                    .ignoring(StaleElementReferenceException.class);
+
+            wait1.until(ExpectedConditions.urlContains("/edit.php?post_type=page"));
 
         }
     }
