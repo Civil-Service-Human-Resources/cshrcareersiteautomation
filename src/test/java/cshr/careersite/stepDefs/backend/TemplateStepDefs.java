@@ -62,6 +62,10 @@ public class TemplateStepDefs {
         {
             templateName = PageTemplates.GENERIC_PAGE_TEMPLATE;
         }
+        else if(arg0.toLowerCase().equals("community"))
+        {
+            templateName = PageTemplates.COMMUNITY_PAGE_TEMPLATE;
+        }
 
         pageSteps.addBasePageBasedOnTemplate(new String[]{arg1}, PublishActionType.SAVE, templateName);
     }

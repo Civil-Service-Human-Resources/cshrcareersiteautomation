@@ -1,22 +1,37 @@
 package cshr.careersite.pages.backend.backendTemplateSections;
 
-import net.serenitybdd.core.annotations.findby.FindBy;
+import org.openqa.selenium.support.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 
+import java.util.List;
+
 public class ContentBlockVertical extends PageObject {
-    @org.openqa.selenium.support.FindBy(css = "[data-name ='content_block_vertical'] [data-name ='image'] [data-name = 'add']")
+    @FindBy(css = "[data-name ='content_block_vertical'] [data-name ='image'] [data-name = 'add']")
     public WebElementFacade contentBlockVerticalImage;
 
-    @org.openqa.selenium.support.FindBy(css = "[data-name ='content_block_vertical'] [data-name ='quote'] textarea")
+    @FindBy(css = "[data-name ='content_block_vertical'] [data-name ='quote'] textarea")
     public WebElementFacade contentBlockVerticalQuote;
 
-    @org.openqa.selenium.support.FindBy(css = "[data-name ='content_block_vertical'] [data-name ='forename'] input:not([type='hidden'])")
+    @FindBy(css = "[data-name ='content_block_vertical'] [data-name ='forename'] input:not([type='hidden'])")
     public WebElementFacade contentBlockVerticalForename;
 
-    @org.openqa.selenium.support.FindBy(css = "[data-name ='content_block_vertical'] [data-name ='surname'] input:not([type='hidden'])")
+    @FindBy(css = "[data-name ='content_block_vertical'] [data-name ='surname'] input:not([type='hidden'])")
     public WebElementFacade contentBlockVerticalSurname;
 
-    @org.openqa.selenium.support.FindBy(css = "[data-name ='content_block_vertical'] [data-name ='role'] input:not([type='hidden'])")
+    @FindBy(css = "[data-name ='content_block_vertical'] [data-name ='role'] input:not([type='hidden'])")
     public WebElementFacade contentBlockVerticalRole;
+
+    @FindBy(css = "[data-name='extra_group'] [data-name ='heading'] input:not([type='hidden'])")
+    public WebElementFacade contentBlockVerticalHeading;
+
+    @FindBy(css ="[data-name='extra_group'] [data-name='body'] textarea:not([class='acf-hidden-by-postbox'])")
+    public WebElementFacade contentBlockVerticalBody;
+
+    @FindBy(css = "[data-name='extra_group'] [data-name ='target_text'] input:not([type='hidden'])")
+    public WebElementFacade contentBlockVerticalLinkText;
+
+    @FindBy(css = "[data-name='extra_group'] [data-name ='target'] input:not([type='hidden'])")
+    public WebElementFacade contentBlockVerticalLink;
+
 }

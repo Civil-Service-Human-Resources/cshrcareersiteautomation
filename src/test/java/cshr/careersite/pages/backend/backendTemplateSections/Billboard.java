@@ -21,4 +21,15 @@ public class Billboard extends PageObject{
     @FindBy(css ="[data-name='billboard'] [data-name='image'] [data-name = 'add']")
     public WebElementFacade billboardImage;
 
+    @FindBy(css = "[data-name ='billboard'] [data-name ='paragraph_1'] textarea")
+    public WebElementFacade billboardParagraph1;
+
+   @FindBy(css = "[data-name ='billboard'] [data-name ='paragraph_2'] textarea")
+   public WebElementFacade billboardParagraph2;
+
+   @FindBy(css = "[data-name ='billboard'] [data-name ='paragraph_3'] textarea")
+   public WebElementFacade billboardParagraph3;
+
+   @FindBy(css = "[data-name ='billboard'] [data-name ='paragraph_4'] textarea")
+   public WebElementFacade billboardParagraph4;
 }

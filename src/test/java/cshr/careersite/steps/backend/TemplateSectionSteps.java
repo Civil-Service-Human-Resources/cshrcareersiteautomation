@@ -34,6 +34,10 @@ public class TemplateSectionSteps {
     DepartmentTemplatePage departmentTemplatePage;
     SubContentMultiple subContentMultiple;
     Listing listing;
+    MainContentRepeater mainContentRepeater;
+    MediaEmbed mediaEmbed;
+    SubContentWithImage subContentWithImage;
+    ContentBlockWithCTAs contentBlockWithCTAs;
 
     @Steps
     ReusableSteps reusableSteps;
@@ -337,6 +341,36 @@ public class TemplateSectionSteps {
     }
 
     @Step
+    public void fillMainContentRepeater(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        String sectionName = "Main content repeater";
+        departmentTemplatePage.selectTab(sectionName);
+        clickAddButtons(sectionName, pageTemplateObject , newSection);
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = mainContentRepeater.getClass().getField(fieldName);
+
+            if(Collection.class.isAssignableFrom(field.getType()))
+            {
+                List<WebElementFacade> element = (List<WebElementFacade>) field.get(mainContentRepeater);
+
+                for(int x = 0 ; x < Integer.parseInt(pageTemplateObject.repeater); x++) {
+                    field = mainContentRepeater.getClass().getField(fieldName);
+                    reusableSteps.createAndEnterRandomData(element.get(x), pageTemplateObject.field_type);
+                }
+            }
+            else {
+                WebElementFacade element = (WebElementFacade) field.get(mainContentRepeater);
+                reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+            }
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
     public void fillListing(PageTemplateObject pageTemplateObject, Boolean newSection)
     {
         String sectionName = "Listing";
@@ -366,69 +400,135 @@ public class TemplateSectionSteps {
         }
     }
 
+    @Step
+    public void fillMediaEmbed(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        departmentTemplatePage.selectTab("Media embed");
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = mediaEmbed.getClass().getField(fieldName);
+            WebElementFacade element = (WebElementFacade)  field.get(mediaEmbed);
+            reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void fillSubContentWithImage(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        departmentTemplatePage.selectTab("Sub content with Image");
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = subContentWithImage.getClass().getField(fieldName);
+            WebElementFacade element = (WebElementFacade)  field.get(subContentWithImage);
+            reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Step
+    public void fillContentBlockWithCTAs(PageTemplateObject pageTemplateObject, Boolean newSection)
+    {
+        departmentTemplatePage.selectTab("Content Block with CTA");
+        try {
+
+            String fieldName = getFieldName(pageTemplateObject);
+            Field field = contentBlockWithCTAs.getClass().getField(fieldName);
+            WebElementFacade element = (WebElementFacade)  field.get(contentBlockWithCTAs);
+            reusableSteps.createAndEnterRandomData(element, pageTemplateObject.field_type);
+
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Step
     public void selectAndFillTemplateSection(PageTemplateObject pageTemplateObject, boolean newSection)
     {
-        if(pageTemplateObject.sections_sub_sections.contains("Billboard"))
+
+        String tabName = pageTemplateObject.sections_sub_sections.split(",")[0];
+
+        if(tabName.equals("Billboard"))
         {
             fillBillboardSection(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Content Block Vertical"))
+        else if(tabName.equals("Content Block Vertical"))
         {
             fillContentBlockVerticalSection(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Content Block Horizontal"))
+        else if(tabName.equals("Content Block Horizontal"))
         {
             fillContentBlockHorizontalSection(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Factoid"))
+        else if(tabName.equals("Factoid"))
         {
             fillFactoidSection(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Main content"))
+        else if(tabName.equals("Main content"))
         {
             fillMainContentSection(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Sub content"))
+        else if(tabName.equals("Sub content"))
         {
             fillSubContentSection(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.equals("Content Block with CTA"))
+        else if(tabName.equals("Content Block with CTA"))
         {
             fillContentBlockWithCTA(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.equals("Content Block with CTA + Image"))
+        else if(tabName.equals("Content Block with CTA + Image"))
         {
             fillContentBlockWithCTAImage(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Content Block Image"))
+        else if(tabName.equals("Content Block Image"))
         {
             fillContentBlockImage(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Content Block Promo"))
+        else if(tabName.equals("Content Block Promo"))
         {
             fillContentBlockPromo(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("List repeater"))
+        else if(tabName.equals("List repeater"))
         {
             fillListRepeater(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Main repeater"))
+        else if(tabName.equals("Main repeater"))
         {
             fillMainRepeater(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Sub repeater"))
+        else if(tabName.equals("Sub repeater"))
         {
             fillSubRepeater(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Sub Content Multiple"))
+        else if(tabName.equals("Sub Content Multiple"))
         {
             fillSubContentMultiple(pageTemplateObject, newSection);
         }
-        else if(pageTemplateObject.sections_sub_sections.contains("Listing"))
+        else if(tabName.equals("Listing"))
         {
             fillListing(pageTemplateObject, newSection);
+        }
+        else if(tabName.equals("Main content repeater"))
+        {
+            fillMainContentRepeater(pageTemplateObject, newSection);
+        }
+        else if(tabName.equals("Media embed"))
+        {
+            fillMediaEmbed(pageTemplateObject, newSection);
+        }
+        else if(tabName.equals("Sub content with Image"))
+        {
+            fillSubContentWithImage(pageTemplateObject, newSection);
+        }
+        else if(tabName.equals("Content Block with CTAs"))
+        {
+            fillContentBlockWithCTAs(pageTemplateObject, newSection);
         }
     }
 

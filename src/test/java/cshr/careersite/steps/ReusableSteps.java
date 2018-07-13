@@ -60,9 +60,6 @@ public class ReusableSteps {
                 testData = randomTestData.getWords(100).substring(0,Integer.parseInt(maxLength));
             }
             synchronized (newPage.getDriver()) {
-               /* WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 20);
-                wait.until(ExpectedConditions.elementToBeClickable(elementOnPage));
-                */
                 Wait<WebDriver> wait = new FluentWait<WebDriver>(newPage.getDriver()).withTimeout(Duration.ofSeconds(30))
                         .pollingEvery(Duration.ofSeconds(5))
                         .ignoring(NoSuchElementException.class)
@@ -91,9 +88,15 @@ public class ReusableSteps {
             if(elementOnPage.isCurrentlyVisible()) {
 
                 synchronized (newPage.getDriver()) {
-                    WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 10);
+                    WebDriverWait wait = new WebDriverWait(newPage.getDriver(), 30);
                     wait.until(ExpectedConditions.elementToBeClickable(elementOnPage));
-                    elementOnPage.click();
+                    if(utility.getSerenityPropertiesValues("webdriver.driver").equals("appium"))
+                    {
+                        elementOnPage.click();
+                    }
+                    else {
+                        elementOnPage.sendKeys(Keys.ENTER);
+                    }
                     wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")));
                     newPage.element(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")).click();
                     wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class='attachments-browser'] li")));

@@ -6,7 +6,8 @@ public enum PageTemplates {
     AOW_PAGE_TEMPLATE("page-layout-b.php"),
     AOW_LANDING_PAGE_TEMPLATE("page-hub.php"),
     DEPARTMENT_LANDING_PAGE_TEMPLATE("page-hub-listing.php"),
-    GENERIC_PAGE_TEMPLATE("page-simple.php");
+    GENERIC_PAGE_TEMPLATE("page-simple.php"),
+    COMMUNITY_PAGE_TEMPLATE("page-layout-c.php");
 
     private String value;
 

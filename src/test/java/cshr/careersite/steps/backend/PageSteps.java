@@ -384,13 +384,10 @@ public class PageSteps {
         boolean newSection = false;
 
         for (PageTemplateObject aPageTemplateObject : pageTemplateObject) {
-
-            String sectionNames = aPageTemplateObject.sections_sub_sections.replaceAll("," , "").replaceAll(" ","");
-
+            String sectionNames = aPageTemplateObject.sections_sub_sections.split(",")[0];
             if (!oldSectionName.equals(sectionNames)) {
                 oldSectionName = sectionNames;
                 newSection = true;
-
             } else {
                 newSection = false;
             }
