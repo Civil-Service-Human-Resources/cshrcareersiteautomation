@@ -56,7 +56,10 @@ public class BeforeAllTests {
         if (!teamPage.checkIfTeamNameExists("Team1")) {
             teamPage.typeInto(teamPage.teamName, "Team1");
             teamPage.typeInto(teamPage.tagDisplayName, "Team1");
-            teamPage.typeInto(teamPage.tagThemeColor, "black");
+            teamPage.typeInto(teamPage.tagDisplayName2, "I am pretty line 2");
+            teamPage.typeInto(teamPage.tagDisplayName3, "I am pretty line 3");
+            teamPage.typeInto(teamPage.tagThemeColor, "#000000");
+            teamPage.selectLogo();
             teamPage.addNewTeamButton.click();
             WebDriverWait wait = new WebDriverWait(teamPage.getDriver(), 10);
             wait.until(ExpectedConditions.attributeToBe(teamPage.teamName, "value", ""));
@@ -67,7 +70,10 @@ public class BeforeAllTests {
             teamPage.teamName.waitUntilEnabled();
             teamPage.typeInto(teamPage.teamName, "Team2");
             teamPage.typeInto(teamPage.tagDisplayName, "Team2");
-            teamPage.typeInto(teamPage.tagThemeColor, "black");
+            teamPage.typeInto(teamPage.tagThemeColor, "#008000");
+            teamPage.typeInto(teamPage.tagDisplayName2, "I am pretty line 2");
+            teamPage.typeInto(teamPage.tagDisplayName3, "I am pretty line 3");
+            teamPage.selectLogo();
             teamPage.addNewTeamButton.click();
             WebDriverWait wait = new WebDriverWait(teamPage.getDriver(), 10);
             wait.until(ExpectedConditions.attributeToBe(teamPage.teamName, "value", ""));

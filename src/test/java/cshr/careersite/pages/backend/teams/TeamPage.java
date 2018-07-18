@@ -7,6 +7,8 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +48,17 @@ public class TeamPage extends PageObject{
     @FindBy(id = "tag-display-name")
     public WebElementFacade tagDisplayName;
 
+    @FindBy(id = "tag-display-name-2")
+    public WebElementFacade tagDisplayName2;
+
+    @FindBy(id = "tag-display-name-3")
+    public WebElementFacade tagDisplayName3;
+
     @FindBy(id = "tag-theme-colour")
     public WebElementFacade tagThemeColor;
+
+    @FindBy(id = "tag-choose-logo")
+    public WebElementFacade chooseLogo;
 
 
     private String teamTableRow = "//table[@class='wp-list-table widefat fixed striped tags']//tr[contains(.,'%s')]";
@@ -96,5 +107,21 @@ public class TeamPage extends PageObject{
         searchTeam.type(teamName);
         searchTeamSubmit.click();
 
+    }
+
+    public void selectLogo()
+    {
+        if(chooseLogo.isCurrentlyVisible())
+        {
+            chooseLogo.click();
+            synchronized (getDriver()) {
+                WebDriverWait wait = new WebDriverWait(getDriver(), 30);
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")));
+                element(By.xpath("//div[@class='media-router']/a[contains(.,'Media Library')]")).click();
+                wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("[class='attachments-browser'] li")));
+                element(By.cssSelector("[class='attachments-browser'] li")).click();
+                element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
+            }
+        }
     }
 }
