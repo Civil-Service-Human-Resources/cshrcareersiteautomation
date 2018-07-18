@@ -6,8 +6,6 @@ Feature: Department page template
     When I add a page with the department page template and assigned to team1
     And I fill in the form template
     |sections_sub_sections      |field_name       |field_type    |max_characters|mandatory |   repeater |
-    |Billboard                  |Logo text        |input         |60            |true      |            |
-    |Billboard                  |Logo             |image         |              |true      |            |
     |Billboard                  |Heading          |input         |75            |true      |            |
     |Billboard                  |Intro text       |textarea      |350           |true      |            |
     |Billboard                  |Image            |image         |              |true      |            |
@@ -17,11 +15,12 @@ Feature: Department page template
     |Main content               |Image 1          |image         |              |false     |            |
     |Main content               |Paragraph 3      |textarea      |400           |true      |            |
     |Main content               |Image 2          |image         |              |false     |            |
+    |Main content               |Paragraph 4      |tinymce       |              |false     |            |
     |Content Block Vertical     |Image            |image         |              |true      |            |
     |Content Block Vertical     |Quote            |textarea      |300           |true      |            |
     |Content Block Vertical     |Forename         |input         |25            |true      |            |
     |Content Block Vertical     |Surname          |input         |25            |true      |            |
-    |Content Block Vertical     |Role             |input         |150           |true       |            |
+    |Content Block Vertical     |Role             |input         |150           |true      |            |
     |Factoid                    |Fact             |input         |100           |true      | 3          |
     |Content Block Horizontal   |Image            |image         |              |true      |            |
     |Content Block Horizontal   |Quote            |textarea      |300           |true      |            |
