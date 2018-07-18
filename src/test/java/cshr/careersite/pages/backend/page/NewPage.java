@@ -2,12 +2,14 @@ package cshr.careersite.pages.backend.page;
 
 import cshr.careersite.model.PageTemplates;
 import cshr.careersite.model.PublishActionType;
+import cshr.careersite.utils.Utility;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -104,7 +106,14 @@ public class NewPage extends PageObject {
     {
         waitABit(1000);
         WebElementFacade pageAction = element(By.cssSelector(String.format(pageActions, actionName.getValue())));
-        pageAction.click();
+
+        // Mobile logic
+        Utility utility = new Utility();
+        if(utility.getSerenityPropertiesValues("webdriver.driver").equals("appium")) {
+            pageAction.click();
+        }
+        else
+            withAction().moveToElement(pageAction).click().build().perform();
     }
 
     public String selectTemplate(PageTemplates strPageTemplate)
