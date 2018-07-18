@@ -52,6 +52,9 @@ public class NewPage extends PageObject {
     @FindBy(className = "wp-editor-area")
     private WebElementFacade htmlBodyForApprover;
 
+    @FindBy(name = "rpg-theme")
+    private WebElementFacade rpgTheme;
+
     @FindBy(css = "[class='misc-pub-section misc-pub-revisions'] a")
     public WebElementFacade browseRevisions;
 
@@ -104,10 +107,10 @@ public class NewPage extends PageObject {
         pageAction.click();
     }
 
-    public void selectTemplate(PageTemplates strPageTemplate)
+    public String selectTemplate(PageTemplates strPageTemplate)
     {
         pageTemplate.selectByValue(strPageTemplate.getValue());
-        Assert.assertTrue(pageTemplate.getValue().contains(strPageTemplate.getValue()));
+        return pageTemplate.getValue();
     }
 
     public boolean messageExists(String strMessage)
@@ -116,4 +119,10 @@ public class NewPage extends PageObject {
         return message.getText().contains(strMessage);
     }
 
+    public String selectTheme(String themeName)
+    {
+        String cap = themeName.substring(0, 1).toUpperCase() + themeName.substring(1);
+        selectFromDropdown(rpgTheme, cap);
+        return rpgTheme.getText();
+    }
 }

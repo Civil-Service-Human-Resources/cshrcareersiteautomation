@@ -203,7 +203,7 @@ public class AllPages extends PageObject {
                 newPage.takeOver.click();
             }
 
-           String pageURL =  newPage.previewLink.getText();
+           String pageURL =  newPage.previewLink.getAttribute("href");
             getDriver().navigate().to(pageURL);
 
         }

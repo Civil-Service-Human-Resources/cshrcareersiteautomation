@@ -84,7 +84,10 @@ public class PageSteps {
 
         newPage.typeInto(newPage.pageName,  pageName);
         newPage.selectPageAction(publishActionType);
-        newPage.selectTemplate(pageTemplates);
+        String selectedTemplate = newPage.selectTemplate(pageTemplates);
+        Assert.assertTrue(selectedTemplate.contains(pageTemplates.getValue()));
+        String selectedTheme = newPage.selectTheme(teamNames[0]);
+        Assert.assertTrue(selectedTheme.toLowerCase().contains(teamNames[0]));
         waitForPageLoaded();
         newPage.save.click();
         waitForPageLoaded();
