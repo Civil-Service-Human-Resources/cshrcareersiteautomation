@@ -33,8 +33,11 @@ public class TeamPageSteps {
             teamPage.selectFromDropdown(teamPage.parentTeam, "Team1");
         }
 
-        teamPage.typeInto(teamPage.teamDescription, tempTeamName);
-        teamPage.addNewTeamButton.click();
+        teamPage.typeInto(teamPage.tagDisplayName, "tempTeamName");
+        teamPage.typeInto(teamPage.tagDisplayName2, "I am pretty line 2");
+        teamPage.typeInto(teamPage.tagDisplayName3, "I am pretty line 3");
+        teamPage.typeInto(teamPage.tagThemeColor, "#000000");
+        teamPage.selectLogo();        teamPage.addNewTeamButton.click();
 
         if (teamPage.isTeamCreated(tempTeamName))
         {
