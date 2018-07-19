@@ -106,17 +106,14 @@ public class WorkFlowsStepDefs {
 
     }
 
-    @When("^I request to unpublish as content approver$")
+    @When("^I request to unpublish as content admin$")
     public void iRequestToUnpublishAsContentApprover() throws Throwable {
-        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_APPROVER.getValue());
+        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_ADMIN.getValue());
         pageSteps.resubmitPageWithAction(PublishActionType.UNPUBLISH);
     }
 
     @Then("^the page is unpublished$")
     public void thePageIsUnpublished() throws Throwable {
-        loginSteps.logoutAndLoginWithDifferentCredentials(UserType.TECH_ADMIN.getValue());
-        workflowSteps.acceptRejectWorkflow(Workflows.ACCEPT, UserType.CONTENT_PUBLISHER);
-
         loginSteps.logoutAndLoginWithDifferentCredentials(UserType.CONTENT_PUBLISHER.getValue());
         workflowSteps.acceptRejectWorkflow(Workflows.COMPLETE, UserType.CONTENT_PUBLISHER);
 

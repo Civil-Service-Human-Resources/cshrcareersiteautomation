@@ -57,8 +57,8 @@ public class PageSteps {
         templateSteps.fillGenericPageTemplate();
         newPage.selectPageAction(PublishActionType.SAVE);
         newPage.save.sendKeys(Keys.ENTER);
-        newPage.selectPageAction(publishActionType);
-        sendSavedDraftToApproval();
+        //newPage.selectPageAction(publishActionType);
+        sendSavedDraftToApproval(publishActionType);
 
         String pageStatus = "Publish";
 
@@ -146,7 +146,7 @@ public class PageSteps {
 
         newPage.selectPageAction(actionType);
         newPage.submitWorkflowButton.click();
-        reusableComponentsPage.selectActor("techadmin");
+        reusableComponentsPage.selectActor("Content Approver 1");
         submitWorkFlowPage.submit.sendKeys(Keys.ENTER);
         allPages.pageWithGivenStatusExists(pageName,"Unpublish");
 
@@ -189,10 +189,10 @@ public class PageSteps {
     }
 
     @Step
-    public void sendSavedDraftToApproval()
+    public void sendSavedDraftToApproval(PublishActionType publishActionType)
     {
         openPage();
-        newPage.selectPageAction(PublishActionType.PUBLISH);
+        newPage.selectPageAction(publishActionType);
         newPage.submitWorkflowButton.sendKeys(Keys.ENTER);
         reusableComponentsPage.selectActor("Content Approver 1");
         reusableComponentsPage.workflowComments.sendKeys("Draft copy");
