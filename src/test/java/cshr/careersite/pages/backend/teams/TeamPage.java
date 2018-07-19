@@ -5,6 +5,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -63,7 +64,7 @@ public class TeamPage extends PageObject{
 
     private String teamTableRow = "//table[@class='wp-list-table widefat fixed striped tags']//tr[contains(.,'%s')]";
 
-    private String teamTableTd = "//table[@class='wp-list-table widefat fixed striped tags']//td[contains(.,'%s')]//strong";
+    private String teamTableTd = "//table[@class='wp-list-table widefat fixed striped tags']//td[contains(.,'%s')]//strong/a";
 
     private String deleteByTeamName = teamTableRow + "//a[@class='delete-tag aria-button-if-js']";
 
@@ -94,7 +95,8 @@ public class TeamPage extends PageObject{
 
     public void selectTeamByName(String teamName)
     {
-            element(By.xpath(String.format(teamTableTd, teamName))).click();
+        getDriver().navigate().refresh();
+        element(By.linkText(teamName)).click();
     }
 
     public boolean isTeamCreated(String teamName)
