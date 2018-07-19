@@ -42,7 +42,7 @@ public class ReusableSteps {
         LoremIpsum randomTestData = new LoremIpsum();
         String testData = "";
 
-        if(!fieldType.equalsIgnoreCase("image"))
+        if(!fieldType.equalsIgnoreCase("image") && !fieldType.equalsIgnoreCase("select"))
         {
             if(elementOnPage.getAttribute("type").equals("url"))
             {
@@ -104,6 +104,11 @@ public class ReusableSteps {
                     newPage.element(By.cssSelector("[class='media-toolbar-primary search-form'] button")).click();
                 }
             }
+        }
+        else if(fieldType.equalsIgnoreCase("select"))
+        {
+            elementOnPage.sendKeys(Keys.ENTER);
+            newPage.element(By.xpath(("//ul[@class='select2-results__options']//li[contains(.,'Team1')]"))).click();
         }
     }
 }

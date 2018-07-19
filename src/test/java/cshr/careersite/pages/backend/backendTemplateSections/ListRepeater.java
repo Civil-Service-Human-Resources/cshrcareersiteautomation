@@ -9,18 +9,8 @@ import java.util.List;
 
 public class ListRepeater extends PageObject {
 
-
-    @FindBys(@FindBy(css ="[data-name='list_repeater'] [data-name='items'] [data-name='logo'] [data-name = 'add']"))
-    public List<WebElementFacade> listRepeaterItemsLogo;
-
-    @FindBys(@FindBy(css ="[data-name='list_repeater'] [data-name='items'] [data-name='logo_text_line_1'] input:not([type='hidden']):not([class='acf-hidden-by-postbox'])"))
-    public List<WebElementFacade> listRepeaterItemsLogoTextLine1;
-
-    @FindBys(@FindBy(css ="[data-name='list_repeater'] [data-name='items'] [data-name='logo_text_line_2'] input:not([type='hidden']):not([class='acf-hidden-by-postbox'])"))
-    public List<WebElementFacade> listRepeaterItemsLogoTextLine2;
-
-    @FindBys(@FindBy(css ="[data-name='list_repeater'] [data-name='items'] [data-name='logo_text_line_3'] input:not([type='hidden']):not([class='acf-hidden-by-postbox'])"))
-    public List<WebElementFacade> listRepeaterItemsLogoTextLine3;
+    @FindBys(@FindBy(css = "[data-name='list_repeater'] [data-name='items'] [data-name='team'] [data-type='select'] [class='select2-selection select2-selection--single']"))
+    public List<WebElementFacade> listRepeaterItemsTeam;
 
     @FindBys(@FindBy(css ="[data-name='list_repeater'] [data-name='items'] [data-name='body'] textarea:not([class='acf-hidden-by-postbox'])"))
     public List<WebElementFacade> listRepeaterItemsBody;

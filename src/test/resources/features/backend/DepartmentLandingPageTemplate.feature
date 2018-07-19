@@ -9,10 +9,7 @@ Feature: Department landing page template
     |Billboard                  |Heading          |input         |70            |true      |            |
     |Billboard                  |Intro text       |textarea      |350           |true      |            |
     |Billboard                  |Image            |image         |              |true      |            |
-    |List repeater,Items        |Logo             |Image         |              |true      |    10      |
-    |List repeater,Items        |Logo text line 1 |input         | 25           |true      |    10      |
-    |List repeater,Items        |Logo text line 2 |input         | 25           |false     |    10      |
-    |List repeater,Items        |Logo text line 3 |input         | 25           |false     |    10      |
+    |List repeater,Items        |Team             |select        |              |true      |    10      |
     |List repeater,Items        |Body             |textarea      |450           |true      |    10      |
     |List repeater,Items        |Target           |input         |              |true      |    10      |
     |List repeater,Items        |Target text      |input         |30            |true      |    10      |

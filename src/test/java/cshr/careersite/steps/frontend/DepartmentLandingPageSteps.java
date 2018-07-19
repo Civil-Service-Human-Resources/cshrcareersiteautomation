@@ -37,9 +37,8 @@ public class DepartmentLandingPageSteps {
             Assert.assertTrue(departmentLandingPage.listRepeaterImage.get(i).getAttribute("src").contains("/wp-content/uploads"));
         }
 
-        temp = reusableSteps.getStringToCompare("List repeater,Items", "Logo text line 1", pageTemplateObjects);
         for(int i=0 ;i<10; i++) {
-            Assert.assertTrue(departmentLandingPage.listRepeaterLogoText.get(i).getText().contains(temp));
+            Assert.assertTrue(departmentLandingPage.listRepeaterLogoText.get(i).getText().contains("Team1"));
         }
 
         // Content block vertical
