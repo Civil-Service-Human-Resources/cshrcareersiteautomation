@@ -39,8 +39,10 @@ public class ReusableComponentsPage extends PageObject {
             wait.until(ExpectedConditions.visibilityOf(element(By.cssSelector("[class='simplemodal-container']"))));
         }
 
-        assignedActors.selectByVisibleText(actorName);
-        assignActor.click();
-        waitABit(1000);
+        if(!selectedActors.getText().equals(actorName)) {
+            assignedActors.selectByVisibleText(actorName);
+            assignActor.click();
+            waitABit(1000);
+        }
     }
 }

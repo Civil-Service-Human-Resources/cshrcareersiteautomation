@@ -9,11 +9,11 @@ Feature: Department landing page template
     |Billboard                  |Heading          |input         |70            |true      |            |
     |Billboard                  |Intro text       |textarea      |350           |true      |            |
     |Billboard                  |Image            |image         |              |true      |            |
-    |List repeater,Items        |Team             |select        |              |true      |    10      |
-    |List repeater,Items        |Body             |textarea      |450           |true      |    10      |
-    |List repeater,Items        |Target           |input         |              |true      |    10      |
-    |List repeater,Items        |Target text      |input         |30            |true      |    10      |
-    |List repeater,Items        |Image            |image         |              |true      |    10      |
+    |List repeater,Items        |Team             |select        |              |true      |    30      |
+    |List repeater,Items        |Body             |textarea      |450           |true      |    30      |
+    |List repeater,Items        |Target           |input         |              |true      |    30      |
+    |List repeater,Items        |Target text      |input         |30            |true      |    30      |
+    |List repeater,Items        |Image            |image         |              |true      |    30      |
     |Content Block Vertical     |Image            |image         |              |true      |            |
     |Content Block Vertical     |Quote            |textarea      |300           |true      |            |
     |Content Block Vertical     |Forename         |input         |25            |true      |            |

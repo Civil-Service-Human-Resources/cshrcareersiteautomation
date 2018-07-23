@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ListRepeater extends PageObject {
 
-    @FindBys(@FindBy(css = "[data-name='list_repeater'] [data-name='items'] [data-name='team'] [data-type='select'] [class='select2-selection select2-selection--single']"))
+    @FindBys(@FindBy(css = "[data-name='list_repeater'] [data-name='items'] [data-name='team'] select"))
     public List<WebElementFacade> listRepeaterItemsTeam;
 
     @FindBys(@FindBy(css ="[data-name='list_repeater'] [data-name='items'] [data-name='body'] textarea:not([class='acf-hidden-by-postbox'])"))

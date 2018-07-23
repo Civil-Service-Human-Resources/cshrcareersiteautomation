@@ -108,7 +108,7 @@ public class ReusableSteps {
         else if(fieldType.equalsIgnoreCase("select"))
         {
             elementOnPage.sendKeys(Keys.ENTER);
-            newPage.element(By.xpath(("//ul[@class='select2-results__options']//li[contains(.,'Team1')]"))).click();
+            newPage.selectFromDropdown(elementOnPage, "Team1");
         }
     }
 }
