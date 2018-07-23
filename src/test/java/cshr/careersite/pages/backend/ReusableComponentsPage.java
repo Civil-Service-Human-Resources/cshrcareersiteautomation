@@ -40,12 +40,7 @@ public class ReusableComponentsPage extends PageObject {
         }
 
         assignedActors.selectByVisibleText(actorName);
-        //if(!assignedActors.getText().contains(actorName)) {
-            //selectTheDropDownList(assignActors, actorName);
-            assignActor.click();
-            waitABit(1000);
-            System.out.println("*****"+assignedActors.getText());
-
-        //}
+        assignActor.click();
+        waitABit(1000);
     }
 }

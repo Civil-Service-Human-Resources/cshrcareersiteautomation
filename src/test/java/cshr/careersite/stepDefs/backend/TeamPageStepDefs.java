@@ -72,7 +72,7 @@ public class TeamPageStepDefs {
     public void theTeamIsUpdated() throws Throwable {
         String teamName = Serenity.sessionVariableCalled("Team Name");
         teamPageSteps.openTeamListPage();
-        teamPage.selectTeamByName(teamName);
+        teamPage.selectTeamByName("— " + teamName);
         Assert.assertEquals("Team1" ,editTeamPage.parentTeam.getSelectedVisibleTextValue());
     }
 
@@ -91,6 +91,8 @@ public class TeamPageStepDefs {
     @When("^I try to add a team with the same name as an already existing team$")
     public void iTryToAddATeamWithTheSameNameAsAnAlreadyExistingTeam() throws Throwable {
         teamPage.typeInto(teamPage.teamName, "Team1");
+        teamPage.typeInto(teamPage.tagDisplayName, "tempTeamName");
+        teamPage.typeInto(teamPage.tagThemeColor, "#000000");
         teamPage.addNewTeamButton.click();
     }
 

@@ -29,7 +29,7 @@ Feature: Workflows
   Scenario: Unpublish
     Given I am logged in as a contentauthor
     And get a page published
-    When I request to unpublish as content approver
+    When I request to unpublish as content admin
     Then the page is unpublished
 
 

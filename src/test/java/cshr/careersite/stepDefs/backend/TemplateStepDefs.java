@@ -111,7 +111,7 @@ public class TemplateStepDefs {
 
     @And("^I send the page for approval$")
     public void iSendThePageForApproval() throws Throwable {
-        pageSteps.sendSavedDraftToApproval();
+        pageSteps.sendSavedDraftToApproval(PublishActionType.PUBLISH);
         String pageName = Serenity.sessionVariableCalled("Page Name");
         Assert.assertTrue(allPages.pageWithGivenStatusExists(pageName, "Publish"));
     }
