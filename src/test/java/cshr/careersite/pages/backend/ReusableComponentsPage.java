@@ -37,12 +37,14 @@ public class ReusableComponentsPage extends PageObject {
         synchronized (getDriver()) {
             WebDriverWait wait = new WebDriverWait(getDriver(), 30);
             wait.until(ExpectedConditions.visibilityOf(element(By.cssSelector("[class='simplemodal-container']"))));
+            System.out.println("selected actors" + selectedActors.getText().equals(actorName));
+            waitABit(1000);
+
+            if(!selectedActors.getText().equals(actorName)) {
+                assignedActors.selectByVisibleText(actorName);
+                assignActor.click();
+            }
         }
 
-        if(!selectedActors.getText().equals(actorName)) {
-            assignedActors.selectByVisibleText(actorName);
-            assignActor.click();
-            waitABit(1000);
-        }
     }
 }
